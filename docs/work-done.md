@@ -47,6 +47,8 @@ Done on 2026-11-25 on the local branch `chore/modernize`. Nothing has been pushe
 - The Vercel deploy with the new headers. On first deploy, open the site and check the browser console for CSP violations.
 - The actionlint Docker image: Docker could not mount overlay storage on this machine (kernel/driver issue). The PyPI build of the same tool was used instead.
 - Safari and Firefox.
+- The Vercel build now runs the compiler through `uv run --locked`, which downloads Python 3.15 if the build image lacks it. uv worked on Vercel before (the earlier build log shows it), but the 3.15 download was not seen there. If the build fails at `npm run content`, set the env var `UV_PYTHON=3.13` (the supported floor) in the Vercel project.
+- On Vercel preview deployments the CSP blocks the Vercel toolbar's injected script (production is unaffected).
 
 ## Decisions for you
 

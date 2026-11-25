@@ -2,7 +2,32 @@
 title: Embeddings and vector search
 level: 4
 summary: What embeddings are, similarity metrics, approximate nearest-neighbour indexes, and the limits of dense retrieval.
-outcomes: Explain embeddings and cosine similarity | Describe how HNSW and IVF indexes trade recall for speed | Know what dense retrieval misses
+outcomes:
+- Explain embeddings and cosine similarity
+- Describe how HNSW and IVF indexes trade recall for speed
+- Know what dense retrieval misses
+keypoints:
+- An embedding is a vector of meaning. Cosine similarity finds nearest neighbours.
+- Bi-encoders embed documents ahead of time, which is fast but less precise than reading query and document together.
+- 'ANN indexes: **HNSW** (high recall, more memory) vs **IVFFlat** (fast builds, needs data first).'
+- Dense retrieval misses exact codes, rare terms, negation and numbers.
+- Store the embedding model name with every vector. Changing the model means re-embedding everything.
+projects:
+- name: Semantic search over your notes
+  stack:
+  - Python
+  - sentence-transformers
+  - pgvector
+  - FastAPI
+  build: Embed your Markdown notes, search with cosine similarity, and compare brute force with an HNSW index on speed and recall.
+  practises: Embeddings and ANN trade-offs.
+- name: Embedding model shoot-out
+  stack:
+  - Python
+  - two embedding APIs
+  - pandas
+  build: Score recall@5 on 40 labelled queries for two embedding models and include queries with exact codes to show where dense fails.
+  practises: Measuring retrieval quality.
 ---
 
 ## Why this matters

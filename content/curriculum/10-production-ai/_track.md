@@ -1,7 +1,7 @@
 ---
-title: "Production AI: reliability, evaluation and safety"
+title: 'Production AI: reliability, evaluation and safety'
 kicker: Reliability · evals · guardrails · data protection · observability · gateways
-summary: What turns an AI demo into a product: resilient model calls, evaluation as a discipline, layered guardrails, data protection, observability, cost control and shared platforms.
+summary: 'What turns an AI demo into a product: resilient model calls, evaluation as a discipline, layered guardrails, data protection, observability, cost control and shared platforms.'
 ---
 
 This part is the core of the applied AI engineer's job. Most of it is backend engineering from Parts 3 and 5, sharpened for a dependency that is slow, expensive, non-deterministic and can be talked into misbehaving.

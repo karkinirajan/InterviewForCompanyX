@@ -1,8 +1,34 @@
 ---
 title: Voice and multimodal AI
 level: 4
-summary: Speech-to-text, text-to-speech, voice agents and vision inputs: normalising media, measuring quality per language, and handling vendor differences.
-outcomes: Integrate speech-to-text with measured quality per language | Design an adapter across speech vendors without hiding real differences | Know the latency budget of a voice agent
+summary: 'Speech-to-text, text-to-speech, voice agents and vision inputs: normalising media, measuring quality per language, and handling vendor differences.'
+outcomes:
+- Integrate speech-to-text with measured quality per language
+- Design an adapter across speech vendors without hiding real differences
+- Know the latency budget of a voice agent
+keypoints:
+- Normalise audio (16 kHz mono WAV) so every vendor gets identical input.
+- Measure WER/CER per language (grapheme clusters for Devanagari), script correctness and timing error.
+- The adapter hides transport, not semantics. Declare which capabilities each vendor actually has.
+- Read data terms before uploading anyone's audio, and record consent per item.
+- 'Voice agents: STT → LLM → TTS (or speech-to-speech). Pauses over about a second feel broken, so support barge-in.'
+projects:
+- name: STT bake-off
+  stack:
+  - Python
+  - ffmpeg
+  - two STT APIs + Whisper
+  - jiwer
+  build: Transcribe 20 recordings in two languages with three engines and report WER/CER and timing error per engine and language.
+  practises: Vendor selection on evidence.
+- name: Voice FAQ agent
+  stack:
+  - Pipecat or LiveKit Agents
+  - Deepgram
+  - an LLM API
+  - a TTS API
+  build: A phone-style voice bot answering from a small FAQ with barge-in and a latency budget measured per turn.
+  practises: Real-time voice pipelines.
 ---
 
 ## Why this matters

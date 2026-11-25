@@ -2,7 +2,34 @@
 title: Calling model APIs like a production engineer
 level: 3
 summary: Messages, system prompts, streaming, structured output, tool calling and reasoning settings, wrapped in an adapter with timeouts, limits and validation.
-outcomes: Call a model API with streaming, structured output and tool use | Wrap providers behind an adapter your business logic depends on | Treat refusals, truncation and invalid output as failures
+outcomes:
+- Call a model API with streaming, structured output and tool use
+- Wrap providers behind an adapter your business logic depends on
+- Treat refusals, truncation and invalid output as failures
+keypoints:
+- Put the model behind an **adapter** you own, with one client created at startup.
+- Check `stop_reason`. Truncation and refusals are failures, not partial results.
+- Use native structured output **and** still validate with Pydantic.
+- With tool calling, the model proposes and your server validates, authorises and runs a narrow operation.
+- Log tokens, model, prompt version, latency and outcome on every call, and never log secrets.
+projects:
+- name: Provider-agnostic SDK
+  stack:
+  - Python
+  - httpx
+  - Pydantic
+  - Anthropic and OpenAI SDKs
+  - pytest
+  build: One `ChatModel` interface, two adapters, a fake for tests, streaming, structured output and token accounting.
+  practises: The adapter pattern and failure handling.
+- name: Structured extractor service
+  stack:
+  - FastAPI
+  - an LLM API
+  - Pydantic
+  - SSE
+  build: An endpoint that extracts a schema from text, streams progress events, and handles truncation, refusal and invalid JSON explicitly.
+  practises: Q11, Q13, Q14 in code.
 ---
 
 ## Why this matters

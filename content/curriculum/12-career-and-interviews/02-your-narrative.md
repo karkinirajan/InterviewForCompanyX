@@ -1,8 +1,32 @@
 ---
 title: Your narrative
 level: 1
-summary: "Tell me about yourself", why this role, strongest skill, weakness, and what to say when you don't know, with templates and a worked example.
-outcomes: Deliver a 60–90 second introduction with no notes | Answer motivation and weakness questions honestly and well | Handle "I don't know" without losing credibility
+summary: '"Tell me about yourself", why this role, strongest skill, weakness, and what to say when you don''t know, with templates and a worked example.'
+outcomes:
+- Deliver a 60–90 second introduction with no notes
+- Answer motivation and weakness questions honestly and well
+- Handle "I don't know" without losing credibility
+keypoints:
+- 'Intro in 60–90 s: identity → home stack → three pieces of evidence → one scale proof → why this role.'
+- Every noun needs a dossier and every number a baseline, method and mechanism.
+- Answer "why move" with ownership you gained and the depth you want.
+- Pick a real weakness, show the mitigation, give a plan.
+- 'Not knowing: principle → what you''d verify → what you''d test → the metric.'
+projects:
+- name: Pitch recorder
+  stack:
+  - Browser MediaRecorder
+  - Next.js
+  - a speech-to-text API
+  build: Record your intro, get a transcript with duration and filler-word count, and keep versions to compare over time.
+  practises: Rehearsal with measurable feedback.
+- name: Portfolio landing page
+  stack:
+  - Next.js
+  - MDX
+  - Vercel
+  build: A one-page site whose structure mirrors your intro (identity, three projects with honest status, contact), consistent with your CV.
+  practises: One story told everywhere.
 ---
 
 ## Why this matters

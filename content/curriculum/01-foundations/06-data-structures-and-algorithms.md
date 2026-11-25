@@ -2,7 +2,31 @@
 title: Data structures and algorithms that matter
 level: 1
 summary: Big-O, the handful of data structures that solve most problems, the recurring interview patterns, and a protocol for live coding rounds.
-outcomes: Estimate time and space complexity of your code | Pick the right structure for lookup, ordering and queues | Run a coding interview in a calm, structured way
+outcomes:
+- Estimate time and space complexity of your code
+- Pick the right structure for lookup, ordering and queues
+- Run a coding interview in a calm, structured way
+keypoints:
+- Know Big-O for time **and** space. A set or dict lookup is O(1), a list scan O(n).
+- Eight patterns cover most problems. Hash map, two pointers, sliding window, stack, heap, BFS/DFS, intervals, binary search.
+- Top-k means a heap. Rank fusion means a hash map of scores. These show up in AI work too.
+- 'Round protocol: restate → brute force → pattern → code → walk an example and edge cases → complexity.'
+- Think out loud. Silence is the most common avoidable failure.
+projects:
+- name: Pattern drill repo
+  stack:
+  - Python
+  - pytest
+  - GitHub Actions
+  build: One solved problem per pattern with tests and a comment on complexity, all running in CI.
+  practises: The eight patterns and writing tested solutions fast.
+- name: Top-k search engine toy
+  stack:
+  - Python
+  - heapq
+  - collections.Counter
+  build: Index a folder of text files and return the top-k documents for a query by term frequency, using a heap.
+  practises: Hash maps and heaps in a realistic setting; a preview of retrieval.
 ---
 
 ## Why this matters

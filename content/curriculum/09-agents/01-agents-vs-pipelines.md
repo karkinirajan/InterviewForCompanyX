@@ -2,7 +2,32 @@
 title: Agents versus pipelines
 level: 4
 summary: The spectrum from a single call to a fully autonomous agent, and how to choose the least autonomous design that solves the problem.
-outcomes: Place a design on the autonomy spectrum | Decide between a pipeline, a router and an agent | Explain the costs of autonomy in an interview
+outcomes:
+- Place a design on the autonomy spectrum
+- Decide between a pipeline, a router and an agent
+- Explain the costs of autonomy in an interview
+keypoints:
+- 'Autonomy spectrum: single call → pipeline → router → tool-using assistant → agent → multi-agent.'
+- '"If the steps are known, it''s a pipeline." Agents are for steps that depend on results.'
+- The **router** is often the sweet spot (cheap, varied input, predictable execution).
+- Each step up costs latency, money, testability and attack surface.
+- '"LLM routes, code computes."'
+projects:
+- name: Support triage router
+  stack:
+  - FastAPI
+  - an LLM API
+  - Pydantic
+  - Postgres
+  build: Classify tickets into four paths with a reason; each path is a deterministic flow; measure routing accuracy on 100 labelled tickets.
+  practises: The router pattern and its evaluation.
+- name: Same task, three designs
+  stack:
+  - Python
+  - LangGraph
+  - an LLM API
+  build: Build the order-question feature as a pipeline, a router and an agent, then compare latency, cost and eval success.
+  practises: Choosing autonomy with evidence.
 ---
 
 ## Why this matters

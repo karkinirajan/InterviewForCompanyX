@@ -1,8 +1,32 @@
 ---
 title: Code kit (C1–C5)
 level: 3
-summary: Code you should be able to write or explain from memory: typed output with retries and fallback, rank fusion, SSE streaming with cancellation, a tenant-safe pgvector schema, and a prompt review checklist.
-outcomes: Write C1 and C2 from memory | Explain every line of C3 and C4 | Review a prompt with C5
+summary: 'Code you should be able to write or explain from memory: typed output with retries and fallback, rank fusion, SSE streaming with cancellation, a tenant-safe pgvector schema, and a prompt review checklist.'
+outcomes:
+- Write C1 and C2 from memory
+- Explain every line of C3 and C4
+- Review a prompt with C5
+keypoints:
+- 'C1: typed output, transient-only retries with capped Retry-After, provider fallback, human queue as last resort.'
+- 'C2: RRF in six lines. C3: SSE with disconnect check and `aclose()` to stop paying.'
+- 'C4: tenant-safe pgvector (HNSW + GIN + RLS, iterative scans). C5: the prompt review checklist.'
+- Type C1 and C2 from a blank file until you can do it in five minutes.
+projects:
+- name: Code kit as a tested package
+  stack:
+  - Python
+  - uv
+  - pytest
+  - mypy --strict
+  build: Package C1–C3 as a library with full tests (including fake providers and a disconnecting client) and type checking.
+  practises: Turning snippets into production-grade code.
+- name: pgvector starter
+  stack:
+  - Postgres + pgvector (Docker)
+  - SQL migrations
+  - Python
+  build: Apply the C4 schema as migrations, seed two tenants and run hybrid queries with RRF, with RLS tests.
+  practises: The data layer of RAG, end to end.
 ---
 
 Python 3.11+. All snippets parse. Practise by typing them from a blank file, then compare. The real-world version of C1 in the casebook is the clip service's HTTP layer ([P1](#p1)).

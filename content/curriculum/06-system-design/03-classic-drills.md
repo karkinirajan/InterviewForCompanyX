@@ -1,8 +1,35 @@
 ---
 title: Classic design drills
 level: 3
-summary: Worked outlines for the most common non-AI design questions: URL shortener, rate limiter, notifications, file uploads and a news feed.
-outcomes: Sketch five classic designs in 10 minutes each | Reuse the same building blocks across problems | Spot the one hard part of each problem
+summary: 'Worked outlines for the most common non-AI design questions: URL shortener, rate limiter, notifications, file uploads and a news feed.'
+outcomes:
+- Sketch five classic designs in 10 minutes each
+- Reuse the same building blocks across problems
+- Spot the one hard part of each problem
+keypoints:
+- 'URL shortener: ID generation plus read caching.'
+- 'Rate limiter: distributed counting, token bucket, and a fail-open vs fail-closed choice.'
+- 'Notifications: per-channel workers, idempotency, preferences, DLQ.'
+- 'File upload: presigned URLs, an event queue, workers, status.'
+- 'News feed: fan-out on write vs on read, plus a hybrid for celebrities.'
+projects:
+- name: URL shortener, production-grade
+  stack:
+  - Go or FastAPI
+  - Redis
+  - Postgres
+  - k6
+  build: Base62 IDs, a cached redirect path, async click analytics through a queue, and a load test reporting p99.
+  practises: Caching and async analytics.
+- name: Notification service
+  stack:
+  - Node.js
+  - BullMQ
+  - Redis
+  - Postgres
+  - Resend or SES
+  build: Email and in-app channels, user preferences, idempotency per notification, retries and a DLQ.
+  practises: Reliable delivery design.
 ---
 
 ## Why this matters

@@ -1,8 +1,34 @@
 ---
-title: "Python web frameworks: FastAPI, Django, Flask"
+title: 'Python web frameworks: FastAPI, Django, Flask'
 level: 1
 summary: What each framework is for, how requests flow through them, dependency injection and lifespan in FastAPI, and when to choose which.
-outcomes: Build a typed FastAPI service with dependencies and lifespan-managed clients | Explain Django's ORM, admin and request cycle | Choose a framework for a new service and defend it
+outcomes:
+- Build a typed FastAPI service with dependencies and lifespan-managed clients
+- Explain Django's ORM, admin and request cycle
+- Choose a framework for a new service and defend it
+keypoints:
+- FastAPI suits APIs, AI gateways and streaming; Django suits model-heavy products with admin and auth; Flask suits small services.
+- Create one shared HTTP client per external service in `lifespan`, and use dependencies so tests can swap in fakes.
+- 'Layer it: router → service → repository. Business logic never imports the web framework.'
+- Django N+1 is fixed with `select_related` (FK joins) and `prefetch_related` (batched relations).
+- Never block a sync Django worker or an async loop on a long model call.
+projects:
+- name: Same app, two frameworks
+  stack:
+  - FastAPI
+  - Django
+  - Postgres
+  - pytest
+  build: Build a small notes API in both frameworks with identical endpoints and tests, then write a one-page comparison.
+  practises: Framework trade-offs from experience, not opinion.
+- name: Weather proxy with dependency overrides
+  stack:
+  - FastAPI
+  - httpx
+  - Redis
+  - pytest
+  build: Call a public weather API through a lifespan client, cache results in Redis, and test with dependency overrides and a fake client.
+  practises: Lifespan, dependency injection, testable layering.
 ---
 
 ## Why this matters

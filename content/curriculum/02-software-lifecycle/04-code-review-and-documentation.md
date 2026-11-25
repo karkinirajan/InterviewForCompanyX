@@ -2,7 +2,29 @@
 title: Code review and documentation
 level: 1
 summary: How to give and receive review, what reviewers look for, and the lightweight documents (README, ADRs, runbooks) that keep a codebase understandable.
-outcomes: Prepare a pull request that's easy to review | Review others' code for correctness, not taste | Write an ADR and a runbook
+outcomes:
+- Prepare a pull request that's easy to review
+- Review others' code for correctness, not taste
+- Write an ADR and a runbook
+keypoints:
+- Keep PRs small, single-purpose, described (what, why, how tested, risk) and self-reviewed first.
+- 'Review in priority order: correctness → security and data → failure behaviour → tests → design → readability. Leave style to tools.'
+- 'AI changes add checks: versioned prompt, validated output, data separated from instructions, cost limits, fallback.'
+- 'ADR: context → decision → consequences, half a page.'
+- READMEs must state current reality and known gaps.
+projects:
+- name: ADR log for a real project
+  stack:
+  - Markdown
+  - adr-tools or a docs folder
+  build: Write five ADRs for decisions in a project you own, including one you'd now reverse.
+  practises: Making trade-offs explicit and durable.
+- name: PR review bot (rules only)
+  stack:
+  - GitHub Actions
+  - Danger.js or a Python script
+  build: Fail PRs over 400 lines, with no tests touched, or with an empty description; post a checklist comment.
+  practises: Encoding review norms as automation.
 ---
 
 ## Why this matters

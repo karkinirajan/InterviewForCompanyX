@@ -1,8 +1,34 @@
 ---
-title: "Resilience: timeouts, retries, circuit breakers"
+title: 'Resilience: timeouts, retries, circuit breakers'
 level: 2
 summary: How to call unreliable dependencies without letting their failures become yours, the foundation for every LLM integration.
-outcomes: Set timeouts at every network boundary | Retry only transient failures with backoff, jitter and a deadline | Use circuit breakers, fallbacks and graceful degradation
+outcomes:
+- Set timeouts at every network boundary
+- Retry only transient failures with backoff, jitter and a deadline
+- Use circuit breakers, fallbacks and graceful degradation
+keypoints:
+- Set connect, read and total timeouts on every network call.
+- Retry only transient errors (network, 429, 502–504) with capped exponential backoff, jitter, a capped `Retry-After` and a deadline.
+- A circuit breaker fails fast when a dependency is down. Bulkheads stop one dependency from exhausting everything.
+- Retry in **one** layer only, because 3 retries × 3 layers = 27 calls.
+- Test fallbacks regularly, and degrade honestly rather than fabricating answers.
+projects:
+- name: Resilient client library
+  stack:
+  - Python
+  - httpx
+  - pytest
+  - respx
+  build: A wrapper with timeouts, retry policy, `Retry-After`, a breaker and structured retry logs, tested against simulated 429/503/timeouts.
+  practises: The exact policy LLM integrations need.
+- name: Fallback weather service
+  stack:
+  - FastAPI
+  - two public APIs
+  - Redis
+  - toxiproxy
+  build: Primary and secondary providers behind a breaker, cached last-known-good data, and chaos tests that kill the primary.
+  practises: Breakers, fallbacks, graceful degradation.
 ---
 
 ## Why this matters

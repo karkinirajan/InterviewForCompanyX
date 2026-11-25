@@ -1,8 +1,32 @@
 ---
 title: Computers, operating systems and the terminal
 level: 0
-summary: Processes, memory, files, permissions and the shell: what actually happens when your code runs, and how to drive a machine from the command line.
-outcomes: Explain processes, threads, memory and the file system in plain words | Navigate, search and inspect a Linux machine from the terminal | Read environment variables, exit codes and logs with confidence
+summary: 'Processes, memory, files, permissions and the shell: what actually happens when your code runs, and how to drive a machine from the command line.'
+outcomes:
+- Explain processes, threads, memory and the file system in plain words
+- Navigate, search and inspect a Linux machine from the terminal
+- Read environment variables, exit codes and logs with confidence
+keypoints:
+- A **process** has its own memory; **threads** share it. Shared memory is fast and risks race conditions.
+- Config and secrets reach apps through **environment variables**, never committed files.
+- Exit code 0 means success. CI, scripts and orchestrators branch on it.
+- 'Core commands: `ps`, `lsof -i :PORT`, `tail -f`, `grep -rn`, `df -h`, `free -h`, `curl -i`.'
+- Fix permissions instead of reaching for `sudo` or root.
+projects:
+- name: Server health script
+  stack:
+  - Bash
+  - systemd timer
+  - curl
+  build: A script that checks disk, memory, a process and an HTTP health endpoint, and exits non-zero on any failure; run it on a timer and log results.
+  practises: Exit codes, process and port inspection, scheduling.
+- name: Mini process supervisor
+  stack:
+  - Python
+  - subprocess
+  - signal
+  build: Start a child process, restart it on crash with backoff, forward SIGTERM for clean shutdown, and log exit codes.
+  practises: Processes, signals and what systemd and Docker do for you.
 ---
 
 ## Why this matters

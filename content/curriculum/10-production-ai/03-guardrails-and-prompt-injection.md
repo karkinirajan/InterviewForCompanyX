@@ -2,7 +2,33 @@
 title: Guardrails and prompt injection
 level: 4
 summary: Layered guardrails from input to output, why prompts can't be security boundaries, structural defences against injection, and the OWASP Top 10 for LLM applications.
-outcomes: Place guardrails at each layer of an AI request | Defend against direct and indirect prompt injection structurally | Use OWASP LLM risk vocabulary correctly
+outcomes:
+- Place guardrails at each layer of an AI request
+- Defend against direct and indirect prompt injection structurally
+- Use OWASP LLM risk vocabulary correctly
+keypoints:
+- Treat user input, documents and **tool results** as untrusted. Indirect injection is the dangerous kind.
+- '"A system prompt is not a security boundary."'
+- 'Layers: input → identity → retrieval filters → prompt boundaries → tool authorisation → output validation and sanitising → human approval → monitoring.'
+- 'Defences that hold: shrink the output space, derive consequences in code, least-privilege tools, approvals.'
+- 'OWASP LLM Top 10: injection, disclosure, supply chain, poisoning, output handling, excessive agency, prompt leakage, vector weaknesses, misinformation, unbounded consumption.'
+projects:
+- name: Injection test suite
+  stack:
+  - Python
+  - pytest
+  - garak or promptfoo red-team
+  - your agent
+  build: Twenty direct and indirect injection cases (including one inside tool output) run in CI, asserting no unapproved side effect or leak.
+  practises: Adversarial testing.
+- name: Safe email summariser
+  stack:
+  - FastAPI
+  - Gmail API sandbox
+  - an LLM API
+  - bleach
+  build: Summarise emails that may contain attacks, with read-only tools, enum-constrained actions, sanitised HTML output and suggested replies that need approval.
+  practises: Structural injection containment.
 ---
 
 ## Why this matters

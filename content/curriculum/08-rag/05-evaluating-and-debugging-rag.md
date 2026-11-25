@@ -2,7 +2,32 @@
 title: Evaluating and debugging RAG
 level: 4
 summary: The end-to-end pipeline, separate metrics for retrieval and generation, a debugging method that isolates the failing stage, and hallucination containment.
-outcomes: Walk through a production RAG pipeline end to end | Measure retrieval and generation separately | Debug a wrong answer to its stage in minutes
+outcomes:
+- Walk through a production RAG pipeline end to end
+- Measure retrieval and generation separately
+- Debug a wrong answer to its stage in minutes
+keypoints:
+- 'Q1: ingest → metadata → chunk → embed → index → query auth → hybrid retrieve → re-rank → assemble → generate with citations → validate → evaluate.'
+- 'Q2 debug: paste the correct context. If the answer is now right, retrieval failed; if still wrong, generation failed.'
+- Measure separately. Retrieval uses recall@k, precision@k, MRR, nDCG; generation uses faithfulness, relevance, citation correctness.
+- Log the chunk IDs and scores behind every answer.
+- '"You don''t eliminate hallucination. You engineer containment."'
+projects:
+- name: RAG eval harness
+  stack:
+  - Python
+  - RAGAS or DeepEval
+  - pytest
+  - GitHub Actions
+  build: A golden set of 50 questions with expected chunks and answers; CI fails if recall@5 or faithfulness drops below baseline.
+  practises: Evaluation as a release gate.
+- name: RAG debugger UI
+  stack:
+  - Next.js
+  - FastAPI
+  - Langfuse
+  build: For any answer, show the retrieved chunks, scores, prompt and citation checks, plus a button to rerun with "known-good context".
+  practises: Fast stage-level debugging.
 ---
 
 ## Why this matters

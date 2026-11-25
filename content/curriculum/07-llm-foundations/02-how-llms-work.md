@@ -2,7 +2,31 @@
 title: How LLMs work (for engineers)
 level: 3
 summary: Tokens, context windows, next-token prediction, sampling, reasoning models, multimodality and embeddings, at the depth an integrator needs.
-outcomes: Explain tokens, context windows and sampling parameters | Predict how prompt and output length affect cost and latency | Explain what reasoning ("thinking") models change
+outcomes:
+- Explain tokens, context windows and sampling parameters
+- Predict how prompt and output length affect cost and latency
+- Explain what reasoning ("thinking") models change
+keypoints:
+- Models read and write **tokens**. Price, limits and latency are all counted in tokens.
+- Prefill (the prompt) is parallel; decode (the answer) is sequential. Output length dominates latency.
+- '`temperature=0` reduces variance; it doesn''t guarantee identical output.'
+- Training knowledge is frozen and fallible. Context knowledge is current and citable, which is why RAG works.
+- Put the important material at the start and end of a long context. Reasoning models trade tokens for accuracy.
+projects:
+- name: Token and latency explorer
+  stack:
+  - Python
+  - provider token-counting APIs
+  - matplotlib
+  build: Measure token counts across languages and TTFT vs total latency across output lengths, and plot the results.
+  practises: Building an intuition for tokens, cost and latency.
+- name: Lost-in-the-middle experiment
+  stack:
+  - Python
+  - an LLM API
+  - pandas
+  build: Hide one fact at different positions in a long context, measure recall by position, and write up the findings.
+  practises: How context placement affects answers.
 ---
 
 ## Why this matters

@@ -15,14 +15,38 @@ export default function HomePage() {
     <div className="layout page-index">
       <main className="main" id="main">
         <section className="hero">
-          <div className="hero-kicker">From intern to applied AI engineer</div>
+          <div className="hero-kicker">A reference handbook · full-stack → applied AI</div>
           <h1>The engineering <em>field guide</em></h1>
           <p className="hero-lede">
-            Full-stack foundations first, then the move to LLMs, RAG, agents and AI automation in production.
-            Every lesson answers <strong>what</strong>, <strong>how</strong>, <strong>why this way</strong>, and <strong>what comes next</strong>,
-            and ends with questions you should be able to answer out loud.
+            Everything a full-stack engineer needs to build, ship and talk about AI products: backend, frontend, cloud and
+            security, then LLMs, RAG, agents, production AI and automation. Every lesson opens with its <strong>key points</strong>,
+            explains <strong>how</strong> and <strong>why this way</strong>, ends with <strong>questions to answer out loud</strong>,
+            and gives <strong>two projects to build</strong> so it sticks.
           </p>
           <HeroCards />
+        </section>
+
+        <section className="two-ways">
+          <h2 id="two-ways">Two ways to use it</h2>
+          <div className="ways-grid">
+            <div className="way-card">
+              <span className="way-kicker">Look it up</span>
+              <h3>Come back for the detail you need</h3>
+              <p>Press <kbd>/</kbd> and type a topic, a question ID (Q12) or a term (pgvector, retry). Read the lesson&apos;s key points first; open the full text only for what you&apos;ve forgotten.</p>
+              <ul>
+                <li><Link href="/14-reference/01-question-bank">Question bank</Link>: all 44 interview questions with model answers</li>
+                <li><Link href="/14-reference/04-code-kit">Code kit</Link>: the snippets to write from memory</li>
+                <li><Link href="/14-reference/02-glossary">Glossary</Link> and the <Link href="/tech-map">tech flow map</Link></li>
+              </ul>
+            </div>
+            <div className="way-card way-primary">
+              <span className="way-kicker">Follow it through</span>
+              <h3>Prepare for an interview end to end</h3>
+              <p>Nine stages in a deliberate order, from your story to RAG, agents, production AI and system design, each step saying exactly what to focus on.</p>
+              <Link className="btn btn-primary" href="/interview-route">Open the interview route →</Link>
+              <p className="muted">New to engineering? Read the book in order from <Link href="/00-start-here/01-how-to-use-this-guide">0.1</Link> instead.</p>
+            </div>
+          </div>
         </section>
 
         <section>
@@ -33,7 +57,7 @@ export default function HomePage() {
 
         <section>
           <h2 id="book">The book</h2>
-          <p className="muted">Fifteen parts, like chapters of a textbook. Parts 0–6 are the full-stack core; 7–11 are the applied AI layer built on top; 12–14 turn it into interviews, case studies and reference.</p>
+          <p className="muted">Fifteen parts. Parts 0–6 are the full-stack core; 7–11 are the applied AI layer built on top; 12–14 turn it into interviews, case studies and reference.</p>
           <TrackGrid />
         </section>
 
@@ -43,7 +67,7 @@ export default function HomePage() {
             <ol className="study-steps">
               <li><strong>Read the lesson once</strong>, fast. Don&apos;t take notes yet.</li>
               <li><strong>Answer the check-yourself questions out loud</strong> before opening the answers. Speaking exposes gaps that reading hides.</li>
-              <li><strong>Build the exercise.</strong> Each lesson ends with something to make; knowledge you haven&apos;t typed is borrowed.</li>
+              <li><strong>Build one of its two projects.</strong> Each lesson lists two, with a stack; knowledge you haven&apos;t typed is borrowed.</li>
               <li><strong>Mark it complete</strong>, then come back in a week and answer the questions again (spaced repetition).</li>
             </ol>
             <p className="muted">Start with <Link href="/00-start-here/01-how-to-use-this-guide">0.1 How to use this guide</Link>.</p>

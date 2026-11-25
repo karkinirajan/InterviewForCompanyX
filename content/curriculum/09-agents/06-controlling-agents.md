@@ -1,8 +1,34 @@
 ---
-title: "Controlling agents: budgets, approvals and human-in-the-loop"
+title: 'Controlling agents: budgets, approvals and human-in-the-loop'
 level: 4
 summary: Enforcing limits outside the model, approval gates for side effects, safe drafting patterns, and testing that controls hold.
-outcomes: Enforce step, time, token and money budgets in the orchestrator | Design approval flows for consequential actions | Test runaway and manipulation scenarios
+outcomes:
+- Enforce step, time, token and money budgets in the orchestrator
+- Design approval flows for consequential actions
+- Test runaway and manipulation scenarios
+keypoints:
+- Enforce budgets in the **orchestrator**, never the prompt. Steps, tokens, dollars, time, tool calls and loop detection.
+- 'Tool risk tiers: read runs freely; reversible writes are logged or confirmed; irreversible or external writes always need approval.'
+- Approval shows the **exact** payload, and only the approved payload executes (with an idempotency key).
+- Audit who approved what, from which sources, with which prompt version.
+- Test runaway, cross-user, injection and budget-exhaustion scenarios.
+projects:
+- name: Refund agent with approvals
+  stack:
+  - Python
+  - LangGraph
+  - FastAPI
+  - React approval queue
+  - Postgres
+  build: The agent proposes refunds within policy; humans approve the exact payload; the audit trail is complete; tests cover four attack scenarios.
+  practises: Bounded autonomy and HITL.
+- name: Budget guard library
+  stack:
+  - TypeScript
+  - Vercel AI SDK
+  - Vitest
+  build: A wrapper enforcing step, token, cost and time budgets plus loop detection for any agent loop, with tests.
+  practises: Reusable orchestration controls.
 ---
 
 ## Why this matters

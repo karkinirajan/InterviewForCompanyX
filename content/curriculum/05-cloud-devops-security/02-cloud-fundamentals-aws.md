@@ -2,7 +2,34 @@
 title: Cloud fundamentals with AWS
 level: 2
 summary: The core services (compute, storage, databases, networking, identity) and the security and cost habits that apply on any cloud.
-outcomes: Map an application onto core AWS services | Write least-privilege IAM policies | Keep data private by default and control cost
+outcomes:
+- Map an application onto core AWS services
+- Write least-privilege IAM policies
+- Keep data private by default and control cost
+keypoints:
+- 'Core services: EC2/ECS/Lambda (compute), S3 (objects), RDS (SQL), SQS/SNS/EventBridge (messaging), VPC (network), IAM (identity), KMS and Secrets Manager.'
+- Grant least privilege to **roles** (instance or task roles), not long-lived user keys. CI uses OIDC.
+- Keep data private by default. Private buckets, databases in private subnets, encryption at rest and in transit.
+- Use presigned URLs for direct uploads and downloads.
+- Use infrastructure as code, and tag, budget and alert on everything.
+projects:
+- name: Presigned upload service
+  stack:
+  - AWS S3
+  - IAM
+  - Python boto3
+  - FastAPI
+  - Terraform
+  build: A private bucket, a role scoped to one prefix, an API that issues presigned PUT/GET URLs, all in Terraform.
+  practises: IAM scoping, S3 security, IaC.
+- name: Serverless thumbnailer
+  stack:
+  - AWS Lambda
+  - S3 events
+  - SQS DLQ
+  - CDK (TypeScript)
+  build: An upload triggers a Lambda that makes thumbnails, with failures going to a DLQ and alarms on DLQ depth.
+  practises: Event-driven architecture and managed queues.
 ---
 
 ## Why this matters

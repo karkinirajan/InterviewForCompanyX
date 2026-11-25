@@ -2,7 +2,37 @@
 title: Linux servers, Docker and Nginx
 level: 2
 summary: Packaging services as containers, writing small secure Dockerfiles, running multi-service stacks with Compose, and putting Nginx in front.
-outcomes: Write a multi-stage, non-root Dockerfile | Run an app, database and worker together with Docker Compose | Configure Nginx as a reverse proxy, including for streaming
+outcomes:
+- Write a multi-stage, non-root Dockerfile
+- Run an app, database and worker together with Docker Compose
+- Configure Nginx as a reverse proxy, including for streaming
+keypoints:
+- An image is the build; a container is a running instance. Order layers from rarely changed to often changed.
+- Use multi-stage builds, run as non-root, add `.dockerignore`, and inject secrets at runtime.
+- Compose runs API, DB, Redis and worker together locally.
+- Nginx terminates TLS and proxies. Turn off buffering and raise timeouts **only** on streaming routes.
+- On a VM, systemd keeps services running and restarts them.
+projects:
+- name: Production-shaped local stack
+  stack:
+  - Docker
+  - Docker Compose
+  - FastAPI
+  - Postgres
+  - Redis
+  - Celery
+  - Nginx
+  build: One `docker compose up` brings up the API, worker, DB, cache and Nginx with TLS (mkcert) and an SSE route that streams correctly.
+  practises: Containers, networking, proxying, streaming.
+- name: Single-VM deploy
+  stack:
+  - Ubuntu
+  - systemd
+  - Nginx
+  - Certbot
+  - uv
+  build: Deploy a FastAPI app to a small VM with systemd units, Nginx, Let's Encrypt and log rotation, with no Docker, so you see what containers abstract away.
+  practises: Linux service management and reverse proxies.
 ---
 
 ## Why this matters

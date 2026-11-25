@@ -2,7 +2,34 @@
 title: CI/CD and release strategies
 level: 2
 summary: Pipelines that lint, type-check, test and deploy on every change, plus feature flags, canaries, blue-green deploys and safe database migrations.
-outcomes: Design a CI pipeline with fast, parallel quality gates | Choose a release strategy for a risky change | Ship database changes without downtime
+outcomes:
+- Design a CI pipeline with fast, parallel quality gates
+- Choose a release strategy for a risky change
+- Ship database changes without downtime
+keypoints:
+- CI runs lint, types, tests and build on every push, in parallel, in under about ten minutes.
+- Build once and promote the same artefact through environments.
+- 'Release options: rolling, blue-green, canary, feature flag, shadow. Choose by risk and rollback speed.'
+- Schema changes follow **expand → migrate → contract**, never rename-and-deploy.
+- Treat prompt and model changes like code. Gate them with evals, then canary or shadow.
+projects:
+- name: Full pipeline for a FastAPI app
+  stack:
+  - GitHub Actions
+  - Docker
+  - ruff
+  - mypy
+  - pytest
+  - GHCR
+  build: Parallel lint, type and test jobs, an image build tagged with the commit SHA, and an automatic deploy to staging on main.
+  practises: Quality gates and immutable artefacts.
+- name: Feature-flagged rollout
+  stack:
+  - Next.js
+  - Unleash or GrowthBook
+  - Postgres
+  build: Ship a feature dark, enable it for 10% of users, add a kill switch, and do a zero-downtime column rename with expand/contract.
+  practises: Decoupling deploy from release; safe migrations.
 ---
 
 ## Why this matters

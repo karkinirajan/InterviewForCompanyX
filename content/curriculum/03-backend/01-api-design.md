@@ -1,8 +1,34 @@
 ---
 title: API design
 level: 1
-summary: Designing HTTP APIs that clients can rely on: resources, errors, pagination, versioning, idempotency and contracts.
-outcomes: Design a REST resource with correct methods and status codes | Return errors clients can act on | Make writes safe to retry with idempotency keys
+summary: 'Designing HTTP APIs that clients can rely on: resources, errors, pagination, versioning, idempotency and contracts.'
+outcomes:
+- Design a REST resource with correct methods and status codes
+- Return errors clients can act on
+- Make writes safe to retry with idempotency keys
+keypoints:
+- Nouns in paths, HTTP methods for verbs, one consistent shape for errors and pagination.
+- Errors are data. Give every failure the client handles differently its own status and stable code (RFC 9457).
+- Use cursor pagination for large or changing lists, offset only for small static ones.
+- '**Idempotency keys** make POST safe to retry: store the result per key and replay it.'
+- Additive changes need no new version; breaking changes do. Publish an OpenAPI contract.
+projects:
+- name: Document evaluation API
+  stack:
+  - FastAPI
+  - Postgres
+  - SQLAlchemy
+  - Pydantic
+  - pytest
+  build: Create an evaluation (with Idempotency-Key), poll status, fetch result and list history with cursor pagination and an RFC 9457 error taxonomy.
+  practises: Status codes, idempotency, pagination, contracts.
+- name: Public bookmarks API with SDK
+  stack:
+  - Django REST Framework
+  - drf-spectacular
+  - openapi-typescript
+  build: A versioned REST API with an OpenAPI spec and a generated TypeScript client used by a tiny frontend.
+  practises: Contract-first design and safe versioning.
 ---
 
 ## Why this matters

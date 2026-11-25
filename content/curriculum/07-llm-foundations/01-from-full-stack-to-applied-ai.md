@@ -2,7 +2,30 @@
 title: From full-stack to applied AI
 level: 3
 summary: What carries over from full-stack engineering, what's genuinely new, and a 90-day plan for making the move.
-outcomes: Explain what changes when a dependency is non-deterministic | Map your existing skills onto applied AI responsibilities | Follow a concrete plan to build credible AI experience
+outcomes:
+- Explain what changes when a dependency is non-deterministic
+- Map your existing skills onto applied AI responsibilities
+- Follow a concrete plan to build credible AI experience
+keypoints:
+- Most skills transfer. APIs, resilience, data, queues, auth, testing, observability, UI.
+- 'New: non-determinism, plausible wrongness, instructions and data in one channel, token-priced cost, drift, evaluation.'
+- 'The rule: **let the model choose; let code compute and verify.**'
+- 'The reliability sentence: typed schema, transient-only retries with Retry-After, timeouts and a tested fallback, evals and tracing.'
+- Build one honest, measured project per area rather than many demos.
+projects:
+- name: AI feature in an app you already built
+  stack:
+  - Your existing stack
+  - an LLM API
+  - Pydantic or zod
+  build: Add one feature (summary, classification or extraction) with an adapter, validation, a fallback and a 30-case eval.
+  practises: Moving into AI from familiar ground.
+- name: 90-day portfolio plan
+  stack:
+  - GitHub Projects
+  - Markdown
+  build: A public board with the 90-day plan from this lesson, one repository per milestone, and weekly progress notes.
+  practises: Turning the migration into visible evidence.
 ---
 
 ## Why this matters

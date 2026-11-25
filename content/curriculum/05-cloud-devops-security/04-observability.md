@@ -1,8 +1,35 @@
 ---
-title: "Observability: logs, metrics and traces"
+title: 'Observability: logs, metrics and traces'
 level: 2
 summary: Structured logs, the RED and USE metrics, distributed tracing with OpenTelemetry, and alerts on what users feel.
-outcomes: Emit structured logs with request IDs and no secrets | Choose metrics and alert thresholds that matter | Trace a request across services to find where time goes
+outcomes:
+- Emit structured logs with request IDs and no secrets
+- Choose metrics and alert thresholds that matter
+- Trace a request across services to find where time goes
+keypoints:
+- Logs say what happened, metrics say how the system behaves, traces say where the time went.
+- Use RED for services (Rate, Errors, Duration) and USE for resources.
+- Write structured JSON logs with a propagated request ID, and **no secrets or personal data**.
+- Alert on user-facing symptoms and SLO burn. Every alert links a runbook.
+- 'AI adds fields per call: model, prompt version, tokens, cost, TTFT, outcome.'
+projects:
+- name: Observability kit for your API
+  stack:
+  - OpenTelemetry
+  - Prometheus
+  - Grafana
+  - Loki
+  - Jaeger
+  - Docker Compose
+  build: Instrument a FastAPI service with traces, RED metrics and JSON logs, build a dashboard, and set an SLO alert.
+  practises: The three signals working together.
+- name: LLM call tracer
+  stack:
+  - Langfuse (self-hosted)
+  - Python
+  - an LLM API
+  build: Trace every model call with prompt version, tokens, cost and outcome, and build a cost-per-task view.
+  practises: AI-specific observability.
 ---
 
 ## Why this matters

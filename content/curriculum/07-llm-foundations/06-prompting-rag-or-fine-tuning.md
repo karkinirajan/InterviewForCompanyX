@@ -2,7 +2,32 @@
 title: Prompting, RAG or fine-tuning?
 level: 3
 summary: When each technique fits, how they combine, and why fine-tuning is the wrong tool for facts that change.
-outcomes: Choose between prompting, RAG and fine-tuning for a requirement | Explain distillation and when it pays off | Defend the choice in an interview
+outcomes:
+- Choose between prompting, RAG and fine-tuning for a requirement
+- Explain distillation and when it pays off
+- Defend the choice in an interview
+keypoints:
+- Prompting changes behaviour and format, with fast iteration.
+- RAG supplies private, changing, citable knowledge.
+- Fine-tuning gives a stable format or style at scale, or distillation to a smaller model. It needs curated data and evals.
+- Fine-tuning is wrong for facts that change.
+- Go in order (prompt → RAG → fine-tune) and only on measured need.
+projects:
+- name: Prompt vs RAG comparison
+  stack:
+  - Python
+  - pgvector
+  - an LLM API
+  - an eval set
+  build: Answer 50 questions about a document set with prompting alone and then with RAG, and compare accuracy and citations.
+  practises: Seeing why RAG exists.
+- name: Small-model distillation trial
+  stack:
+  - Python
+  - OpenAI fine-tuning or Hugging Face TRL
+  - an eval set
+  build: Label 500 classification examples with a large model, fine-tune a small one, and compare quality, cost and latency.
+  practises: When fine-tuning pays off.
 ---
 
 ## Why this matters

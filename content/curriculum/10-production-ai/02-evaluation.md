@@ -2,7 +2,31 @@
 title: Evaluation
 level: 4
 summary: Building golden sets, deterministic checks, calibrated LLM judges and online monitoring, and using them as release gates for prompt and model changes.
-outcomes: Build a golden set with consent, a holdout and measured agreement | Design a three-level eval stack | Use LLM-as-judge without fooling yourself
+outcomes:
+- Build a golden set with consent, a holdout and measured agreement
+- Design a three-level eval stack
+- Use LLM-as-judge without fooling yourself
+keypoints:
+- 'Three levels: deterministic checks (every PR) → calibrated LLM-as-judge (CI/nightly) → online signals (continuous).'
+- Build golden sets with consent, a private **holdout**, two annotators and measured agreement.
+- 'Judge biases: position, verbosity, self-preference, drift. Calibrate against humans and pin the judge.'
+- Record a baseline and gate releases on no regression.
+- Mutation-test your metric code, because a wrong metric corrupts every decision.
+projects:
+- name: Eval-gated prompt pipeline
+  stack:
+  - Python
+  - promptfoo or DeepEval
+  - GitHub Actions
+  build: Every prompt PR runs deterministic checks and a judge on the dev set, compares against the baseline file and blocks on regression.
+  practises: Evals as CI gates.
+- name: Annotation tool with agreement
+  stack:
+  - Next.js
+  - Postgres
+  - Python (Cohen's kappa)
+  build: Two annotators label outputs independently; the tool computes agreement, adjudicates disagreements and exports a golden set.
+  practises: Building trustworthy labels.
 ---
 
 ## Why this matters

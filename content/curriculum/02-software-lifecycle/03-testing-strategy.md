@@ -2,7 +2,32 @@
 title: Testing strategy
 level: 1
 summary: The testing pyramid, what to test at each level, test doubles, coverage versus mutation testing, and how testing changes for non-deterministic AI features.
-outcomes: Choose unit, integration and end-to-end tests deliberately | Mock external services without lying to yourself | Explain why mutation testing beats coverage as a quality signal
+outcomes:
+- Choose unit, integration and end-to-end tests deliberately
+- Mock external services without lying to yourself
+- Explain why mutation testing beats coverage as a quality signal
+keypoints:
+- 'Pyramid: many unit tests, fewer integration tests, a handful of E2E tests.'
+- Wrap external APIs in adapters you own and test your logic against fakes.
+- Coverage shows code ran. **Mutation testing** shows the tests would catch a bug.
+- 'For AI features, make the deterministic parts deterministic: schema tests, fake providers, evals with thresholds.'
+- Flaky tests destroy trust. Fix or quarantine them; never `sleep()`.
+projects:
+- name: Mutation-tested pricing module
+  stack:
+  - Python
+  - pytest
+  - mutmut
+  build: Discount and tax rules at 100% coverage, then run mutmut and add assertions until no mutants survive.
+  practises: The difference between running code and checking it.
+- name: LLM-feature test harness
+  stack:
+  - Python
+  - pytest
+  - Pydantic
+  - recorded JSON fixtures
+  build: A summariser behind an adapter, tested with recorded good, invalid, refused and truncated replies, plus a tiny eval set with a threshold.
+  practises: Testing non-deterministic features deterministically.
 ---
 
 ## Why this matters

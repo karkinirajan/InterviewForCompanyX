@@ -1,7 +1,7 @@
 ---
 title: The casebook
 kicker: Real projects as case studies · P0–P13
-summary: The author's own projects written up as case studies: how each is built, the decisions worth copying, the honest status, and how to present it.
+summary: 'The author''s own projects written up as case studies: how each is built, the decisions worth copying, the honest status, and how to present it.'
 ---
 
 Every principle in this guide is easier to learn from a real system. These case studies are the author's own projects (personal products, client work and subcontracts), written in a standard format you can reuse for your own portfolio.

@@ -2,7 +2,32 @@
 title: Relational databases and SQL
 level: 1
 summary: Modelling data in Postgres, writing correct SQL, indexing for real queries, transactions and isolation, and reading query plans.
-outcomes: Model entities with keys, constraints and relations | Add the right index for a slow query using EXPLAIN ANALYZE | Use transactions correctly and avoid race conditions
+outcomes:
+- Model entities with keys, constraints and relations
+- Add the right index for a slow query using EXPLAIN ANALYZE
+- Use transactions correctly and avoid race conditions
+keypoints:
+- Put invariants in the database with constraints (NOT NULL, UNIQUE, CHECK, FKs).
+- Make the index match the query, e.g. `(tenant_id, created_at DESC)` for "this tenant's latest".
+- Read `EXPLAIN ANALYZE`. A Seq Scan on a selective filter means a missing index.
+- Prevent races with atomic conditional updates, `SELECT … FOR UPDATE`, or unique constraints.
+- Use `timestamptz`, store money as integer cents or `numeric`, and never rename a column in one step.
+projects:
+- name: Inventory service with no overselling
+  stack:
+  - Postgres
+  - FastAPI
+  - asyncpg
+  - locust
+  build: A stock and orders schema with constraints; hammer "buy the last item" with concurrent requests and prove nothing oversells.
+  practises: Transactions, locking, atomic updates.
+- name: Query tuning lab
+  stack:
+  - Postgres in Docker
+  - pgbench
+  - generate_series
+  build: Load 5M rows, write five slow realistic queries, then fix each with the right index, recording EXPLAIN ANALYZE before and after.
+  practises: Indexing and reading query plans.
 ---
 
 ## Why this matters

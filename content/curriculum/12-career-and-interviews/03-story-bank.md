@@ -2,7 +2,28 @@
 title: Story bank
 level: 1
 summary: Eleven reusable stories in STAR shape (situation, task, action, result, lesson) covering RAG, failures, guardrails, measurement, performance, ownership and AI coding tools.
-outcomes: Tell any story in two minutes in STAR shape | Pick the right story for a question in seconds | Build your own bank with the same structure
+outcomes:
+- Tell any story in two minutes in STAR shape
+- Pick the right story for a question in seconds
+- Build your own bank with the same structure
+keypoints:
+- 'STAR+L: situation, task/action, result, **lesson**, in two minutes.'
+- Aim for 8–12 stories covering builds, failures, disagreement, mistakes, ambiguity, performance, learning and helping others.
+- 'Signature lessons: "model chooses, code computes", "generic errors hide outages", "measure retrieval and generation separately".'
+- Fill every `[fill]`. A smaller true story beats a bigger invented one.
+projects:
+- name: Story bank app
+  stack:
+  - Next.js
+  - Postgres
+  - tags
+  build: Store stories tagged by competency and question type, then pick a random question and get suggested stories, with a timer.
+  practises: Fast retrieval of the right story.
+- name: Story-to-question matrix
+  stack:
+  - Google Sheets or Airtable
+  build: A matrix of stories against the 20 most common behavioural questions, ensuring every row has a strong story.
+  practises: Coverage of the behavioural space.
 ---
 
 ## Why this matters

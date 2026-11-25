@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { SEARCH, TECH_MAP_SLUG, type SearchEntry } from "@/lib/content";
+import { ROUTE_SLUG, SEARCH, TECH_MAP_SLUG, type SearchEntry } from "@/lib/content";
 
 type Entry = SearchEntry & { hay: string };
 
 const INDEX: Entry[] = [
   ...SEARCH,
   { label: "Map", title: "Tech flow map", href: `/${TECH_MAP_SLUG}`, context: "Tools", kind: "track" as const, text: "libraries frameworks diagram" },
+  { label: "Route", title: "Interview route", href: `/${ROUTE_SLUG}`, context: "Follow-through", kind: "track" as const, text: "interview prep order plan follow through" },
 ].map((e) => ({ ...e, hay: `${e.label} ${e.title} ${e.context} ${e.text}`.toLowerCase() }));
 
 const KIND_BONUS: Record<SearchEntry["kind"], number> = { lesson: 8, track: 6, item: 4, heading: 0 };

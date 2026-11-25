@@ -2,7 +2,32 @@
 title: Building AI interfaces
 level: 3
 summary: Streaming text, stop buttons, citations, confidence, review-and-approve flows and feedback capture, and the API contract between AI backend and frontend.
-outcomes: Stream model output to the UI with cancellation | Show sources and uncertainty honestly | Design human-approval flows for consequential actions
+outcomes:
+- Stream model output to the UI with cancellation
+- Show sources and uncertainty honestly
+- Design human-approval flows for consequential actions
+keypoints:
+- Stream tokens. Time to first token is what users feel.
+- '**Stop** must cancel server-side generation: abort → disconnect → close the upstream stream.'
+- 'Use typed stream events: `token`, `status`, `citation`, `done`, `error`.'
+- Show sources and say "not found" honestly. Render model output as sanitised Markdown, never raw HTML.
+- The AI proposes and a human approves anything consequential. Capture feedback as eval data.
+projects:
+- name: Streaming chat with sources
+  stack:
+  - Next.js
+  - FastAPI SSE
+  - an LLM API
+  - react-markdown
+  build: Chat that streams typed events with status messages, a sources panel, Stop that cancels upstream, and thumbs feedback stored for evals.
+  practises: The full AI UI contract.
+- name: Draft-and-approve email assistant
+  stack:
+  - React
+  - Vercel AI SDK
+  - Postgres
+  build: The model drafts replies; the user edits and explicitly approves; nothing sends without approval; an audit log records who approved what.
+  practises: Human-in-the-loop UX and safe actions.
 ---
 
 ## Why this matters

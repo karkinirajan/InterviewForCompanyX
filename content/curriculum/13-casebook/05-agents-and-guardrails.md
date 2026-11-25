@@ -1,8 +1,33 @@
 ---
-title: "P5, P8, P9 · Agents and guardrails: CV screening, a trading arena and a routing prototype"
+title: 'P5, P8, P9 · Agents and guardrails: CV screening, a trading arena and a routing prototype'
 level: 4
-summary: Three projects showing guardrails in code: an injection-aware CV screener, a multi-model trading simulation with tool-level guardrails over MCP, and a routing-layer prototype.
-outcomes: Derive consequences in code instead of trusting model fields | Put guardrails inside tools | Present a prototype as a prototype
+summary: 'Three projects showing guardrails in code: an injection-aware CV screener, a multi-model trading simulation with tool-level guardrails over MCP, and a routing-layer prototype.'
+outcomes:
+- Derive consequences in code instead of trusting model fields
+- Put guardrails inside tools
+- Present a prototype as a prototype
+keypoints:
+- '**P5:** bounded integer score, category derived in code, untrusted CV text, dedupe, circuit breaker after three failures.'
+- '**P8:** guardrails in tools (no look-ahead, no negative cash, whole shares, locks, shared secret beyond loopback). Credit upstream code.'
+- '**P9:** "LLM routes, code computes". A prototype with a keyword mock router, presented as exactly that.'
+projects:
+- name: Paper-trading agent arena
+  stack:
+  - Python
+  - LangGraph
+  - FastMCP
+  - SQLite
+  - historical price CSVs
+  build: Two models trade simulated portfolios through MCP tools that enforce no look-ahead and no negative balance.
+  practises: Tool-level guardrails and MCP.
+- name: Natural-language analytics router
+  stack:
+  - FastAPI
+  - an LLM API
+  - pandas
+  - Pydantic
+  build: The model maps a question to one of six validated indicator functions with parameters; code computes; invalid routes are rejected.
+  practises: Routing with deterministic computation.
 ---
 
 <a id="p5"></a>

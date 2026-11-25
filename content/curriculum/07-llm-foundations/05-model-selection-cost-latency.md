@@ -2,7 +2,33 @@
 title: Model selection, cost and latency
 level: 3
 summary: Choosing models on evidence, routing tasks to tiers, the levers that cut cost and latency, and switching models safely.
-outcomes: Choose a model with an evaluation, not a leaderboard | Estimate and reduce cost per task | Switch or add providers without breaking quality
+outcomes:
+- Choose a model with an evaluation, not a leaderboard
+- Estimate and reduce cost per task
+- Switch or add providers without breaking quality
+keypoints:
+- Choose models with **your** eval set on quality, latency (TTFT, total), cost per successful task, data terms and limits.
+- Route each task class to the cheapest model that passes its eval, and keep routing in config.
+- 'Cost levers: tiering, prompt caching, response caching, trimmed context, batch APIs, `max_tokens`, budgets, never pay twice.'
+- 'Latency levers: stream, smaller models, cached prefixes, parallel retrieval, short outputs.'
+- Switch models by eval, canary, watch, rollback, and fall back only to validated pairs.
+projects:
+- name: Model bake-off harness
+  stack:
+  - Python
+  - pandas
+  - three model providers
+  - an eval set
+  build: Run one task across three models and report quality, p95 latency and cost per successful task in a table with a recommendation.
+  practises: Evidence-based model choice.
+- name: Tiered router
+  stack:
+  - FastAPI
+  - Redis
+  - two models
+  - YAML config
+  build: A config maps task classes to models with a validated fallback, and a dashboard shows cost per task class.
+  practises: Routing and cost control.
 ---
 
 ## Why this matters

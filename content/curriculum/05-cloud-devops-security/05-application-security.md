@@ -2,7 +2,33 @@
 title: Application security
 level: 2
 summary: The OWASP Top 10 in practice, input handling, SSRF, secrets management and supply-chain hygiene, plus where AI adds new attack surface.
-outcomes: Recognise and prevent the most common web vulnerabilities | Defend outbound requests against SSRF | Manage secrets so they never leak through code, logs or errors
+outcomes:
+- Recognise and prevent the most common web vulnerabilities
+- Defend outbound requests against SSRF
+- Manage secrets so they never leak through code, logs or errors
+keypoints:
+- The OWASP Top 10 in practice. IDOR, injection, XSS, misconfiguration, vulnerable dependencies, auth failures, SSRF.
+- Use parameterised queries, escape output by default, add a CSP header, and never build shell commands from input.
+- '**SSRF**: require https, resolve the host and block private/loopback/link-local addresses (re-check redirects), and send no credentials.'
+- Keep secrets out of code, logs, errors and `repr`, and refuse to start with placeholder values.
+- AI adds prompt injection, output handling and excessive agency on top of all of this.
+projects:
+- name: Secure URL fetcher
+  stack:
+  - Python
+  - httpx
+  - ipaddress
+  - pytest
+  build: A "fetch and summarise this URL" endpoint with full SSRF protection and tests for 127.0.0.1, 169.254.169.254, private IPs and redirects.
+  practises: SSRF defence, the classic AI-tool vulnerability.
+- name: Deliberately vulnerable app, then fixed
+  stack:
+  - Flask
+  - SQLite
+  - OWASP ZAP
+  - Bandit
+  build: Build an app with five planted vulnerabilities (SQLi, XSS, IDOR, debug on, a committed secret), scan it, fix each one and keep a write-up.
+  practises: Recognising and fixing the top vulnerabilities.
 ---
 
 ## Why this matters

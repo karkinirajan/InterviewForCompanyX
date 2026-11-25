@@ -2,7 +2,31 @@
 title: Git and GitHub
 level: 0
 summary: How git stores history, the branch-and-pull-request workflow teams use, and how to recover from the mistakes everyone makes.
-outcomes: Explain commits, branches, remotes and merges | Work in a feature-branch and pull-request flow | Recover from a bad commit, a conflict or a missing upstream branch
+outcomes:
+- Explain commits, branches, remotes and merges
+- Work in a feature-branch and pull-request flow
+- Recover from a bad commit, a conflict or a missing upstream branch
+keypoints:
+- Commits are snapshots in a graph; branches are movable names; `origin/main` is your last fetched view of the remote.
+- 'Daily flow: branch → small commits → push with `-u` → pull request → review → merge.'
+- Use `revert` on shared history; save `amend` and `reset` for local-only commits.
+- '`[origin/main: gone]` means the remote branch doesn''t exist. Push it with `git push -u origin main`.'
+- A committed secret is leaked. Rotate it first, then clean the history.
+projects:
+- name: Team-flow sandbox repo
+  stack:
+  - Git
+  - GitHub
+  - GitHub branch protection
+  build: A repo with protected `main`, a PR template, required reviews, and deliberately created merge conflicts that you then resolve.
+  practises: The full PR workflow and conflict resolution.
+- name: Git bisect detective
+  stack:
+  - Git
+  - Python
+  - pytest
+  build: Write a 30-commit history where one commit introduces a bug, then find it with `git bisect run pytest`.
+  practises: Why small commits matter; automated debugging with history.
 ---
 
 ## Why this matters

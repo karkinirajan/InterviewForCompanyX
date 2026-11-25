@@ -2,7 +2,31 @@
 title: Multi-agent systems and AI coding agents
 level: 4
 summary: When several agents beat one, orchestrator-worker patterns, and how to use AI coding agents professionally with gates that make the output yours.
-outcomes: Decide when multi-agent designs are justified | Structure orchestrator-worker systems with clear ownership | Use coding agents with review and quality gates
+outcomes:
+- Decide when multi-agent designs are justified
+- Structure orchestrator-worker systems with clear ownership
+- Use coding agents with review and quality gates
+keypoints:
+- 'Multi-agent patterns: orchestrator–workers, specialist pipelines, critique. Use them only for parallel, independent work.'
+- Give each agent clear ownership (no two write the same thing), with contracts before parallel work and a final check.
+- Coding agents mean you write the spec, review every diff, run mandatory CI gates and record what wasn't verified.
+- '"Agents make me faster; the gates are what make the output mine."'
+- Never lower a quality gate to get agent output merged.
+projects:
+- name: Research orchestrator
+  stack:
+  - Python
+  - Claude Agent SDK or OpenAI Agents SDK
+  - web search tool
+  build: An orchestrator splits a research question into sub-questions handled in parallel by workers, then a reviewer checks citations.
+  practises: Orchestrator–worker with verification.
+- name: Agent-built feature, human-gated
+  stack:
+  - A coding agent
+  - GitHub Actions
+  - mutation testing
+  build: Spec a feature, let a coding agent implement it on a branch, and only merge after lint, types, tests and mutation gates plus your review notes.
+  practises: Professional use of coding agents.
 ---
 
 ## Why this matters

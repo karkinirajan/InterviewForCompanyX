@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ALL_LESSONS, TECH_MAP_SLUG, TRACKS } from "@/lib/content";
+import { ALL_LESSONS, ROUTE_SLUG, TECH_MAP_SLUG, TRACKS } from "@/lib/content";
 import { useManual } from "@/components/ManualProvider";
 
 export function Sidebar({ onNavigate }: { onNavigate: () => void }) {
@@ -18,11 +18,14 @@ export function Sidebar({ onNavigate }: { onNavigate: () => void }) {
     <aside className="sidebar" id="sidebar">
       <Link className="brand" href="/" onClick={onNavigate}>
         <span className="brand-mark">A</span>
-        <span className="brand-text"><strong>Field guide</strong><small>Intern → applied AI engineer</small></span>
+        <span className="brand-text"><strong>Field guide</strong><small>Full-stack → applied AI</small></span>
       </Link>
       <nav className="nav">
         <Link className={path === "/" ? "active" : ""} href="/" onClick={onNavigate}>
           <span className="nav-num">◆</span><span>Start here</span>
+        </Link>
+        <Link className={path === `/${ROUTE_SLUG}` ? "active" : ""} href={`/${ROUTE_SLUG}`} onClick={onNavigate}>
+          <span className="nav-num">➜</span><span>Interview route</span>
         </Link>
         <div className="nav-label">The book</div>
         {TRACKS.map((t) => {

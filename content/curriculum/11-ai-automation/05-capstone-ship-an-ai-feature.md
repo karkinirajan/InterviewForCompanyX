@@ -1,8 +1,38 @@
 ---
-title: "Capstone: ship an AI feature end to end"
+title: 'Capstone: ship an AI feature end to end'
 level: 4
 summary: A project brief that exercises the whole guide, with milestones, a definition of done and the write-up that turns it into interview evidence.
-outcomes: Deliver an AI feature from requirements to production monitoring | Produce a case study with decisions, numbers and honest gaps | Defend every claim in it under follow-up questions
+outcomes:
+- Deliver an AI feature from requirements to production monitoring
+- Produce a case study with decisions, numbers and honest gaps
+- Defend every claim in it under follow-up questions
+keypoints:
+- Build one honest, finished, measured project, which beats many demos.
+- 'Milestones: spec → auth + tenants → ingestion → hybrid retrieval → streamed cited answers → extraction + review → reliability → guardrails → evals in CI → deploy + observability → write-up.'
+- 'Definition of done: live URL, README with decisions and **known gaps**, tests and evals in CI, defended numbers.'
+- Write it up in the casebook format and rehearse the 60-second pitch.
+projects:
+- name: Policy Q&A and extraction SaaS
+  stack:
+  - Next.js
+  - FastAPI
+  - Postgres + pgvector + RLS
+  - Celery
+  - an LLM gateway
+  - Langfuse
+  - Vercel + a container host
+  build: The capstone brief, with workspaces, uploads, cited streaming answers, schema extraction with review, and an admin cost and quality dashboard.
+  practises: Everything in Parts 3–11 in one product.
+- name: Meeting-notes copilot
+  stack:
+  - Next.js
+  - FastAPI
+  - an STT API
+  - an LLM API
+  - Postgres
+  - Slack API
+  build: Upload a recording, get a transcript and structured action items with evidence timestamps, and post them to Slack after a human edits them.
+  practises: Voice, extraction, HITL and integration end to end.
 ---
 
 ## Why this matters

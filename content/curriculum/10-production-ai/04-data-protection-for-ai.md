@@ -2,7 +2,31 @@
 title: Data protection for AI systems
 level: 4
 summary: Personal and health data in prompts, provider data terms, SSRF in AI tools, and secrets handling around model APIs.
-outcomes: Decide what data may reach which model endpoint | Protect outbound calls made by AI features | Keep API keys out of logs, errors and code
+outcomes:
+- Decide what data may reach which model endpoint
+- Protect outbound calls made by AI features
+- Keep API keys out of logs, errors and code
+keypoints:
+- 'Q28: minimise, redact or tokenise before uncovered endpoints, store off, hashed IDs, audit logs without values, retention.'
+- 'Q29: every server-side fetch (including presigned URLs and agent web tools) needs SSRF defences.'
+- 'Q30: secrets by name, out of logs, errors and `repr`; refuse placeholders; rotate on exposure.'
+- Check each vendor's storage, training use, region and agreements (DPA/BAA) before sending real data.
+- Record consent per item for evaluation datasets.
+projects:
+- name: Privacy-safe AI logging
+  stack:
+  - Python
+  - structlog
+  - Presidio
+  - pytest
+  build: A logging layer that redacts PII and secrets from every AI call log, with tests proving keys and emails never appear.
+  practises: Log hygiene for AI systems.
+- name: Vendor terms register
+  stack:
+  - Airtable or Markdown
+  - a small checker script
+  build: A register of every AI/OCR/speech vendor's storage, training and region terms, plus a CI check that only registered vendors appear in config.
+  practises: Turning data-terms diligence into a control.
 ---
 
 ## Why this matters

@@ -22,18 +22,48 @@ export function LessonHero({ lesson, track }: { lesson: Lesson; track: Track }) 
         <LevelBadge level={lesson.level} />
         <span className="meta-chip">≈ {lesson.minutes} min read</span>
       </div>
-      {lesson.outcomes.length > 0 && (
-        <div className="outcomes">
-          <span className="brief-k">After this lesson you can</span>
-          <ul>{lesson.outcomes.map((o) => <li key={o}>{o}</li>)}</ul>
-        </div>
-      )}
+      <div className="lesson-brief">
+        {lesson.keypoints.length > 0 && (
+          <div className="keypoints" id="key-points">
+            <span className="brief-k">Key points · the two-minute version</span>
+            <ol>{lesson.keypoints.map((k) => <li key={k} dangerouslySetInnerHTML={{ __html: k }} />)}</ol>
+          </div>
+        )}
+        {lesson.outcomes.length > 0 && (
+          <div className="outcomes">
+            <span className="brief-k">You should be able to</span>
+            <ul>{lesson.outcomes.map((o) => <li key={o} dangerouslySetInnerHTML={{ __html: o }} />)}</ul>
+          </div>
+        )}
+      </div>
       <div className="stage-actions">
         <button className="btn btn-primary" onClick={() => startTimer(lesson.minutes + 10)}>
           ▶ Study timer ({lesson.minutes + 10} min)
         </button>
       </div>
     </header>
+  );
+}
+
+/** Two hands-on projects per lesson: build one to make the lesson stick. */
+export function LessonProjects({ lesson }: { lesson: Lesson }) {
+  if (!lesson.projects.length) return null;
+  return (
+    <section className="projects" aria-labelledby="build-to-remember">
+      <h2 id="build-to-remember" className="section-title">Build it to remember</h2>
+      <p className="muted">Two hands-on projects that exercise this lesson. Pick one, build it end to end, and keep it in your portfolio.</p>
+      <div className="project-grid">
+        {lesson.projects.map((p, i) => (
+          <article key={p.name} className="project-card">
+            <div className="pc-top"><span className="pc-num">Project {i + 1}</span></div>
+            <h3>{p.name}</h3>
+            <p dangerouslySetInnerHTML={{ __html: p.build }} />
+            <ul className="stack-chips" aria-label="Stack">{p.stack.map((t) => <li key={t}>{t}</li>)}</ul>
+            <p className="pc-practises"><b>Practises</b> <span dangerouslySetInnerHTML={{ __html: p.practises }} /></p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -45,8 +75,9 @@ export function LessonFooter({ lesson }: { lesson: Lesson }) {
   const isDone = done.has(lesson.slug);
   return (
     <>
+      <LessonProjects lesson={lesson} />
       <section className="stage-done">
-        <p>Answered every <strong>check-yourself</strong> question without opening the answer?</p>
+        <p>Can you answer every <strong>check-yourself</strong> question out loud without opening the answer?</p>
         <button className={`btn btn-done${isDone ? " is-done" : ""}`} onClick={() => toggleComplete(lesson.slug)}>
           {isDone ? "✓ Completed (click to undo)" : `✓ Mark lesson ${lesson.num} complete`}
         </button>

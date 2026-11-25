@@ -2,7 +2,32 @@
 title: Agent frameworks and runtimes
 level: 4
 summary: LangChain, LangGraph, LlamaIndex, CrewAI, AutoGen and cloud agent SDKs in one breath each, and managed runtimes such as Amazon Bedrock AgentCore.
-outcomes: Describe the main frameworks and when each fits | Explain what a managed agent runtime provides | Decide between managed and self-managed agent infrastructure
+outcomes:
+- Describe the main frameworks and when each fits
+- Explain what a managed agent runtime provides
+- Decide between managed and self-managed agent infrastructure
+keypoints:
+- LangChain composes integrations; **LangGraph** handles state, checkpoints and interrupts; LlamaIndex is data-first; CrewAI and AutoGen are multi-agent; vendors ship their own SDKs.
+- Write the loop by hand once, then pick a framework for the features you actually need.
+- Managed runtimes (e.g. **AgentCore**) give isolated sessions, memory, a tool gateway (MCP), identity, Cedar policy, observability and evals.
+- Choose managed for isolation, long sessions and governance; self-managed for simple pipelines, cost at volume and portability.
+- Cloud platforms like Bedrock keep inference inside the customer's boundary, which matters in regulated work.
+projects:
+- name: LangGraph agent with human interrupt
+  stack:
+  - Python
+  - LangGraph
+  - Postgres checkpointer
+  - an LLM API
+  build: Rebuild your hand-written agent with checkpoints and an approval interrupt before the write tool, resumable after restart.
+  practises: Graph state, checkpoints, HITL.
+- name: Deploy an agent to a managed runtime
+  stack:
+  - AWS Bedrock AgentCore or equivalent
+  - Strands Agents
+  - CDK
+  build: Deploy a small agent with a Gateway-hosted tool and a Cedar policy denying one action; inspect traces.
+  practises: Mapping your patterns onto managed services.
 ---
 
 ## Why this matters

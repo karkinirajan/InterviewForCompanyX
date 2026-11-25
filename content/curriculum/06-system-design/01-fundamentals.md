@@ -2,7 +2,29 @@
 title: System design fundamentals
 level: 2
 summary: Scaling reads and writes, caching, replication, partitioning, consistency, queues and the back-of-the-envelope estimates that ground a design.
-outcomes: Estimate load, storage and bandwidth from requirements | Choose between scaling strategies and consistency models | Explain the trade-offs of replicas, sharding and async processing
+outcomes:
+- Estimate load, storage and bandwidth from requirements
+- Choose between scaling strategies and consistency models
+- Explain the trade-offs of replicas, sharding and async processing
+keypoints:
+- 'Building blocks: load balancer, cache, replicas, sharding, queue, object storage, search index, vector index.'
+- Choose strong consistency for money and eventual consistency for feeds. Provide read-your-writes after updates.
+- Estimate first (requests per second, storage, bandwidth, concurrent model calls).
+- In AI systems, model latency and **rate limits** are usually the binding constraint.
+- Don't reach for microservices or Kafka until the numbers demand it.
+projects:
+- name: Capacity calculator
+  stack:
+  - Python or a spreadsheet
+  build: Input DAU, requests per user, payload size and model latency; output RPS, peak, storage per year and concurrent model calls.
+  practises: Back-of-the-envelope estimation.
+- name: Read-replica lab
+  stack:
+  - Postgres primary + replica (Docker)
+  - FastAPI
+  - pgbench
+  build: Route reads to the replica, demonstrate replication lag, then implement read-your-writes for a user's own updates.
+  practises: Replication and consistency trade-offs.
 ---
 
 ## Why this matters

@@ -2,7 +2,32 @@
 title: How to use this guide
 level: 0
 summary: How the book is organised, what every lesson contains, and the fastest route through it for your current level.
-outcomes: Pick the right starting part for your level | Use IDs, search and previews to move around | Know what "done" means for a lesson
+outcomes:
+- Pick the right starting part for your level
+- Use IDs, search and previews to move around
+- Know what "done" means for a lesson
+keypoints:
+- Two modes. **Look it up** (search with `/`, read key points first) or **follow through** (the interview route, or the book in order).
+- Applied AI sits on top of full-stack engineering, so the parts are ordered that way.
+- Every lesson has the same shape. Key points → why → core ideas → how → why this way → mistakes → check yourself → two projects → next.
+- Level badges (L0–L4) show when a topic starts to be *expected* of you.
+- IDs (Q, D, C, P, S, glossary) are stable. Hover to preview, click to jump.
+- Done means you can answer the check-yourself questions out loud, with a trade-off and an example.
+projects:
+- name: Personal study tracker
+  stack:
+  - Next.js
+  - TypeScript
+  - localStorage
+  build: A small app listing the lessons you're studying, with a 0/1/2 score per check-yourself question and a "review again" date one week later.
+  practises: Spaced repetition and honest self-scoring; React state and persistence.
+- name: Notes vault with backlinks
+  stack:
+  - Markdown
+  - Obsidian or Git
+  - a static site generator
+  build: One Markdown note per lesson in your own words, with links between related notes, published as a private static site.
+  practises: Generation (writing in your own words) and building your own reference.
 ---
 
 ## Why this matters

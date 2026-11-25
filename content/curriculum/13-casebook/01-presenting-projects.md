@@ -2,7 +2,29 @@
 title: Presenting projects
 level: 2
 summary: The case-study format used in this casebook, the evidence matrix mapping projects to job requirements, and rules for honest numbers.
-outcomes: Write a case study in the standard format | Map projects to job requirements with an evidence matrix | Present status and numbers honestly
+outcomes:
+- Write a case study in the standard format
+- Map projects to job requirements with an evidence matrix
+- Present status and numbers honestly
+keypoints:
+- 'Case-study format: one line, why it matters, how it''s built, decisions, numbers, honest status, pitch, follow-ups.'
+- Repo metrics aren't client outcomes. Every claim needs a baseline and a method.
+- 'The evidence matrix maps projects to job requirements: ● strong, ○ supporting.'
+- Honest status means what's live, what never ran for real, and what's missing.
+projects:
+- name: Case study for your best project
+  stack:
+  - Markdown
+  - your project's README
+  build: Rewrite your best project's README in the eight-part format, including honest status and follow-up questions.
+  practises: Presenting work credibly.
+- name: Evidence matrix generator
+  stack:
+  - Python
+  - YAML
+  - Markdown
+  build: Tag your projects with responsibility codes in YAML and generate the matrix table automatically for any JD.
+  practises: Keeping evidence current.
 ---
 
 ## Why this matters

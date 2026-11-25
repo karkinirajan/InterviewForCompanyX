@@ -2,12 +2,22 @@ import tracksJson from "@/content/generated/tracks.json";
 import pagesJson from "@/content/generated/pages.json";
 import refsJson from "@/content/generated/refs.json";
 import searchJson from "@/content/generated/search.json";
+import routeJson from "@/content/generated/route.json";
 
 export type Level = 0 | 1 | 2 | 3 | 4;
+/** A hands-on project that exercises one lesson. Text fields are pre-rendered HTML. */
+export interface Project { name: string; stack: string[]; build: string; practises: string }
 export interface Lesson {
   slug: string; num: string; title: string; level: Level; summary: string;
-  outcomes: string[]; minutes: number; words: number;
+  /** Pre-rendered inline HTML. */
+  outcomes: string[];
+  /** The short version of the lesson, for revision. Pre-rendered inline HTML. */
+  keypoints: string[];
+  projects: Project[];
+  minutes: number; words: number;
 }
+export interface RouteStep { slug: string; num: string; title: string; minutes: number; focus: string }
+export interface RouteStage { title: string; goal: string; steps: RouteStep[] }
 export interface Track {
   slug: string; num: number; title: string; kicker: string; summary: string;
   levels: Level[]; lessons: Lesson[];
@@ -20,6 +30,8 @@ export const TRACKS = tracksJson as Track[];
 export const PAGES: Record<string, RenderedPage> = pagesJson;
 export const REFS = refsJson as Record<string, Ref>;
 export const SEARCH = searchJson as SearchEntry[];
+export const INTERVIEW_ROUTE = routeJson as RouteStage[];
+export const ROUTE_SLUG = "interview-route";
 export const TECH_MAP_SLUG = "tech-map";
 
 /** Career levels the curriculum is graded against. */

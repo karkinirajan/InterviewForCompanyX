@@ -1,8 +1,34 @@
 ---
-title: "P3, P4 · RAG systems: graph-backed financial RAG and a re-ranked retrieval API"
+title: 'P3, P4 · RAG systems: graph-backed financial RAG and a re-ranked retrieval API'
 level: 4
-summary: Two retrieval systems: a production financial-intelligence platform combining a temporal knowledge graph with vector search, and a medical decision-support API using a vector index plus re-ranking.
-outcomes: Explain when a knowledge graph complements vector search | Describe a retrieve-then-re-rank API with clean failure semantics | Present subcontract work without overclaiming
+summary: 'Two retrieval systems: a production financial-intelligence platform combining a temporal knowledge graph with vector search, and a medical decision-support API using a vector index plus re-ranking.'
+outcomes:
+- Explain when a knowledge graph complements vector search
+- Describe a retrieve-then-re-rank API with clean failure semantics
+- Present subcontract work without overclaiming
+keypoints:
+- '**P3:** temporal knowledge graph + Qdrant + ColBERT, with entities validated against the graph and RAGAS/DeepEval gates. Subcontract work, so claim only your parts.'
+- '**P4:** chat-model NER → Pinecone (30) → Cohere Rerank (5), with fixed 502s and 503s naming missing settings.'
+- Describe systems precisely (e.g. Atlas Search was a separate lexical endpoint, not fused).
+- Use a graph when relationships and time are the question.
+projects:
+- name: Temporal finance Q&A
+  stack:
+  - Graphiti
+  - FalkorDB or Neo4j
+  - Qdrant
+  - ColBERT via RAGatouille
+  - Langfuse
+  build: Ingest company news into a temporal graph plus vectors, and answer "what changed between dates" questions with an eval suite.
+  practises: The P3 architecture at small scale.
+- name: Symptom-to-condition retrieval API
+  stack:
+  - FastAPI
+  - Pinecone or pgvector
+  - a re-rank API
+  - MongoDB Atlas Search
+  build: Extract entities, retrieve 30 candidates, re-rank to 5, and return clean failure semantics, with 100% line coverage.
+  practises: The P4 pattern with reliability details.
 ---
 
 <a id="p3"></a>

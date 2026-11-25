@@ -2,7 +2,28 @@
 title: Sources and further reading
 level: 0
 summary: The primary sources behind the guide and where to go deeper on each part.
-outcomes: Know where to verify a claim and where to go deeper
+outcomes:
+- Know where to verify a claim and where to go deeper
+keypoints:
+- Prefer current official docs over memory, including this guide.
+- Date-sensitive material (managed agent runtimes, model features) is marked with its research date.
+- The original interview manual lives in `content/archive/leapfrog-2026/` and the tag `leapfrog-2026-final`.
+projects:
+- name: Docs freshness checker
+  stack:
+  - Python
+  - httpx
+  - GitHub Actions (weekly)
+  build: Check every external link in the guide weekly and open an issue for broken or redirected ones.
+  practises: Keeping a reference trustworthy.
+- name: Release-notes digest
+  stack:
+  - Python
+  - RSS/Atom feeds
+  - an LLM API
+  - email
+  build: A weekly digest of provider and framework release notes, summarised with links, to keep the guide current.
+  practises: Staying current efficiently.
 ---
 
 ## Primary documentation

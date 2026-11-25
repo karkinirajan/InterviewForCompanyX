@@ -2,7 +2,31 @@
 title: Hybrid search and re-ranking
 level: 4
 summary: Combining dense and lexical retrieval with Reciprocal Rank Fusion, then re-ranking with cross-encoders or late-interaction models.
-outcomes: Implement hybrid retrieval fused with RRF | Explain why and how re-ranking improves precision | Choose a re-ranker for a latency and cost budget
+outcomes:
+- Implement hybrid retrieval fused with RRF
+- Explain why and how re-ranking improves precision
+- Choose a re-ranker for a latency and cost budget
+keypoints:
+- Dense finds paraphrases and lexical finds exact terms, so run both.
+- Fuse by **rank** with RRF (Σ 1/(k+rank), k≈60), never by mixing raw scores.
+- Re-rank the top 20–50 with a cross-encoder or ColBERT-style model for precision.
+- Re-ranking can't recover documents retrieval missed, so recall comes first.
+- Apply the same tenant and permission filters to every retriever.
+projects:
+- name: Hybrid search service
+  stack:
+  - FastAPI
+  - Postgres (pgvector + tsvector)
+  - a re-rank model
+  build: Dense + lexical retrieval fused with RRF, then re-ranked; report recall@5 and MRR after each stage.
+  practises: The standard production retrieval stack.
+- name: Code-and-docs search
+  stack:
+  - TypeScript
+  - Elasticsearch or OpenSearch
+  - an embedding API
+  build: Search docs where users type error codes and natural language; show that lexical wins on codes and dense on paraphrase.
+  practises: Why hybrid matters, with evidence.
 ---
 
 ## Why this matters

@@ -2,7 +2,34 @@
 title: Async, concurrency and performance
 level: 2
 summary: Concurrency models in Python and Node, finding the real bottleneck, and the backend fundamentals that AI work tends to crowd out.
-outcomes: Choose threads, processes or async for a workload | Profile before optimising and explain latency percentiles | Apply the core backend fundamentals checklist
+outcomes:
+- Choose threads, processes or async for a workload
+- Profile before optimising and explain latency percentiles
+- Apply the core backend fundamentals checklist
+keypoints:
+- Use async for many I/O waits, threads for blocking I/O libraries, and processes for CPU-bound Python.
+- Report p50, p95 and p99, never only the average.
+- 'Little''s law: in-flight ≈ arrival rate × time per request. Slow model calls mean many in flight.'
+- Measure, trace one slow request, fix the biggest segment, then measure again.
+- Bound concurrency with semaphores, and back every performance claim with a baseline, a method and a mechanism.
+projects:
+- name: Fan-out aggregator
+  stack:
+  - FastAPI
+  - httpx
+  - asyncio
+  - k6
+  build: An endpoint calling three slow services, first sequentially then with `gather`, a semaphore and a timeout; publish the p50/p95 before and after.
+  practises: Concurrency, timeouts, measuring percentiles.
+- name: CPU vs I/O benchmark
+  stack:
+  - Python
+  - multiprocessing
+  - threading
+  - asyncio
+  - py-spy
+  build: Run the same CPU task and the same I/O task under threads, processes and async; profile with py-spy and explain the results.
+  practises: The GIL and choosing a concurrency model.
 ---
 
 ## Why this matters

@@ -2,7 +2,33 @@
 title: Data fetching, state and forms
 level: 2
 summary: Server state versus client state, caching and revalidation, race-free fetching, and forms with validation and good error states.
-outcomes: Separate server state from UI state | Fetch without races, with loading, error and empty states | Build forms that validate on both client and server
+outcomes:
+- Separate server state from UI state
+- Fetch without races, with loading, error and empty states
+- Build forms that validate on both client and server
+keypoints:
+- Server state is a cache of backend data, so use TanStack Query or SWR. Client state is UI-only.
+- Design all four states for every fetch. Loading, error, **empty**, success.
+- Abort stale requests, and validate forms on the client for UX and on the server for truth.
+- Optimistic updates suit low-stakes actions, never money.
+- Keep sensitive drafts in `sessionStorage` or on the server, never in `localStorage`.
+projects:
+- name: Search-as-you-type directory
+  stack:
+  - React
+  - TanStack Query
+  - FastAPI
+  - Postgres full-text
+  build: Debounced search with aborts, cached pages, empty and error states and keyboard navigation.
+  practises: Server-state caching and race-safe fetching.
+- name: Multi-step application form
+  stack:
+  - Next.js
+  - react-hook-form
+  - zod
+  - server actions
+  build: A shared zod schema for client and server validation, autosaved drafts in sessionStorage, and per-field server errors.
+  practises: Form validation on both sides and safe drafts.
 ---
 
 ## Why this matters

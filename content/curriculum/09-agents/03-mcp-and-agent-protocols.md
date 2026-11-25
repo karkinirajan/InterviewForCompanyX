@@ -2,7 +2,32 @@
 title: MCP and agent protocols
 level: 4
 summary: The Model Context Protocol for exposing tools and data to any compatible client, plus agent-to-agent and agent-to-UI protocols, and their security implications.
-outcomes: Explain what MCP standardises and why it matters | Build and secure a small MCP server | Recognise A2A and AG-UI and what they're for
+outcomes:
+- Explain what MCP standardises and why it matters
+- Build and secure a small MCP server
+- Recognise A2A and AG-UI and what they're for
+keypoints:
+- MCP standardises **tools, resources and prompts** for any client, turning M×N integrations into M+N.
+- Use stdio for local servers and HTTP for remote ones, which need real auth (OAuth) and per-call authorisation.
+- Every MCP server is new attack surface, so treat third-party tool descriptions as untrusted.
+- A2A connects agents to agents; AG-UI connects agents to UIs.
+- Separate read and write tools, require approval for side effects, and log every call.
+projects:
+- name: MCP server for your own app
+  stack:
+  - Python
+  - FastMCP
+  - FastAPI
+  - OAuth
+  build: Expose read tools and one write tool (with confirmation) from an app you've built, over authenticated HTTP, and use it from an MCP client.
+  practises: Building and securing MCP.
+- name: Docs MCP server
+  stack:
+  - TypeScript
+  - MCP TypeScript SDK
+  - pgvector
+  build: A search-docs tool and a read-page resource over your RAG index, usable from an IDE assistant.
+  practises: Resources vs tools; reuse of RAG.
 ---
 
 ## Why this matters

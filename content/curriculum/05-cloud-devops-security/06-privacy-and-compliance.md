@@ -2,7 +2,31 @@
 title: Privacy and compliance
 level: 3
 summary: Personal data, health data, GDPR and HIPAA basics, and the engineering patterns (minimisation, retention, audit, vendor terms) that make compliance real.
-outcomes: Classify data and apply minimisation, retention and access rules | Explain HIPAA's key terms and what a BAA is | Decide when personal data may go to an AI provider
+outcomes:
+- Classify data and apply minimisation, retention and access rules
+- Explain HIPAA's key terms and what a BAA is
+- Decide when personal data may go to an AI provider
+keypoints:
+- Minimise, limit by purpose, define retention, and support deletion.
+- 'HIPAA terms: covered entity, business associate, **BAA** before any vendor touches PHI, minimum necessary, audit controls.'
+- No PHI or PII goes to an AI endpoint without the right agreement. Otherwise de-identify upstream.
+- Turn off provider storage, hash identifiers, and keep audit logs with field names, never values.
+- Compliance belongs to the whole system and organisation. Never claim it in marketing copy you can't back.
+projects:
+- name: PII redaction gateway
+  stack:
+  - Python
+  - Microsoft Presidio
+  - FastAPI
+  build: Detect and tokenise names, emails, phones and IDs before forwarding text to an LLM, then re-identify only for authorised viewers, with an audit log.
+  practises: Minimisation and reversible de-identification.
+- name: Data inventory and retention job
+  stack:
+  - Postgres
+  - Python
+  - cron or a scheduler
+  build: Classify every column (public/internal/personal/sensitive), add retention policies and a nightly job that deletes expired data and logs what it did.
+  practises: Turning policy into code.
 ---
 
 ## Why this matters

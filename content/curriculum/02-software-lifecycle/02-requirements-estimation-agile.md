@@ -2,7 +2,28 @@
 title: Requirements, estimation and agile delivery
 level: 1
 summary: Turning vague requests into testable acceptance criteria, estimating honestly, and working in sprints without ceremony overload.
-outcomes: Write user stories with testable acceptance criteria | Estimate with ranges and slice work into thin vertical increments | Handle ambiguity and scope changes with clients and product owners
+outcomes:
+- Write user stories with testable acceptance criteria
+- Estimate with ranges and slice work into thin vertical increments
+- Handle ambiguity and scope changes with clients and product owners
+keypoints:
+- A user story says who, what and why. Acceptance criteria must be testable (Given/When/Then).
+- Always write the **anti-goals** (what must never happen). They prevent the worst AI incidents.
+- Prefer thin vertical slices through every layer over building one layer at a time.
+- Estimate in ranges, say what drives the range, and run a time-boxed **spike** for unknowns.
+- Keep the agile rituals that shorten feedback; drop the ones that don't change decisions.
+projects:
+- name: Backlog for an AI support assistant
+  stack:
+  - Linear or GitHub Issues
+  - Markdown
+  build: Ten user stories with Given/When/Then criteria, anti-goals, estimates in ranges and one spike ticket, sliced vertically.
+  practises: Turning a vague request into buildable, testable work.
+- name: Estimation retro tracker
+  stack:
+  - Google Sheets or Airtable
+  build: Log your estimate ranges against actual time for every task for a month and chart your bias.
+  practises: Calibrating your own estimates with data.
 ---
 
 ## Why this matters

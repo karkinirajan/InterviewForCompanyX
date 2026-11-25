@@ -2,7 +2,33 @@
 title: Reliability for LLM calls
 level: 4
 summary: Failure classes of model APIs and the right response to each, rate limiting, fallbacks, and honest degradation, with the C1 reference implementation.
-outcomes: Map each provider failure to the correct response | Rate-limit by requests and tokens, per tenant | Implement typed output, bounded retries and provider fallback
+outcomes:
+- Map each provider failure to the correct response
+- Rate-limit by requests and tokens, per tenant
+- Implement typed output, bounded retries and provider fallback
+keypoints:
+- 'Q12 table: transient errors → backoff and jitter with a capped Retry-After, bounded; persistent → breaker and validated fallback; 4xx/policy → never retry; schema violation → one repair or fallback or human; all down → degrade honestly.'
+- Rate-limit **tokens** and requests per tenant, and return 429 with Retry-After.
+- 'Streaming needs three timeouts: connect, first token, total.'
+- Never pay twice. Save raw replies first and write outputs atomically.
+- Fall back only to **evaluated** models.
+projects:
+- name: Chaos-tested LLM client
+  stack:
+  - Python
+  - httpx
+  - respx
+  - pytest
+  - Pydantic
+  build: Implement C1 with a breaker and deadline, and test every Q12 row against simulated providers.
+  practises: Reliability policy, provably.
+- name: Batch extraction with resume
+  stack:
+  - Python
+  - SQLite
+  - an LLM batch API
+  build: Process 1,000 documents, kill it mid-run, resume without re-paying, and report cost and failure classes.
+  practises: Never pay twice; failure taxonomies.
 ---
 
 ## Why this matters

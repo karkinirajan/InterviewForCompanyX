@@ -2,7 +2,29 @@
 title: The SDLC end to end
 level: 1
 summary: The stages from idea to operation, who owns what, and the artefacts each stage leaves behind, with the AI-specific additions.
-outcomes: Name the SDLC stages and their outputs | Explain waterfall, agile and continuous delivery as trade-offs | Describe what "owning a feature across the SDLC" means in an interview
+outcomes:
+- Name the SDLC stages and their outputs
+- Explain waterfall, agile and continuous delivery as trade-offs
+- Describe what "owning a feature across the SDLC" means in an interview
+keypoints:
+- 'Stages: discover → requirements → design → build → verify → release → operate → learn.'
+- 'AI adds work at each stage: quality, latency and cost budgets; an eval plan; canary or shadow releases; drift monitoring.'
+- Waterfall, agile and continuous delivery are trade-offs. Choose by uncertainty and the cost of mistakes.
+- Owning a feature across the SDLC means you can describe what you did *before* the code and *after* the merge.
+projects:
+- name: Feature dossier
+  stack:
+  - Markdown
+  - GitHub Projects
+  build: Take one feature from idea to production on paper, with a problem statement, acceptance criteria, design notes, test plan, rollout plan and runbook.
+  practises: Thinking past the code to the whole lifecycle.
+- name: Changelog-driven release
+  stack:
+  - GitHub Actions
+  - Conventional Commits
+  - release-please
+  build: A repo that generates release notes and versions automatically from commit messages on merge to main.
+  practises: Release discipline and traceability.
 ---
 
 ## Why this matters

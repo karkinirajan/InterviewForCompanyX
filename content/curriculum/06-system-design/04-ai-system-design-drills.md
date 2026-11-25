@@ -2,7 +2,35 @@
 title: AI system design drills (D1–D4)
 level: 4
 summary: Four worked designs for AI systems (document intake, an LLM gateway, a permissioned RAG assistant, and taking an MVP to production), each with failure modes and metrics.
-outcomes: Design an extraction pipeline with deterministic validation and human review | Design a multi-provider LLM gateway | Critique your own system honestly and phase its hardening
+outcomes:
+- Design an extraction pipeline with deterministic validation and human review
+- Design a multi-provider LLM gateway
+- Critique your own system honestly and phase its hardening
+keypoints:
+- '**D1 intake:** OCR → schema extraction with evidence → deterministic validators → confident cases go through, uncertain ones go to review, plus an audit log.'
+- '**D2 gateway:** auth, tenant budgets (RPM+TPM), PII policy, cache, router with breakers, validated fallback, telemetry.'
+- '**D3 permissioned RAG:** ACLs at ingestion, mandatory filters at retrieval, citations checked, "not found" when evidence is missing.'
+- '**D4 MVP→prod:** auth, Postgres with RLS, queue workers, object storage, live vendor bake-off, metrics.'
+- Always say where the model decides and where code verifies.
+projects:
+- name: Mini document intake (D1)
+  stack:
+  - FastAPI
+  - Tesseract or Textract
+  - an LLM API
+  - Postgres
+  - React review UI
+  build: Upload invoices, extract fields with evidence, validate totals and dates, auto-approve confident ones and review the rest.
+  practises: The extract-validate-review pattern.
+- name: Permissioned policy assistant (D3)
+  stack:
+  - Next.js
+  - FastAPI
+  - pgvector
+  - Postgres RLS
+  - an LLM API
+  build: Two roles see different documents; answers cite chunk IDs that are verified server-side; "not found" when unsupported.
+  practises: Tenant-safe RAG with citations.
 ---
 
 ## Why this matters

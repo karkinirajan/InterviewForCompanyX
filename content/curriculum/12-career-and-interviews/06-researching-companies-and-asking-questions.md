@@ -2,7 +2,28 @@
 title: Researching companies and asking questions
 level: 1
 summary: Building a verified company brief, finding the pattern in what they ship, connecting it to your work, and asking questions that show judgement.
-outcomes: Build a one-page verified company brief | Name the pattern behind a company's products and your parallel | Ask three questions that lead to a real conversation
+outcomes:
+- Build a one-page verified company brief
+- Name the pattern behind a company's products and your parallel
+- Ask three questions that lead to a real conversation
+keypoints:
+- 'One-page brief: verified facts, what they ship, stack and partners, domain constraints, interview format, your parallel.'
+- Name the pattern behind their products once, and connect it to your work.
+- '"Why us" covers the work, the domain and the growth, each specific.'
+- Ask two or three questions that show judgement, and close with "anything to clarify?"
+projects:
+- name: Company brief generator
+  stack:
+  - Python
+  - a search API
+  - an LLM API with citations
+  build: Given a company name, collect sources and draft a cited one-page brief that you then verify by hand.
+  practises: Research with sources you check.
+- name: Question bank for interviewers
+  stack:
+  - Markdown
+  build: Twenty questions to ask companies, grouped by topic (AI platform, evals, team, growth), with what each answer tells you.
+  practises: Interviewing the company back.
 ---
 
 ## Why this matters

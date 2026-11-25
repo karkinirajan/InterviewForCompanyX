@@ -81,8 +81,17 @@ export const Prose = memo(function Prose({ html, page, before, after }: { html: 
     const root = ref.current;
     if (!root) return;
     enhance(root, page);
-    const hs = Array.from(root.querySelectorAll<HTMLHeadingElement>("h2[id], h3[id]"));
-    setHeads(hs.map((h) => ({ id: h.id, text: (h.textContent ?? "").replace(/^Part \d+ · /, ""), level: Number(h.tagName[1]) })));
+    const hs: HTMLElement[] = Array.from(root.querySelectorAll<HTMLHeadingElement>("h2[id], h3[id]"));
+    // Lesson chrome outside the article: the key points box and the projects section.
+    const top = document.getElementById("key-points");
+    const bottom = document.getElementById("build-to-remember");
+    if (top) hs.unshift(top);
+    if (bottom) hs.push(bottom);
+    setHeads(hs.map((h) => ({
+      id: h.id,
+      text: h === top ? "Key points" : (h.textContent ?? "").replace(/^Part \d+ · /, ""),
+      level: h.tagName === "H3" ? 3 : 2,
+    })));
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });

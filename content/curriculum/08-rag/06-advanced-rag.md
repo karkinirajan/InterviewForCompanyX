@@ -1,8 +1,34 @@
 ---
-title: "Advanced RAG: query rewriting, graphs and agentic retrieval"
+title: 'Advanced RAG: query rewriting, graphs and agentic retrieval'
 level: 4
 summary: Query transformation, metadata and temporal filters, knowledge-graph retrieval for multi-hop questions, and letting an agent decide what to retrieve.
-outcomes: Choose an advanced technique for a specific failure | Explain when a knowledge graph beats vector search | Decide when retrieval should be agentic
+outcomes:
+- Choose an advanced technique for a specific failure
+- Explain when a knowledge graph beats vector search
+- Decide when retrieval should be agentic
+keypoints:
+- Fix measured failures with targeted techniques, not by trend.
+- Vague or multi-turn queries call for **query rewriting**; multi-part ones for **decomposition**; vocabulary mismatch for HyDE or synonyms.
+- Time-sensitive questions use metadata and temporal filters; multi-hop relationships use a **knowledge graph**.
+- Make retrieval **agentic** only when the next lookup depends on the last, and keep budgets.
+- Contextual chunk headers make passages self-contained.
+projects:
+- name: Conversational RAG with rewriting
+  stack:
+  - FastAPI
+  - pgvector
+  - an LLM API
+  - an eval set
+  build: Add a query-rewrite step for multi-turn chat and measure recall on multi-turn cases with and without it.
+  practises: Evaluating a technique before keeping it.
+- name: GraphRAG on company news
+  stack:
+  - Neo4j or FalkorDB
+  - Graphiti
+  - Qdrant
+  - Python
+  build: Extract companies, people and events with dates into a graph, then answer multi-hop "who acquired whom, when" questions vs vector-only RAG.
+  practises: When graphs beat vectors.
 ---
 
 ## Why this matters

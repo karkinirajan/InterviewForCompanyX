@@ -2,7 +2,29 @@
 title: Behavioural and culture interviews
 level: 1
 summary: Mapping your stories to a company's values, answering the classic behavioural prompts, and talking about trade-offs and mistakes with maturity.
-outcomes: Map company values to concrete evidence | Answer the eight classic behavioural prompts | Discuss mistakes and disagreements without defensiveness
+outcomes:
+- Map company values to concrete evidence
+- Answer the eight classic behavioural prompts
+- Discuss mistakes and disagreements without defensiveness
+keypoints:
+- Map each company value to a concrete story.
+- Short-term vs long-term means the smallest safe slice, with the trade-off said out loud.
+- Disagreement means arguing with data, then committing. A mistake means owning it, the fix and the lasting change.
+- Explain AI to non-engineers as making the product deterministic around a non-deterministic model.
+- Say "I" for your part, and never criticise former employers.
+projects:
+- name: Values evidence board
+  stack:
+  - Notion or Markdown
+  build: For three target companies, map their stated values to your stories with one-line evidence each.
+  practises: Company-specific behavioural prep.
+- name: Mock behavioural loop
+  stack:
+  - A friend or an LLM interviewer prompt
+  - a timer
+  - a recorder
+  build: Six behavioural questions, two minutes each, recorded and self-scored on clarity, ownership and lesson.
+  practises: Delivery under time pressure.
 ---
 
 ## Why this matters

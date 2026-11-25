@@ -1,6 +1,6 @@
 # Engineering field guide: intern → applied AI engineer
 
-A Next.js 16 static site that teaches one career path as a book: full-stack foundations first, then the move to LLMs, RAG, agents, production AI and AI automation, then interviews, case studies and reference. 15 parts, 86 lessons, each with what / how / why this way / common mistakes / check-yourself questions / an exercise / what comes next.
+A Next.js 16 static site: a reference handbook, and an interview-prep route, for one career path: full-stack foundations first, then the move to LLMs, RAG, agents, production AI and AI automation, then interviews, case studies and reference. 15 parts, 86 lessons, each with what / how / why this way / common mistakes / check-yourself questions / an exercise / what comes next.
 
 ## Quick start
 
@@ -34,6 +34,7 @@ Content compilation needs [`uv`](https://docs.astral.sh/uv/) (runs Python with `
 │   │   ├── 12-career-and-interviews/
 │   │   ├── 13-casebook/
 │   │   └── 14-reference/
+│   ├── interview-route.yaml                  the follow-through order for interview prep
 │   └── archive/leapfrog-2026/                the original interview manual (not rendered)
 ├── scripts/                              2 · Tooling
 │   ├── compile_content.py                    curriculum → src/content/generated/*.json; fails on broken links
@@ -43,6 +44,7 @@ Content compilation needs [`uv`](https://docs.astral.sh/uv/) (runs Python with `
 │   │   ├── page.tsx                          / start page: progress, career ladder, the book
 │   │   ├── [track]/page.tsx                  /NN-part overview
 │   │   ├── [track]/[lesson]/page.tsx         /NN-part/NN-lesson
+│   │   ├── interview-route/page.tsx          /interview-route follow-through plan
 │   │   ├── tech-map/page.tsx                 tech flow map
 │   │   └── layout.tsx, not-found.tsx
 │   ├── components/                       4 · UI
@@ -60,14 +62,22 @@ Content compilation needs [`uv`](https://docs.astral.sh/uv/) (runs Python with `
 
 ## Writing a lesson
 
-Create `content/curriculum/NN-part/NN-slug.md`:
+Create `content/curriculum/NN-part/NN-slug.md`. Front matter is YAML:
 
 ```markdown
 ---
 title: Lesson title
 level: 2                      # 0 intern · 1 junior · 2 mid · 3 senior · 4 applied AI
 summary: One sentence shown under the title and in lists.
-outcomes: First outcome | Second outcome | Third outcome
+outcomes:
+  - What you should be able to do
+keypoints:                    # 3-8: the two-minute version, shown first
+  - The point to remember
+projects:                     # exactly 2 hands-on builds
+  - name: Project name
+    stack: [FastAPI, Postgres]
+    build: What to build, in a sentence or two.
+    practises: Which skills it drills.
 ---
 
 ## Why this matters
@@ -81,10 +91,14 @@ Answer.
 </details>
 ```
 
-Quote a front-matter value if it contains `": "`. Order comes from the `NN-` prefixes. Link lessons with absolute paths (`/08-rag/02-ingestion-and-chunking`) and reusable items with anchors (`[Q12](#q12)`); anchors are declared with `<a id="q12"></a>` and must be unique across the book. The build fails on any broken link.
+Quote YAML values that contain `": "` or start with a quote. Order comes from the `NN-` prefixes. Link lessons with absolute paths (`/08-rag/02-ingestion-and-chunking`) and reusable items with anchors (`[Q12](#q12)`); anchors are declared with `<a id="q12"></a>` and must be unique across the book.
+
+The build fails on a broken link, an unknown lesson in `content/interview-route.yaml`, or a lesson without 3-8 key points and exactly two projects. Set `CONTENT_DRAFT=1` to build anyway while drafting.
 
 ## Features
 
+- **Two modes:** look a topic up (search, key points first) or follow the interview route end to end.
+- **Every lesson** opens with key points and closes with two hands-on projects, each with a stack.
 - **Book navigation:** parts and lessons in the sidebar, previous/next across the whole book, a "continue" card.
 - **Levels:** every lesson is tagged L0 intern → L4 applied AI engineer.
 - **IDs (Q1–Q44, D1–D4, C1–C5, P0–P13, S1–S11, glossary)** link across pages; hover for a preview, click to jump.

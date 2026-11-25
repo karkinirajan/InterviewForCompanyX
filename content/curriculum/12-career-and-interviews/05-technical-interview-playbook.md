@@ -2,7 +2,29 @@
 title: Technical interview playbook
 level: 2
 summary: The answer shape for technical questions, defending metrics, a scored 20-question mock drill, and how to use the question bank to prepare.
-outcomes: Answer in the principle → implementation → trade-off → proof shape | Defend every number on your CV | Run and score a realistic mock interview
+outcomes:
+- Answer in the principle → implementation → trade-off → proof shape
+- Defend every number on your CV
+- Run and score a realistic mock interview
+keypoints:
+- 'Answer shape: **principle → implementation → trade-off → proof**, in 60–120 s.'
+- 'Metric defense: baseline, measurement, mechanism, your share, what you''d change.'
+- The mock drill is 20 questions scored 0/1/2, gate 32/40, redo every zero.
+- Think aloud, state assumptions, end design answers with what breaks first.
+- 'Q44: have an honest "what would I change" (D4).'
+projects:
+- name: Mock interview runner
+  stack:
+  - Next.js
+  - an LLM API
+  - a speech-to-text API
+  build: Asks drill questions, records and transcribes your answers, and scores them against the answer shape with a rubric you calibrate.
+  practises: High-volume, structured practice.
+- name: Metric defense sheets
+  stack:
+  - Markdown or Sheets
+  build: Fill the defense table for every number on your CV, and drop any metric whose row you can't complete honestly.
+  practises: Defensible claims.
 ---
 
 ## Why this matters

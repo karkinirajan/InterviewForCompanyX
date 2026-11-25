@@ -2,7 +2,33 @@
 title: Tool calling and the agent loop
 level: 4
 summary: How a model requests tool calls, how your code executes them safely, and how to write the loop yourself before reaching for a framework.
-outcomes: Define tools with tight schemas | Implement an agent loop with validation, authorization and limits | Put guardrails in the tools rather than the prompt
+outcomes:
+- Define tools with tight schemas
+- Implement an agent loop with validation, authorization and limits
+- Put guardrails in the tools rather than the prompt
+keypoints:
+- 'Loop: model → tool calls → validate args → **authorise in code** → execute narrowly → return result as data → check budgets → repeat.'
+- "Keep tools narrow with strict schemas (`additionalProperties: false`)."
+- Tools run with the **user's** permissions and return minimal data.
+- Tool results are untrusted input to the next turn and an injection channel.
+- Put invariants in the tools, e.g. "the account can't go negative, whatever the model says".
+projects:
+- name: Hand-written agent loop
+  stack:
+  - Python
+  - an LLM API
+  - SQLite
+  - pytest
+  build: A loop with three tools over a fake shop DB, step budget, argument validation and tests where the model asks for another user's data.
+  practises: Understanding every framework's core.
+- name: Personal finance agent (read-only)
+  stack:
+  - TypeScript
+  - Vercel AI SDK
+  - Plaid sandbox or CSV
+  - Postgres
+  build: Answer spending questions with tools that only read and aggregate, with spending invariants enforced in the tools.
+  practises: Tool design and guardrails in code.
 ---
 
 ## Why this matters

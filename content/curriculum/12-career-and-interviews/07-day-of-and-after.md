@@ -2,7 +2,28 @@
 title: Day-of checklist and after the interview
 level: 1
 summary: Logistics, setup, what to pin and prepare, how to behave in the room, and the after-action review that improves the next one.
-outcomes: Arrive (or log in) prepared with nothing left to chance | Present your repositories deliberately | Run a post-interview review that compounds
+outcomes:
+- Arrive (or log in) prepared with nothing left to chance
+- Present your repositories deliberately
+- Run a post-interview review that compounds
+keypoints:
+- 'Night before: audit done, intro rehearsed, drill scored, brief ready, repos pinned.'
+- Pin repos you can explain line by line, with honest READMEs and credited provenance.
+- 'On the day: log in 10 minutes early with a backup connection, tabs ready, pen and paper.'
+- Write down every question within an hour afterwards and score your answers.
+projects:
+- name: Interview day checklist app
+  stack:
+  - PWA
+  - localStorage
+  build: Reusable checklists (night before, day of, after) with per-interview notes and a "questions asked" log.
+  practises: Repeatable logistics.
+- name: Post-interview log
+  stack:
+  - Markdown + Git
+  - or Notion
+  build: One file per interview listing questions, your answers, scores and fixes, feeding new questions into your bank.
+  practises: Compounding improvement.
 ---
 
 ## The night before

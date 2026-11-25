@@ -2,7 +2,31 @@
 title: The career map
 level: 0
 summary: The five levels from intern to applied AI engineer, what each one is trusted with, and the skills that move you up.
-outcomes: Place yourself on the ladder honestly | Name the skill gap between your level and the next | Explain what an "applied AI engineer" does and doesn't do
+outcomes:
+- Place yourself on the ladder honestly
+- Name the skill gap between your level and the next
+- Explain what an "applied AI engineer" does and doesn't do
+keypoints:
+- Five levels by trust. L0 intern (a ticket with help) → L1 junior (a feature end to end) → L2 mid (a service) → L3 senior (systems and direction) → L4 applied AI (models in production).
+- L4 is a specialisation built on L2–L3 engineering, not a promotion past it.
+- Applied AI is the layer **around** the model (integration, RAG, agents, prompts and evals, guardrails, monitoring, UI, SDLC ownership), not training models.
+- The usual path is backend depth → owning services in production → adding LLM features to products you already know.
+- 'The senior answer shape: principle → implementation → trade-off → proof from your own work.'
+projects:
+- name: Skills gap matrix
+  stack:
+  - Google Sheets or Airtable
+  - Markdown
+  build: List the eight applied-AI responsibilities against your projects (● strong, ○ some, blank none) and plan one project per blank column.
+  practises: Honest self-placement; mapping job descriptions to evidence.
+- name: '"Job description decoder" CLI'
+  stack:
+  - Python
+  - uv
+  - an LLM API
+  - Pydantic
+  build: Paste a job description and get the responsibilities extracted into a validated schema, mapped to the guide's parts.
+  practises: Your first structured-output LLM call, validated with Pydantic.
 ---
 
 ## Why this matters

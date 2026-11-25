@@ -2,7 +2,31 @@
 title: HTML, CSS and the browser
 level: 0
 summary: Semantic HTML, the CSS layout systems you actually need, accessibility basics and how the browser renders a page.
-outcomes: Write semantic, accessible HTML | Lay out pages with flexbox and grid | Explain the critical rendering path at a working level
+outcomes:
+- Write semantic, accessible HTML
+- Lay out pages with flexbox and grid
+- Explain the critical rendering path at a working level
+keypoints:
+- 'Use semantic elements: `<button>` for actions, `<a>` for navigation, `<label>` for inputs.'
+- Use flexbox for one dimension and grid for two, with mobile-first responsive layouts.
+- 'Accessibility basics: keyboard reachable, visible focus, contrast, alt text, `aria-live` for updates.'
+- Rendering goes HTML→DOM, CSS→CSSOM, then layout, then paint. Heavy scripts block it.
+projects:
+- name: Accessible pricing page
+  stack:
+  - HTML
+  - CSS grid
+  - Lighthouse
+  - axe
+  build: A responsive three-tier pricing page with a light/dark theme via CSS variables, scoring 100 on Lighthouse accessibility.
+  practises: Semantics, layout, theming, a11y testing.
+- name: Keyboard-only form wizard
+  stack:
+  - HTML
+  - CSS
+  - vanilla JS
+  build: A three-step form with validation messages announced via aria-live, fully usable without a mouse.
+  practises: Focus management and accessible feedback.
 ---
 
 ## Why this matters

@@ -1,8 +1,34 @@
 ---
-title: "Document AI: OCR, extraction and human review"
+title: 'Document AI: OCR, extraction and human review'
 level: 4
 summary: Turning PDFs, scans and faxes into validated structured data with OCR, layout parsing, schema extraction, deterministic validation and review queues.
-outcomes: Build an extraction pipeline with evidence and confidence | Validate extracted fields deterministically | Design a review queue whose corrections improve the system
+outcomes:
+- Build an extraction pipeline with evidence and confidence
+- Validate extracted fields deterministically
+- Design a review queue whose corrections improve the system
+keypoints:
+- Intake → OCR/layout → classify → extract to schema **with evidence spans** → validate deterministically → route → review → learn.
+- Compute totals, dates and check digits in code, never trusting model arithmetic.
+- Route on combined signals (validation, evidence found, field criticality, calibrated confidence, OCR quality).
+- Track field accuracy, straight-through rate, queue age, corrections per field and cost per document.
+- Corrections become eval cases.
+projects:
+- name: Invoice processor
+  stack:
+  - FastAPI
+  - Docling or Textract
+  - an LLM API
+  - Postgres
+  - React review UI
+  build: Extract invoice fields with evidence, validate sums and dates, auto-approve the confident ones, and give reviewers highlighted evidence.
+  practises: The full document-AI loop.
+- name: Receipt scanner app
+  stack:
+  - React Native or a PWA
+  - a vision-capable model
+  - Supabase
+  build: Photograph receipts, extract merchant, date and total, confirm on screen, and export expenses as CSV.
+  practises: Multimodal extraction with human confirmation.
 ---
 
 ## Why this matters

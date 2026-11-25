@@ -2,7 +2,32 @@
 title: AI observability and cost control
 level: 4
 summary: Tracing model and agent calls, the dashboard an AI feature needs, drift detection, and budgets that stop cost surprises.
-outcomes: Instrument every model call with the fields that matter | Build an AI dashboard across seven layers | Set budgets and alerts per tenant and feature
+outcomes:
+- Instrument every model call with the fields that matter
+- Build an AI dashboard across seven layers
+- Set budgets and alerts per tenant and feature
+keypoints:
+- Per call, log the request ID, tenant, feature, model, prompt version, tokens, cache hits, cost, TTFT, total, retries, fallback and outcome.
+- 'Q36 dashboard layers: API, provider, cost, RAG, generation, agent, product.'
+- Track cost per **successful** task weekly, with budgets and alerts per tenant and feature.
+- 'Drift comes in four kinds: input, model, data and quality.'
+- Don't store raw prompts with personal data by default.
+projects:
+- name: AI cost and quality dashboard
+  stack:
+  - Langfuse or OpenTelemetry
+  - ClickHouse or Postgres
+  - Grafana
+  build: All seven dashboard layers for one AI feature, with alerts on cost per task and schema-violation rate.
+  practises: Operating AI like any production service.
+- name: Drift detector
+  stack:
+  - Python
+  - embeddings
+  - scheduled job
+  - Slack webhook
+  build: Cluster weekly user queries, alert when new clusters appear or the judge score trends down, and post to Slack.
+  practises: Catching silent quality decay.
 ---
 
 ## Why this matters

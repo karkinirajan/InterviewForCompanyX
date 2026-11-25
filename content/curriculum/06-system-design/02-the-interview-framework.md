@@ -1,8 +1,31 @@
 ---
 title: The system design interview framework
 level: 3
-summary: A repeatable structure for design interviews: clarify, sketch the main path, data and auth, failure modes, evaluation and trade-offs.
-outcomes: Run a 45-minute design interview without losing structure | Name three failure modes before being asked | Close with trade-offs and what you'd build first
+summary: 'A repeatable structure for design interviews: clarify, sketch the main path, data and auth, failure modes, evaluation and trade-offs.'
+outcomes:
+- Run a 45-minute design interview without losing structure
+- Name three failure modes before being asked
+- Close with trade-offs and what you'd build first
+keypoints:
+- Clarify → main path → data and auth → **three failure modes** → evals and observability → trade-offs and scale → close.
+- Ask what a wrong answer costs. It decides review, validation and audit.
+- Start simple, then harden. Never open with a vendor name.
+- 'Rough timing for 45 minutes: 5 clarify, 10 main path, 10 data/hard part, 7 failures, 6 evals/cost, 7 scale.'
+- If the interviewer goes deep, follow them; they're showing you what they're assessing.
+projects:
+- name: Recorded mock designs
+  stack:
+  - Excalidraw
+  - a phone camera
+  - a timer
+  build: Record yourself doing three 45-minute designs with the framework, score them with a rubric and redo the weakest.
+  practises: Structure and time management under pressure.
+- name: Design doc template repo
+  stack:
+  - Markdown
+  - GitHub
+  build: A reusable design-doc template (requirements, numbers, diagram, data, auth, failures, evals, trade-offs) and two filled examples.
+  practises: Writing designs the way senior engineers do.
 ---
 
 ## Why this matters

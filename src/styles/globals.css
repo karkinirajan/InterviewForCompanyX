@@ -519,3 +519,53 @@ li.task.checked { color: var(--muted); text-decoration: line-through; text-decor
   .lesson-list a { grid-template-columns: 44px 1fr; }
   .ll-meta { grid-column: 2; flex-direction: row; align-items: center; }
 }
+
+/* 11. Reference mode: key points, projects, interview route --- */
+.lesson-brief { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-bottom: 4px; }
+.keypoints, .outcomes { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; }
+.keypoints { background: var(--surface); box-shadow: var(--shadow); border-left: 4px solid var(--accent); }
+.keypoints ol { margin: 8px 0 0; padding-left: 20px; }
+.keypoints li { margin: 5px 0; font-size: 14.5px; line-height: 1.5; }
+.keypoints li::marker { color: var(--accent); font-weight: 650; }
+.keypoints code, .outcomes code, .project-card code { font: 12.5px var(--mono); background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+
+.projects { margin-top: 48px; }
+.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+.project-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+.project-card h3 { font: 600 19px/1.3 var(--serif); margin: 0; }
+.project-card p { margin: 0; font-size: 14.5px; line-height: 1.55; }
+.pc-num { font: 600 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--warm); }
+.stack-chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.stack-chips li { font: 600 11.5px var(--mono); padding: 3px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+.pc-practises { color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto !important; }
+.pc-practises b { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+
+.ways-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.way-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.way-card.way-primary { border-color: var(--accent); background: linear-gradient(150deg, var(--accent-soft), var(--surface) 60%); }
+.way-card h3 { font: 600 22px/1.25 var(--serif); margin: 6px 0 8px; }
+.way-card p { margin: 0 0 12px; }
+.way-card ul { margin: 0; padding-left: 20px; line-height: 1.7; }
+.way-kicker { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--warm); font-weight: 650; }
+
+.route-stages { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.route-stages > li { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; box-shadow: var(--shadow); }
+.route-stages > li.is-done { border-color: var(--accent); }
+.route-stages header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.route-stages h2 { font: 600 24px var(--serif); margin: 0; }
+.route-goal { color: var(--ink-2); margin: 6px 0 14px; }
+.route-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.route-steps a { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 10px 12px; border-radius: var(--radius-sm); color: var(--ink); border: 1px solid transparent; }
+.route-steps a:hover { border-color: var(--accent); background: var(--surface-2); text-decoration: none; }
+.route-steps li.is-done a { background: linear-gradient(90deg, var(--accent-soft), transparent 60%); }
+.rs-num { font: 600 17px var(--serif); color: var(--muted); }
+.route-steps li.is-done .rs-num { color: var(--accent); }
+.rs-body { display: flex; flex-direction: column; gap: 2px; }
+.rs-body small { color: var(--muted); font-size: 13.5px; }
+.rs-min { font: 600 12px var(--mono); color: var(--muted); }
+
+@media (max-width: 960px) {
+  .lesson-brief, .project-grid, .ways-grid { grid-template-columns: 1fr; }
+  .route-steps a { grid-template-columns: 40px 1fr; }
+  .rs-min { grid-column: 2; }
+}

@@ -1,8 +1,35 @@
 ---
-title: "P1 · reelslicer: an AI clip service with a measurement layer"
+title: 'P1 · reelslicer: an AI clip service with a measurement layer'
 level: 4
 summary: A personal product that turns long videos into captioned vertical clips in English, Hindi and Nepali, built so every quality claim is measured and the model is fenced in.
-outcomes: Explain how the model is constrained to segment numbers | Describe the measurement layer and why it came first | Present the honest status and the path to production
+outcomes:
+- Explain how the model is constrained to segment numbers
+- Describe the measurement layer and why it came first
+- Present the honest status and the path to production
+keypoints:
+- The model returns **segment numbers, never timestamps**, so hallucinated times and mid-word cuts are impossible.
+- Paid, non-deterministic `propose` is split from free, deterministic `select`, so rules can be retuned without paying again.
+- Every output records the prompt version and SHA-256 fingerprint, pinned by a test.
+- Consent defaults to no. The command prints a plan first, and holdout items are excluded.
+- 'Honest status: vendor adapters and live `propose` never run; the golden set is empty; no auth yet. D4 is the path to production.'
+projects:
+- name: Clip finder, simplified
+  stack:
+  - Python
+  - faster-whisper
+  - an LLM API
+  - FFmpeg
+  build: Transcribe a video, number its sentence segments, ask a model for start/end segment numbers, and cut clips on word boundaries.
+  practises: Constraining model output structurally.
+- name: Measurement layer first
+  stack:
+  - Python
+  - jiwer
+  - grapheme library
+  - pytest
+  - mutmut
+  build: WER/CER over grapheme clusters plus clip precision@k, mutation-tested, before any model work.
+  practises: Measure before you build.
 ---
 
 <a id="p1"></a>

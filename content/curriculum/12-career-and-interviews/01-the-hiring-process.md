@@ -2,7 +2,31 @@
 title: The hiring process, decoded
 level: 1
 summary: Typical interview stages, how to map a job description to your evidence, screening questions, and the consistency checks that sink candidates.
-outcomes: Map every responsibility in a job description to proof from your work | Prepare for each stage of a typical process | Make your CV, profiles and repositories consistent before anyone checks
+outcomes:
+- Map every responsibility in a job description to proof from your work
+- Prepare for each stage of a typical process
+- Make your CV, profiles and repositories consistent before anyone checks
+keypoints:
+- 'Typical stages: recruiter, screening questions, coding, technical deep-dive, system design, behavioural, reference check, offer.'
+- Map **every JD responsibility to proof** (a project or story) and the likely questions.
+- Run the consistency audit (dates, education, numbers, repos, public claims) before applying.
+- Correct errors proactively. A small awkwardness early beats a failed reference check.
+projects:
+- name: Application tracker with JD mapper
+  stack:
+  - Next.js
+  - Postgres
+  - an LLM API
+  - zod
+  build: Track applications; paste a JD to extract responsibilities and map them to your project list, highlighting gaps.
+  practises: JD decoding and evidence mapping.
+- name: Consistency checker
+  stack:
+  - Python
+  - BeautifulSoup
+  - a YAML "source of truth"
+  build: Keep your dates, titles and numbers in one YAML file and check your portfolio site, README and CV text against it for mismatches.
+  practises: Automating the consistency audit.
 ---
 
 ## Why this matters

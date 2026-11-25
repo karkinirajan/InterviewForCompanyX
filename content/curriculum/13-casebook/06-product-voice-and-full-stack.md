@@ -1,8 +1,35 @@
 ---
-title: "P0, P6, P7, P10–P13 · Product, voice and full-stack work"
+title: P0, P6, P7, P10–P13 · Product, voice and full-stack work
 level: 3
 summary: An AI ops console, a lead-scoring platform with a shadow model, a voice stack, a daily news product, backend rescues, a browser extension and a router demo, each with the pattern worth reusing.
-outcomes: Reuse the patterns from each project in your own work | Scope claims precisely to your role | Use production-hygiene details as interview evidence
+outcomes:
+- Reuse the patterns from each project in your own work
+- Scope claims precisely to your role
+- Use production-hygiene details as interview evidence
+keypoints:
+- '**P6:** scope claims to your role. Frontend console plus two findings (resolver fallback, Slack injection).'
+- '**P7:** a shadow model before promotion, refusal of placeholder secrets, encrypted CRM tokens, URL checks.'
+- '**P10:** multi-vendor audio normalised to 16 kHz mono; evidence-based vendor choice.'
+- '**P12:** sanitise output, audit without values, confirm exact side effects.'
+- '**P0:** featured claims without inspectable code invite the hardest questions.'
+projects:
+- name: Lead scoring with shadow model
+  stack:
+  - FastAPI
+  - Postgres
+  - XGBoost
+  - HubSpot sandbox
+  - Docker Compose
+  build: Score leads with a transparent formula live and an ML model in shadow, with a promotion dashboard comparing them on outcomes.
+  practises: Safe rollout of learned models.
+- name: Ops console for an AI assistant
+  stack:
+  - Next.js
+  - SSE
+  - Postgres
+  - an LLM API
+  build: A live feed of assistant decisions with a trace drawer and a chat panel, highlighting tool results that look like injected instructions.
+  practises: Operator UX and injection visibility.
 ---
 
 <a id="p6"></a>

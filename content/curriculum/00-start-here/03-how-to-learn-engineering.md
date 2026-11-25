@@ -1,8 +1,32 @@
 ---
 title: How to learn engineering
 level: 0
-summary: Deliberate practice, retrieval, spaced repetition and building in public: the study habits that turn this guide into skill.
-outcomes: Run a weekly study loop | Use retrieval practice instead of rereading | Build a portfolio that proves skill rather than lists it
+summary: 'Deliberate practice, retrieval, spaced repetition and building in public: the study habits that turn this guide into skill.'
+outcomes:
+- Run a weekly study loop
+- Use retrieval practice instead of rereading
+- Build a portfolio that proves skill rather than lists it
+keypoints:
+- Retrieval beats rereading. Answer before you look.
+- Spaced repetition. Review after a day, a week, a month.
+- Deliberate practice means working just beyond your ability, on one weakness, with fast feedback.
+- Learn a codebase by running it, following one request end to end, and reading the tests.
+- Use AI coding assistants to review your work, not to replace it. Never keep code you can't explain.
+- A portfolio proves skill when its README states decisions, numbers with baselines, and known gaps.
+projects:
+- name: Flashcard drill from the question bank
+  stack:
+  - Python
+  - SQLite
+  - Typer
+  build: A CLI that asks a random check-yourself question, times your spoken answer, records your 0/1/2 score and schedules the next review (SM-2 style).
+  practises: Spaced repetition and a small data model.
+- name: Codebase tour log
+  stack:
+  - Any open-source FastAPI or Django project
+  - Markdown
+  build: Clone a real project, run it, trace one request end to end, and write a one-page "how it works" with a diagram.
+  practises: Reading unfamiliar code, which is the skill you'll use most at work.
 ---
 
 ## Why this matters

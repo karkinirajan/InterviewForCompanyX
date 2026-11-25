@@ -2,7 +2,31 @@
 title: How the web works
 level: 0
 summary: DNS, TCP, TLS and HTTP from a URL to a rendered page, plus the status codes, headers and caching rules every web engineer needs.
-outcomes: Trace a request from URL to response | Use HTTP methods, status codes and headers correctly | Explain cookies, CORS and caching at a working level
+outcomes:
+- Trace a request from URL to response
+- Use HTTP methods, status codes and headers correctly
+- Explain cookies, CORS and caching at a working level
+keypoints:
+- URL → DNS → TCP/QUIC → TLS → HTTP request → proxy/CDN → app → response → browser render.
+- Methods have meaning. GET is safe, PUT and DELETE are idempotent, POST is neither (unless you add an idempotency key).
+- Retry 429 and 5xx with backoff. Never retry 400, 401, 403, 404 or 422.
+- Cookies should be `HttpOnly`, `Secure` and `SameSite`. CORS protects browsers; it isn't auth.
+- Streams (SSE, LLM tokens) break when proxies buffer, so disable buffering on stream routes.
+projects:
+- name: HTTP inspector
+  stack:
+  - Python
+  - FastAPI
+  - httpx
+  build: An endpoint that echoes method, headers, cookies and body, plus a client that demonstrates caching with ETag/304 and a 429 with Retry-After.
+  practises: Status codes, headers and caching, seen from both sides.
+- name: Tiny SSE clock
+  stack:
+  - FastAPI
+  - Nginx
+  - vanilla JS
+  build: Stream the time every second over SSE, put Nginx in front, watch buffering break it, then fix it.
+  practises: Streaming responses and proxy behaviour.
 ---
 
 ## Why this matters

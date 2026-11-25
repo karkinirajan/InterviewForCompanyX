@@ -2,7 +2,34 @@
 title: Authentication and authorization
 level: 2
 summary: Proving who a user is (sessions, JWTs, OAuth) and deciding what they may do (roles, ownership checks, row-level security), without the classic holes.
-outcomes: Choose between server sessions and JWTs | Explain the OAuth authorization code flow with PKCE | Prevent IDOR with object-level authorization checks
+outcomes:
+- Choose between server sessions and JWTs
+- Explain the OAuth authorization code flow with PKCE
+- Prevent IDOR with object-level authorization checks
+keypoints:
+- Authentication asks who you are; authorization asks what you may do. Most breaches are authorization bugs.
+- '**IDOR**: check object ownership on *every* access, and return the same 404 for missing and not yours.'
+- Sessions are simple and revocable. JWTs are stateless, so keep them short-lived with rotating refresh tokens.
+- OAuth/OIDC uses the authorization code flow with PKCE. Hash passwords with Argon2id or bcrypt.
+- Never trust a client-sent tenant ID. Add RLS as a second wall. Prompts never grant permissions.
+projects:
+- name: Multi-tenant SaaS starter
+  stack:
+  - FastAPI
+  - Postgres RLS
+  - Argon2
+  - HttpOnly cookies
+  - pytest
+  build: Sign-up, login, organisations and roles; every query is tenant-filtered with an RLS backstop; tests prove user A can't read user B's data.
+  practises: Object-level authorization and defence in depth.
+- name: Sign in with Google + API keys
+  stack:
+  - Next.js
+  - Auth.js
+  - Postgres
+  - Prisma
+  build: OAuth login plus per-user API keys (hashed, scoped, revocable) for programmatic access.
+  practises: OAuth flows, key hygiene, scopes.
 ---
 
 ## Why this matters

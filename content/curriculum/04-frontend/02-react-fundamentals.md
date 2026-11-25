@@ -2,7 +2,32 @@
 title: React fundamentals
 level: 1
 summary: Components, props, state, effects and the rendering model, with the patterns that keep components predictable.
-outcomes: Build components with props and state | Use effects correctly (and avoid them when you can) | Model UI state so impossible states can't happen
+outcomes:
+- Build components with props and state
+- Use effects correctly (and avoid them when you can)
+- Model UI state so impossible states can't happen
+keypoints:
+- UI is a function of props and state. Rendering must be pure.
+- Update state immutably (`[...items, x]`), never by mutating.
+- Effects sync with the outside world. Don't use them to derive state; compute it during render.
+- Use a single status or a discriminated union instead of contradictory booleans.
+- Give lists stable keys, not indexes, and handle fetch races.
+projects:
+- name: Kanban board
+  stack:
+  - React
+  - TypeScript
+  - Vite
+  - Testing Library
+  build: Columns, drag to move, add/edit cards, undo; state in a reducer with tests for every action.
+  practises: State modelling, immutability, testing UI logic.
+- name: Ask box with status union
+  stack:
+  - React
+  - TypeScript
+  - MSW
+  build: A question form calling a mocked API that sometimes fails or is slow, with idle/loading/error/success states and race-safe requests.
+  practises: Async UI states and race conditions.
 ---
 
 ## Why this matters

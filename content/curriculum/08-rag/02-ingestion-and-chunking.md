@@ -1,8 +1,34 @@
 ---
 title: Ingestion and chunking
 level: 4
-summary: Getting documents in cleanly: parsing, metadata, structure-aware chunking, deduplication, versioning, updates and deletion.
-outcomes: Build an idempotent ingestion pipeline | Choose a chunking strategy and test it on retrieval metrics | Handle updates, deletions and embedding-model changes
+summary: 'Getting documents in cleanly: parsing, metadata, structure-aware chunking, deduplication, versioning, updates and deletion.'
+outcomes:
+- Build an idempotent ingestion pipeline
+- Choose a chunking strategy and test it on retrieval metrics
+- Handle updates, deletions and embedding-model changes
+keypoints:
+- 'Pipeline: connect → layout-aware parse → handle PII → metadata → chunk → embed → index.'
+- Chunk structure-aware first (never split a table or a criterion), then tune size and overlap on recall@k.
+- Prefix chunks with context (document › section) so they stand alone.
+- Ingestion must be idempotent, keyed by source ID + checksum, with versions that supersede.
+- Deleting a document removes its vectors, lexical entries and caches, then verifies they're gone.
+projects:
+- name: Idempotent ingestion worker
+  stack:
+  - Python
+  - Celery
+  - unstructured or Docling
+  - pgvector
+  - S3/MinIO
+  build: Ingest PDFs and Markdown with structure-aware chunks, checksums and versions; re-runs create no duplicates and deletes are verified.
+  practises: Ingestion correctness.
+- name: Chunking experiment
+  stack:
+  - Python
+  - LlamaIndex or plain code
+  - an eval set
+  build: Compare fixed, structure-aware and parent-child chunking on recall@5 and answer quality, and publish the results table.
+  practises: Choosing chunk strategy by measurement.
 ---
 
 ## Why this matters

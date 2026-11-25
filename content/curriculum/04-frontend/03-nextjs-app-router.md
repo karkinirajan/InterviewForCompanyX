@@ -2,7 +2,34 @@
 title: Next.js and the App Router
 level: 1
 summary: Server and client components, rendering modes (static, dynamic, streaming), route handlers and deployment, with the security rules for server code.
-outcomes: Decide what runs on the server and what on the client | Choose static, dynamic or streamed rendering per route | Keep secrets and data access on the server
+outcomes:
+- Decide what runs on the server and what on the client
+- Choose static, dynamic or streamed rendering per route
+- Keep secrets and data access on the server
+keypoints:
+- Server components are the default and keep data access and secrets on the server. Add `"use client"` only for interactivity.
+- Render statically if you can, dynamically if you must, and stream with Suspense for slow parts.
+- Route handlers and server actions are **public endpoints**, so validate every input.
+- Use `server-only` modules for DB and secrets. `NEXT_PUBLIC_` variables are published to everyone.
+- Read the version-matched docs in `node_modules/next/dist/docs/`.
+projects:
+- name: Docs site with search
+  stack:
+  - Next.js App Router
+  - MDX
+  - static export
+  - Pagefind
+  build: A statically exported documentation site with sidebar navigation and client-side search, deployed to Vercel.
+  practises: Static rendering, layouts, deployment.
+- name: Dashboard with server data
+  stack:
+  - Next.js
+  - Postgres
+  - Drizzle
+  - zod
+  - Auth.js
+  build: Server-component pages reading from Postgres through server-only modules, a validated server action for edits, and streamed slow widgets.
+  practises: The server/client boundary and secure server code.
 ---
 
 ## Why this matters

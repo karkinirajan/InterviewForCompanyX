@@ -2,7 +2,32 @@
 title: Memory, state and durable workflows
 level: 4
 summary: Conversation memory, long-term user memory, explicit agent state, checkpoints, and durable execution for long-running or multi-step AI processes.
-outcomes: Design short- and long-term memory without leaking data | Model agent state explicitly with checkpoints | Use durable workflows for steps that must survive crashes
+outcomes:
+- Design short- and long-term memory without leaking data
+- Model agent state explicitly with checkpoints
+- Use durable workflows for steps that must survive crashes
+keypoints:
+- Short-term memory is the trimmed or summarised conversation. Long-term memory is retrieved facts, scoped per user.
+- Keep explicit, typed agent state, checkpointed after every step.
+- Durable workflows replay to the last completed step after crashes, which suits long waits and approvals.
+- Make steps idempotent and save paid outputs before parsing.
+- Users must be able to see and delete what's remembered about them.
+projects:
+- name: Durable document workflow
+  stack:
+  - Temporal or Inngest
+  - Python or TypeScript
+  - an LLM API
+  build: Extract → validate → wait for human approval (hours) → write, surviving worker restarts without repeating paid steps.
+  practises: Durable execution.
+- name: Assistant with user memory
+  stack:
+  - FastAPI
+  - pgvector
+  - Graphiti or a facts table
+  - Next.js
+  build: Remember preferences across sessions with a "what you remember about me" page and delete buttons, all scoped by user.
+  practises: Memory design and privacy.
 ---
 
 ## Why this matters

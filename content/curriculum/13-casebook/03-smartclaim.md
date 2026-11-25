@@ -1,8 +1,32 @@
 ---
-title: "P2 · SmartClaim: compliance judgement with strict schemas"
+title: 'P2 · SmartClaim: compliance judgement with strict schemas'
 level: 4
 summary: A healthcare app where a model judges wound-care documentation against Medicare coverage criteria, with strict schemas, no provider storage and a full error taxonomy, plus what its first version got wrong.
-outcomes: Explain how a strict schema contains prompt injection | Design an error taxonomy for an AI endpoint | Tell the "model that didn't exist" story
+outcomes:
+- Explain how a strict schema contains prompt injection
+- Design an error taxonomy for an AI endpoint
+- Tell the "model that didn't exist" story
+keypoints:
+- A strict JSON schema built from the form fields caps any injection at "pass/fail + reason".
+- Turn provider storage off, hash user IDs and validate input exactly (fields, sizes).
+- 'Error taxonomy: 401, 422, 413, 429 + Retry-After, 503 for config/quota, 502 for model failure, each with its own UI message.'
+- Keep clinical drafts in `sessionStorage` on shared computers.
+- 'The "model named LLM" bug: a generic error message hid a total outage.'
+projects:
+- name: Checklist compliance judge
+  stack:
+  - Next.js
+  - OpenAI Responses API (strict schema)
+  - Neon Postgres
+  - Auth.js
+  build: A form whose answers are judged per field against written criteria, with strict schema, rate limits, an error taxonomy and no provider storage.
+  practises: Schema-constrained judgement in a sensitive domain.
+- name: Error-taxonomy refactor
+  stack:
+  - Any AI app you have
+  - Playwright
+  build: Replace generic errors with distinct status codes and messages per failure class, with E2E tests for each.
+  practises: Making failures diagnosable.
 ---
 
 <a id="p2"></a>

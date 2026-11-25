@@ -2,7 +2,34 @@
 title: Adding AI to existing products
 level: 4
 summary: Finding the right first AI feature in a brownfield system, integrating it without destabilising the product, and measuring whether it helped.
-outcomes: Choose a first AI feature by value, risk and measurability | Integrate behind flags, adapters and existing auth | Prove impact with a before/after metric
+outcomes:
+- Choose a first AI feature by value, risk and measurability
+- Integrate behind flags, adapters and existing auth
+- Prove impact with a before/after metric
+keypoints:
+- Score candidate features on **value, risk, data availability and measurability**.
+- Good first features are drafts with human review, classification, extraction with confirmation, and internal search.
+- Respect the architecture. UI → API → service → model adapter, reusing existing auth.
+- Ship behind a flag with a kill switch, with the old workflow as fallback.
+- Prove impact by comparing flag-on with flag-off against a baseline.
+projects:
+- name: AI reply drafts in a helpdesk clone
+  stack:
+  - Django
+  - HTMX or React
+  - Celery
+  - an LLM API
+  - Unleash
+  build: Add flag-gated reply drafts to an existing ticket app, measuring handle time and edit distance for flag-on vs flag-off agents.
+  practises: Brownfield integration and impact measurement.
+- name: Smart search for an existing catalogue
+  stack:
+  - Next.js
+  - Postgres
+  - pgvector
+  - existing product DB
+  build: Add semantic plus keyword search to a product catalogue you already have, with A/B analytics on click-through.
+  practises: Adding AI without destabilising the product.
 ---
 
 ## Why this matters

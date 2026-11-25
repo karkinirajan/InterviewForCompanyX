@@ -2,7 +2,26 @@
 title: Glossary
 level: 0
 summary: Short definitions of the terms used across the guide, from HTTP and SQL basics to retrieval metrics and agent protocols.
-outcomes: Define every term used in the guide in one sentence
+outcomes:
+- Define every term used in the guide in one sentence
+keypoints:
+- Define every term in one sentence, then give one example of where it shows up.
+- Retrieval metrics are MRR (first relevant), nDCG (graded ranking) and recall@k (coverage).
+- RRF fuses by rank. ColBERT is late interaction. TTFT is what users feel.
+- 'Engineering terms you must own: idempotency key, circuit breaker, DLQ, IDOR, SSRF, RLS, expand/contract.'
+projects:
+- name: Glossary hover plugin
+  stack:
+  - TypeScript
+  - a browser extension (MV3)
+  build: Highlight glossary terms on any web page and show the definition on hover.
+  practises: Learning vocabulary in context.
+- name: Explain-it-back recorder
+  stack:
+  - Phone recorder
+  - Markdown
+  build: Record a 30-second explanation for 20 terms, transcribe them and compare against the glossary.
+  practises: Generation over recognition.
 ---
 
 ## AI and retrieval

@@ -2,7 +2,34 @@
 title: LLM gateways and AI platforms
 level: 4
 summary: Centralising provider access, limits, caching, policy and telemetry in a gateway, and the other shared services (prompt registry, eval harness) a company's AI platform needs.
-outcomes: Justify a gateway and list what it centralises | Compare building a gateway with managed options | Describe a minimal internal AI platform
+outcomes:
+- Justify a gateway and list what it centralises
+- Compare building a gateway with managed options
+- Describe a minimal internal AI platform
+keypoints:
+- A gateway centralises keys, auth, budgets, rate limits, **the only retries**, caching, PII policy, routing and telemetry.
+- 'Build or buy: a thin in-house gateway, an open-source proxy (LiteLLM), or a cloud gateway. Decide on data boundaries, compliance and operations.'
+- A minimal AI platform has a prompt registry, eval harness, retrieval service, tool registry, observability and data policy.
+- Make the gateway stateless and replicated, with Redis degrading gracefully.
+- Don't build the platform before two real consumers exist.
+projects:
+- name: Mini LLM gateway (D2)
+  stack:
+  - FastAPI
+  - Redis
+  - two providers
+  - Postgres
+  - Grafana
+  build: Per-tenant token buckets, an exact cache, breaker and validated fallback, three timeouts, telemetry and daily budgets.
+  practises: The full D2 design in code.
+- name: LiteLLM proxy evaluation
+  stack:
+  - LiteLLM
+  - Docker
+  - Postgres
+  - your eval set
+  build: Run LiteLLM in front of two providers with keys per team and budgets, compare it with your mini gateway and write a build-vs-buy memo.
+  practises: Making platform decisions with evidence.
 ---
 
 ## Why this matters

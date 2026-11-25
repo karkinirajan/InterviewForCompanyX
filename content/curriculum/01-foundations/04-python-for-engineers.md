@@ -1,8 +1,36 @@
 ---
 title: Python for engineers
 level: 0
-summary: The Python you need for production backends and AI work: types, data classes, errors, packaging with uv, async basics and the idioms reviewers expect.
-outcomes: Write typed, readable Python with dataclasses and Pydantic | Manage projects and dependencies with uv and virtual environments | Know when async helps and when it silently blocks
+summary: 'The Python you need for production backends and AI work: types, data classes, errors, packaging with uv, async basics and the idioms reviewers expect.'
+outcomes:
+- Write typed, readable Python with dataclasses and Pydantic
+- Manage projects and dependencies with uv and virtual environments
+- Know when async helps and when it silently blocks
+keypoints:
+- Type hints + `mypy`/`pyright` + `ruff` in CI catch bugs before runtime.
+- Validate with Pydantic at trust boundaries (HTTP, config, LLM output). Use dataclasses inside.
+- Use one environment per project, managed by `uv`. Commit `pyproject.toml` and `uv.lock`.
+- Async helps I/O-bound work only, and a blocking call inside `async def` stalls every request.
+- Use `Decimal` or integer cents for money, never floats.
+projects:
+- name: Expense splitter API
+  stack:
+  - Python
+  - uv
+  - FastAPI
+  - Pydantic
+  - pytest
+  - mypy
+  build: Groups, expenses in Decimal, "who owes whom" settlement, full type checking and tests for edge cases (rounding, empty groups).
+  practises: Typing, validation, Decimal and testing.
+- name: Async link checker
+  stack:
+  - Python
+  - httpx.AsyncClient
+  - asyncio
+  - Typer
+  build: Crawl a site's links concurrently with a semaphore, timeouts and a report of broken links, then compare its speed with a sync version.
+  practises: When async helps, bounded concurrency, timeouts.
 ---
 
 ## Why this matters

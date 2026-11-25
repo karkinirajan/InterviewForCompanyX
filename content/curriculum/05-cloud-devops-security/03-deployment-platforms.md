@@ -1,8 +1,34 @@
 ---
-title: "Deployment platforms: Vercel, Railway, VMs and containers"
+title: 'Deployment platforms: Vercel, Railway, VMs and containers'
 level: 2
 summary: Choosing where to run each part of a product, from managed platforms to your own VM, and the configuration mistakes that break deploys.
-outcomes: Pick a hosting option per component and justify it | Configure environments, secrets and build settings correctly | Diagnose a failed deploy from its build log
+outcomes:
+- Pick a hosting option per component and justify it
+- Configure environments, secrets and build settings correctly
+- Diagnose a failed deploy from its build log
+keypoints:
+- 'Match the platform to the workload: Vercel for Next.js, container platforms for APIs, VMs for heavy media/GPU work.'
+- Configure the build command, output directory, runtime version and framework preset deliberately.
+- Keep separate env vars per environment, and never point previews at the production DB.
+- A green build doesn't mean a correct deploy. Read failed deploy logs bottom-up to the first error.
+- Long AI requests don't belong in short serverless limits. Stream them or queue them.
+projects:
+- name: Split deploy
+  stack:
+  - Vercel
+  - Railway or Fly.io
+  - Next.js
+  - FastAPI
+  - Neon Postgres
+  build: Frontend on Vercel, API on a container platform, a managed DB, preview environments per PR with their own DB branch.
+  practises: Multi-platform config, env management, previews.
+- name: Deploy-failure museum
+  stack:
+  - Vercel
+  - GitHub Actions
+  - Markdown
+  build: Deliberately reproduce five common deploy failures (wrong output dir, missing env var, version mismatch, timeout, CORS) and document each fix.
+  practises: Reading build logs and platform configuration.
 ---
 
 ## Why this matters

@@ -2,7 +2,34 @@
 title: Background jobs and queues
 level: 2
 summary: Moving slow or unreliable work off the request path with Celery, SQS or Redis queues, and making jobs idempotent, retryable and observable.
-outcomes: Decide what belongs in a background job | Design idempotent jobs with retries and dead-letter queues | Explain at-least-once delivery and its consequences
+outcomes:
+- Decide what belongs in a background job
+- Design idempotent jobs with retries and dead-letter queues
+- Explain at-least-once delivery and its consequences
+keypoints:
+- Slow or flaky work leaves the request path. Return `202` with a job ID.
+- Delivery is **at-least-once**, so jobs must be idempotent (status checks, unique constraints).
+- Use `acks_late`, retries with backoff and jitter, and a **dead-letter queue** for poison messages.
+- Keep job state in the database, not in process memory.
+- 'Never pay twice: save paid API responses before parsing.'
+projects:
+- name: PDF processing pipeline
+  stack:
+  - FastAPI
+  - Celery
+  - Redis
+  - Postgres
+  - S3/MinIO
+  build: Upload → enqueue → extract text → store results with status polling; kill workers mid-job and prove exactly-once effects.
+  practises: Idempotent jobs, retries, DLQ, job state.
+- name: Webhook delivery service
+  stack:
+  - Node.js
+  - BullMQ
+  - Redis
+  - Postgres
+  build: Deliver signed webhooks to subscriber URLs with exponential retries, a DLQ, replay from the dashboard and per-subscriber rate limits.
+  practises: Retries, signing, operability.
 ---
 
 ## Why this matters

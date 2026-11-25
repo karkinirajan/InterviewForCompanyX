@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "content": "uv run --with markdown --with beautifulsoup4 scripts/compile_content.py",
+    "content": "uv run --with markdown --with beautifulsoup4 --with pyyaml scripts/compile_content.py",
     "predev": "npm run content",
     "dev": "next dev",
     "prebuild": "npm run content",

@@ -2,7 +2,32 @@
 title: JavaScript and TypeScript
 level: 0
 summary: The JavaScript runtime model (event loop, promises, modules) and the TypeScript types that make large frontends and Node services safe to change.
-outcomes: Explain the event loop, promises and async/await | Write typed TypeScript with unions, generics and narrowing | Set up a Node project with npm and a strict tsconfig
+outcomes:
+- Explain the event loop, promises and async/await
+- Write typed TypeScript with unions, generics and narrowing
+- Set up a Node project with npm and a strict tsconfig
+keypoints:
+- JavaScript runs one thing at a time on the event loop, so long synchronous work freezes the UI.
+- '`async/await` pauses a function, not the program. A forgotten `await` gives you a Promise.'
+- Model UI states with **discriminated unions**, not several booleans.
+- Types vanish at runtime, so validate network data (zod) because `as T` is only a promise.
+- Keep `strict` mode on in tsconfig, and avoid `any`.
+projects:
+- name: Typed chat state machine
+  stack:
+  - TypeScript
+  - Vitest
+  - zod
+  build: A reducer for idle/streaming/done/error chat states, with zod-validated server messages and tests for every transition.
+  practises: Unions, narrowing, runtime validation.
+- name: Node CLI with typed config
+  stack:
+  - Node.js
+  - TypeScript
+  - zod
+  - commander
+  build: A CLI that loads config from env and a file, validates it with zod, and fails with clear messages.
+  practises: Strict TypeScript on the backend; config validation.
 ---
 
 ## Why this matters

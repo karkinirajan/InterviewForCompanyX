@@ -2,7 +2,33 @@
 title: Workflow automation across SaaS tools
 level: 4
 summary: Automating business processes with webhooks, APIs and tools like n8n, Zapier and Make, adding AI steps safely, and knowing when to write code instead.
-outcomes: Build an event-driven automation with webhooks and retries | Add AI classification or extraction steps with validation | Choose between no-code tools and custom code
+outcomes:
+- Build an event-driven automation with webhooks and retries
+- Add AI classification or extraction steps with validation
+- Choose between no-code tools and custom code
+keypoints:
+- Webhooks need verified signatures, a fast 200, async processing, dedupe by event ID, and tolerance for out-of-order delivery.
+- Store OAuth tokens encrypted, refresh them early, and keep them out of the browser.
+- AI steps return structured output that's validated, with business rules applied in code.
+- Every automation needs failure alerts. Silent failure is the default otherwise.
+- No-code (n8n, Zapier, Make) for standard connectors; code for complex logic, volume and testing; hybrid is common.
+projects:
+- name: Lead intake automation
+  stack:
+  - n8n (self-hosted)
+  - Postgres
+  - an LLM API
+  - Slack
+  build: Form submission → AI classification and extraction (validated) → CRM row → Slack alert, with dedupe and a failure-notification branch.
+  practises: Reliable no-code-plus-AI automation.
+- name: CV screener to ATS
+  stack:
+  - Python
+  - Typer
+  - Gemini or another LLM
+  - Notion API
+  build: The recruit-cli pattern, with bounded scores, category derived in code, dedupe by email + job, a circuit breaker after three failures and a non-zero exit on errors.
+  practises: Automation guardrails in code.
 ---
 
 ## Why this matters

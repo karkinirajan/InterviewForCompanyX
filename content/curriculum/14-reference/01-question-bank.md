@@ -2,7 +2,28 @@
 title: Question bank
 level: 2
 summary: All 44 numbered interview questions grouped by topic, with links to their model answers, plus how to drill them.
-outcomes: Find the model answer to any common applied AI question in seconds | Drill questions by topic with the 0/1/2 scale
+outcomes:
+- Find the model answer to any common applied AI question in seconds
+- Drill questions by topic with the 0/1/2 scale
+keypoints:
+- Q1–Q10 RAG · Q11–Q19 integration · Q20–Q24 prompts and evals · Q25–Q30 security · Q31–Q35 agents · Q36–Q38 ops and cost · Q39 speech · Q40–Q44 judgment.
+- Drill five at random, out loud, in the answer shape, scored 0/1/2.
+- D1–D4 cover design. Every lesson's check-yourself section is extra drill material.
+- Memorise the eight one-liners at the bottom of the page.
+projects:
+- name: Question bank quiz app
+  stack:
+  - Next.js
+  - the site's generated refs.json
+  - localStorage
+  build: Random Q-ID drills that show the question, hide the answer, time you and track scores per group.
+  practises: Retrieval practice on the exact bank.
+- name: Anki deck export
+  stack:
+  - Python
+  - genanki
+  build: Generate an Anki deck from the question bank and check-yourself questions, with tags per part.
+  practises: Spaced repetition on mobile.
 ---
 
 ## How to drill

@@ -2,7 +2,29 @@
 title: Growing your career
 level: 2
 summary: The first 90 days in a new role, moving from freelance to full-time, getting to senior, and staying current in a field that changes monthly.
-outcomes: Plan your first 90 days in a new engineering role | Show senior-level behaviours before the title | Keep your AI knowledge current without chasing every release
+outcomes:
+- Plan your first 90 days in a new engineering role
+- Show senior-level behaviours before the title
+- Keep your AI knowledge current without chasing every release
+keypoints:
+- 'First 90 days: run it, ship small in week one, own a feature, improve tests, evals or observability, then propose one data-backed change.'
+- 'Freelance to full-time: keep the ownership, build review habits, design docs and on-call.'
+- 'Senior behaviours: explicit trade-offs, named failure modes, raising others'' bar, choosing what not to build.'
+- Stay current by re-running your own evals on new models rather than trusting launch claims.
+projects:
+- name: 90-day plan template
+  stack:
+  - Markdown
+  - GitHub Projects
+  build: A reusable first-90-days plan with weekly goals and a "first proposal" design-doc template.
+  practises: Starting new roles deliberately.
+- name: Model-release eval tracker
+  stack:
+  - Python
+  - your eval sets
+  - GitHub Actions on a schedule
+  build: When a new model is released, run your saved evals against it and post a comparison table to a README.
+  practises: Staying current with evidence.
 ---
 
 ## The first 90 days

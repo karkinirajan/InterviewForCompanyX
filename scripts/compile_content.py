@@ -5,17 +5,22 @@ content/curriculum/
     _track.md            track front matter + introduction
     NN-lesson-slug.md    one lesson: front matter + Markdown body
 
-Front matter is a block of `key: value` lines between `---` fences.
+Front matter is YAML between `---` fences.
   track:  title, kicker, summary
-  lesson: title, level (0-4), summary, outcomes (separated by " | "), minutes (optional)
+  lesson: title, level (0-4), summary, outcomes [list], keypoints [list],
+          projects [exactly 2 x {name, stack [list], build, practises}], minutes (optional)
+
+content/interview-route.yaml lists lessons in the order to follow before an interview.
 
 Outputs (src/content/generated/):
   tracks.json   table of contents: tracks, lessons, levels, reading time
   pages.json    rendered HTML per page, keyed "track" or "track/lesson"
   refs.json     explicit <a id="..."> anchors (Q12, D1, C2, P1, S4, g-rrf...) for hover previews
   search.json   lessons, headings and anchors for the search palette
+  route.json    the interview route, resolved against the lessons
 
-The build fails on a link to a page or anchor that doesn't exist.
+The build fails on a link to a page or anchor that doesn't exist, or a lesson missing
+key points or its two projects (set CONTENT_DRAFT=1 to only warn).
 
 Run:  npm run content   (runs automatically before dev and build)
 """
@@ -24,11 +29,13 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 import markdown
+import yaml
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,25 +44,44 @@ OUT = ROOT / "src" / "content" / "generated"
 FRONT_RE = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 DIR_RE = re.compile(r"^(\d{2})-([a-z0-9-]+)$")
 FILE_RE = re.compile(r"^(\d{2})-([a-z0-9-]+)\.md$")
-STATIC_ROUTES = {"/", "/tech-map"}
+STATIC_ROUTES = {"/", "/tech-map", "/interview-route"}
+ROUTE_FILE = ROOT / "content" / "interview-route.yaml"
 
 
-def parse_front(text: str, where: Path) -> tuple[dict[str, str], str]:
+def parse_front(text: str, where: Path) -> tuple[dict, str]:
     m = FRONT_RE.match(text)
     if not m:
         raise SystemExit(f"{where}: missing front matter")
-    meta: dict[str, str] = {}
-    for line in m.group(1).splitlines():
-        if not line.strip():
-            continue
-        key, sep, value = line.partition(":")
-        if not sep:
-            raise SystemExit(f"{where}: bad front matter line: {line!r}")
-        value = value.strip()
-        if len(value) >= 2 and value[0] == value[-1] == '"':
-            value = value[1:-1]  # quoted values (needed when the text contains ": ")
-        meta[key.strip()] = value
+    try:
+        meta = yaml.safe_load(m.group(1))
+    except yaml.YAMLError as exc:
+        raise SystemExit(f"{where}: invalid YAML front matter: {exc}") from exc
+    if not isinstance(meta, dict) or not isinstance(meta.get("title"), str):
+        raise SystemExit(f"{where}: front matter needs at least a title")
     return meta, text[m.end():]
+
+
+def render_inline(text: str) -> str:
+    """Markdown for one short string (key point, project line), without the wrapping <p>."""
+    html_ = markdown.markdown(str(text), output_format="html")
+    return re.sub(r"^<p>(.*)</p>$", r"\1", html_.strip(), flags=re.S)
+
+
+PROBLEMS: list[str] = []
+
+
+def check_lesson(meta: dict, where: Path) -> None:
+    kps = meta.get("keypoints")
+    if not (isinstance(kps, list) and 3 <= len(kps) <= 8 and all(isinstance(k, str) for k in kps)):
+        PROBLEMS.append(f"{where}: needs 3-8 keypoints")
+    projects = meta.get("projects")
+    if not (isinstance(projects, list) and len(projects) == 2):
+        PROBLEMS.append(f"{where}: needs exactly 2 projects")
+        return
+    for pr in projects:
+        if not (isinstance(pr, dict) and {"name", "stack", "build", "practises"} <= pr.keys()
+                and isinstance(pr["stack"], list) and pr["stack"]):
+            PROBLEMS.append(f"{where}: project needs name, stack [list], build, practises")
 
 
 def render_md(text: str) -> str:
@@ -154,13 +180,19 @@ def load() -> list[dict]:
                 raise SystemExit(f"{f}: lesson files are named NN-slug.md")
             lmeta, lbody = parse_front(f.read_text(encoding="utf-8"), f)
             words = len(re.findall(r"\w+", lbody))
-            level = int(lmeta.get("level", "0"))
+            level = int(lmeta.get("level", 0))
             if not 0 <= level <= 4:
                 raise SystemExit(f"{f}: level must be 0-4")
+            check_lesson(lmeta, f)
             track["lessons"].append({
                 "slug": f"{tdir.name}/{f.stem}", "num": f"{track['num']}.{int(fm.group(1))}",
                 "title": lmeta["title"], "level": level, "summary": lmeta.get("summary", ""),
-                "outcomes": [o.strip() for o in lmeta.get("outcomes", "").split("|") if o.strip()],
+                "outcomes": [render_inline(o) for o in lmeta.get("outcomes") or []],
+                "keypoints": [render_inline(k) for k in lmeta.get("keypoints") or []],
+                "projects": [{"name": pr.get("name", ""), "stack": [str(x) for x in pr.get("stack") or []],
+                              "build": render_inline(pr.get("build", "")),
+                              "practises": render_inline(pr.get("practises", ""))}
+                             for pr in lmeta.get("projects") or [] if isinstance(pr, dict)],
                 "minutes": int(lmeta.get("minutes") or max(5, round(words / 180))), "words": words, "body": lbody,
             })
         track["levels"] = sorted({les["level"] for les in track["lessons"]})
@@ -260,9 +292,30 @@ def main() -> None:
                        "context": t["kicker"], "kind": "track", "text": t["summary"]})
         for les in lessons:
             search.append({"label": les["num"], "title": les["title"], "href": f"/{les['slug']}",
-                           "context": t["title"], "kind": "lesson", "text": les["summary"]})
+                           "context": t["title"], "kind": "lesson",
+                           "text": re.sub(r"<[^>]+>", " ", " ".join([les["summary"], *les["keypoints"],
+                                   *(f"{pr['name']} {' '.join(pr['stack'])}" for pr in les["projects"])]))})
+
+    lessons_by_slug = {les["slug"]: les for t in toc for les in t["lessons"]}
+    route = []
+    for stage in yaml.safe_load(ROUTE_FILE.read_text(encoding="utf-8"))["stages"]:
+        steps = []
+        for step in stage["steps"]:
+            les = lessons_by_slug.get(step["lesson"])
+            if les is None:
+                PROBLEMS.append(f"{ROUTE_FILE.name}: unknown lesson {step['lesson']}")
+                continue
+            steps.append({"slug": les["slug"], "num": les["num"], "title": les["title"], "minutes": les["minutes"],
+                          "focus": render_inline(step.get("focus", ""))})
+        route.append({"title": stage["title"], "goal": render_inline(stage.get("goal", "")), "steps": steps})
+
+    if PROBLEMS:
+        print("\n".join(PROBLEMS), file=sys.stderr)
+        if not os.environ.get("CONTENT_DRAFT"):
+            raise SystemExit(f"{len(PROBLEMS)} content problem(s); set CONTENT_DRAFT=1 to build anyway")
 
     OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "route.json").write_text(json.dumps(route, ensure_ascii=False, indent=1), encoding="utf-8")
     (OUT / "tracks.json").write_text(json.dumps(toc, ensure_ascii=False, indent=1), encoding="utf-8")
     (OUT / "pages.json").write_text(json.dumps({s: {"title": p["title"], "html": str(soups[s])} for s, p in pages.items()},
                                                ensure_ascii=False), encoding="utf-8")

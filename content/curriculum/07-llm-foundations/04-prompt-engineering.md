@@ -2,7 +2,32 @@
 title: Prompt engineering
 level: 3
 summary: Structuring prompts (role, task, context, rules, format, examples), separating instructions from data, versioning prompts like code, and reviewing them.
-outcomes: Write a structured prompt with explicit output rules | Separate untrusted data from instructions | Version, fingerprint and test prompts
+outcomes:
+- Write a structured prompt with explicit output rules
+- Separate untrusted data from instructions
+- Version, fingerprint and test prompts
+keypoints:
+- 'Structure: role → task → delimited context → rules → output format → edge-case examples.'
+- Say what to do when information is missing.
+- Untrusted data stays data, and **the prompt is not a security boundary**.
+- Constrain the answer space (IDs, enums, bounded numbers) and derive everything else in code.
+- Version prompts, fingerprint them (SHA-256), pin them in a test, and release behind evals.
+projects:
+- name: Prompt registry with fingerprints
+  stack:
+  - Python
+  - Jinja2
+  - pytest
+  - GitHub Actions
+  build: Versioned templates whose fingerprint is checked by a test, so CI fails on silent edits and every output records version and hash.
+  practises: Prompts as code.
+- name: Constrained classifier
+  stack:
+  - TypeScript
+  - Vercel AI SDK
+  - zod
+  build: Classify support tickets into an enum with a reason; route in code; run a 50-case eval including injection attempts.
+  practises: Output-space design and evaluation.
 ---
 
 ## Why this matters

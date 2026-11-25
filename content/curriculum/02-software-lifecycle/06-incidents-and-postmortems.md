@@ -1,8 +1,32 @@
 ---
 title: Incidents, on-call and postmortems
 level: 2
-summary: Detecting, mitigating and learning from production failures: severity, roles, the mitigate-first mindset and blameless postmortems.
-outcomes: Run the first 15 minutes of an incident | Write a blameless postmortem with real action items | Tell a "what broke in production" story well
+summary: 'Detecting, mitigating and learning from production failures: severity, roles, the mitigate-first mindset and blameless postmortems.'
+outcomes:
+- Run the first 15 minutes of an incident
+- Write a blameless postmortem with real action items
+- Tell a "what broke in production" story well
+keypoints:
+- Alert on symptoms users feel, and link every alert to a runbook.
+- In the first 15 minutes, assess impact, find what changed, and **mitigate first** (rollback, flag off, failover).
+- Run blameless postmortems. Ask how the system allowed it, and assign owners and dates to actions.
+- '"A generic error message is an outage you can''t see." Name every failure class.'
+- 'AI incidents: provider outage, silent model drift, cost spikes, injection-driven actions.'
+projects:
+- name: Chaos day for your own app
+  stack:
+  - Docker Compose
+  - toxiproxy
+  - Grafana
+  build: Inject latency and failures into the database and an external API, observe the alerts, follow your runbook, and write a postmortem.
+  practises: Detection, mitigation and blameless write-ups.
+- name: Status page + incident bot
+  stack:
+  - Next.js
+  - Slack API
+  - Postgres
+  build: A slash command that opens an incident, assigns roles, posts timed updates and generates a postmortem skeleton from the timeline.
+  practises: Incident roles and communication.
 ---
 
 ## Why this matters

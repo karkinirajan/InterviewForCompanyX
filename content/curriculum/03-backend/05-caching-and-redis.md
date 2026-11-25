@@ -2,7 +2,32 @@
 title: Caching and Redis
 level: 2
 summary: Where to cache, how to invalidate, how to avoid stampedes, and the Redis data structures behind sessions, rate limits and queues.
-outcomes: Choose a caching layer and an invalidation strategy | Prevent cache stampedes | Implement a rate limiter with Redis
+outcomes:
+- Choose a caching layer and an invalidation strategy
+- Prevent cache stampedes
+- Implement a rate limiter with Redis
+keypoints:
+- Cache-aside with a TTL is the default. The database stays the source of truth.
+- The cache key must include everything that changes the answer, **including who's asking**.
+- Prevent stampedes with jittered TTLs, single-flight locks or early refresh.
+- Redis gives you atomic counters for rate limits (requests **and tokens** per minute for LLM APIs).
+- 'LLM caches: provider prompt caching, an exact response cache, and a semantic cache only where privacy allows.'
+projects:
+- name: Rate-limited public API
+  stack:
+  - FastAPI
+  - Redis
+  - k6
+  build: A token-bucket limiter per user and per endpoint returning 429 with Retry-After, load-tested with k6.
+  practises: Atomic Redis operations and rate-limit design.
+- name: LLM response cache
+  stack:
+  - Python
+  - Redis
+  - an LLM API
+  - Pydantic
+  build: Cache completions keyed by model, prompt version, parameters, tenant and a normalised input hash; report hit rate and money saved.
+  practises: Cache keys, TTLs, cost control.
 ---
 
 ## Why this matters

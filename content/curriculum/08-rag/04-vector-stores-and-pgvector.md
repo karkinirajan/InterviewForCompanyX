@@ -2,7 +2,32 @@
 title: Vector stores and pgvector
 level: 4
 summary: Choosing a vector store, modelling chunks in Postgres with pgvector, filtered search, and tenant-safe retrieval with row-level security.
-outcomes: Pick a vector store for a workload and defend it | Design a pgvector schema with HNSW, full-text and tenant indexes | Prevent cross-tenant leakage in retrieval
+outcomes:
+- Pick a vector store for a workload and defend it
+- Design a pgvector schema with HNSW, full-text and tenant indexes
+- Prevent cross-tenant leakage in retrieval
+keypoints:
+- Pick pgvector when Postgres is your system of record (joins, transactions, RLS). Pick managed or specialised stores for scale or filtering needs.
+- 'Schema: tenant_id, document_id, version, section path, content, tsvector, embedding, embed_model.'
+- Index with HNSW (cosine) + GIN (tsvector) + B-tree (tenant, doc).
+- Filtered ANN can return too few rows. Use iterative scans (pgvector 0.8+), partitioning or per-tenant indexes.
+- RLS is the second wall, and the app role must not own the table (or use FORCE).
+projects:
+- name: Multi-tenant knowledge base
+  stack:
+  - Postgres + pgvector
+  - RLS
+  - FastAPI
+  - pytest
+  build: Implement the C4 schema with two tenants and RLS, plus tests proving cross-tenant retrieval is impossible even for exact-match queries.
+  practises: Tenant-safe vector storage.
+- name: Store migration drill
+  stack:
+  - pgvector
+  - Qdrant
+  - Python
+  build: Migrate the same corpus from pgvector to Qdrant, compare filtered-search recall and latency, and document the trade-offs.
+  practises: Vendor choice with data.
 ---
 
 ## Why this matters

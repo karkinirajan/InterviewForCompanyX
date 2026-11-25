@@ -62,6 +62,12 @@ rows = [(c.id, c.text, v, EMBED_MODEL) for c, v in zip(chunks, vectors)]  # stor
 
 Record the embedding model with every vector, so a model change can be detected and migrated with a dual index ([Q9](#q9)).
 
+## Interview follow-ups
+
+- **"Cosine, dot product or L2?"** Use what the embedding model was trained for; with normalised vectors cosine and dot product rank identically.
+- **"How many dimensions?"** More dimensions can capture more, but cost storage and speed; some models support truncation (Matryoshka). Choose by eval, not by size.
+- **"How do you search in several languages?"** A multilingual embedding model, language-aware lexical analysers, and an eval set per language.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why can dense retrieval miss a query for "ICD-10 E11.9"?</summary>

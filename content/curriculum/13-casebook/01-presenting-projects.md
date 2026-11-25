@@ -71,6 +71,14 @@ Columns follow a typical applied AI job description: J1 LLM APIs · J2 RAG · J3
 
 ● strong evidence · ○ supporting
 
+## Worked example: one paragraph, before and after
+
+**Before:** "Built an AI-powered document platform using cutting-edge LLMs, achieving 95% accuracy and massive time savings."
+
+**After:** "A FastAPI service that extracts 12 invoice fields with a strict schema and evidence quotes, validates totals and dates in code, and sends uncertain documents to a review screen. On 200 labelled invoices it reached 96% field accuracy (baseline 91% with a single prompt); 70% go straight through. Not yet run on real customer data; no multi-tenant auth yet."
+
+(The figures are illustrative, not from a real project.) The second version names the mechanism, the measurement, the baseline and the gaps. Every phrase survives a follow-up question.
+
 ## Check yourself
 
 <details markdown="1"><summary>What belongs in a project's "honest status"?</summary>

@@ -61,6 +61,11 @@ run_id → step 1 extract (saved) → step 2 validate (saved) → step 3 wait fo
 - Memory shared across users by a missing filter.
 - In-memory state in a web process, lost on restart.
 
+## Interview follow-ups
+
+- **"How do you keep long conversations within the context window?"** Keep recent turns verbatim, summarise older ones, retrieve relevant past facts, and drop tool outputs once summarised.
+- **"An agent run crashed at step 7 of 10. What happens?"** With checkpoints, resume from the step 7 state; completed paid calls are reused from saved outputs, not re-run.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between short-term and long-term memory for an assistant?</summary>

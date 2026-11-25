@@ -87,6 +87,13 @@ Cache-aside keeps the database as the source of truth and degrades gracefully wh
 - No TTL, so stale data lives forever.
 - Using Redis as the only copy of important data without persistence configured.
 
+## Interview follow-ups
+
+- **"What happens when Redis goes down?"** Cache-aside degrades to database reads (watch load); rate limits must choose fail-open or fail-closed deliberately; sessions stored in Redis need persistence or replication.
+- **"Write-through vs cache-aside?"** Write-through updates the cache on every write (fresh, more write work, caches unread data); cache-aside fills on read (simple, can be stale until TTL or invalidation).
+- **"How would you cache LLM answers safely in a multi-tenant app?"** Exact-match cache keyed by model, prompt version, parameters, normalised input and tenant; semantic cache only within one tenant and only for non-personal answers; short TTLs; never cache errors.
+- **"Hot key problem?"** Replicate the key (key#1..N with random reads), add a local in-process cache with a short TTL, or precompute.
+
 ## Check yourself
 
 <details markdown="1"><summary>What must a cache key for an LLM response include?</summary>

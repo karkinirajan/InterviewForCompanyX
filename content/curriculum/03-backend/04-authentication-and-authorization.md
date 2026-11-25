@@ -81,6 +81,13 @@ Sessions suit classic web apps on one domain (simple, revocable). JWTs suit many
 - Rolling your own crypto or password hashing.
 - Trusting a `tenant_id` sent by the client.
 
+## Interview follow-ups
+
+- **"How do you log out a user who has a JWT?"** Short access-token expiry plus revoking the refresh token (stored server-side with rotation and reuse detection); for immediate revocation, keep a deny-list of token IDs until they expire.
+- **"Where do authorization checks live?"** In one place in the service or repository layer (e.g. `repo.get_for_user(id, user)`), not scattered in routes, plus database-level RLS as a backstop and tests that try cross-tenant access.
+- **"How should an AI agent call your API on behalf of a user?"** With a token scoped to that user and the minimum permissions (OAuth scopes), never a service account with full access; the tool checks permissions like any other client.
+- **"RBAC isn't enough. Now what?"** Add attribute or relationship checks (owner, team, document ACLs); for complex rules, use a policy engine (OPA, Cedar, OpenFGA).
+
 ## Check yourself
 
 <details markdown="1"><summary>What is IDOR and how do you prevent it?</summary>

@@ -66,6 +66,11 @@ Read the build log from the bottom up, then find the first error. A real example
 - Long AI requests on serverless functions with short time limits; move them to background jobs or streaming.
 - Preview deployments wired to the production database.
 
+## Interview follow-ups
+
+- **"Serverless or containers for an AI API?"** Serverless suits spiky, short requests; containers suit long streaming responses, steady load, heavy dependencies, and connection pooling to databases.
+- **"How do preview environments get databases?"** Branching databases (Neon, PlanetScale-style) or seeded ephemeral databases per PR, never production.
+
 ## Check yourself
 
 <details markdown="1"><summary>Where would you deploy a Next.js frontend, a FastAPI AI gateway, and a video rendering worker?</summary>

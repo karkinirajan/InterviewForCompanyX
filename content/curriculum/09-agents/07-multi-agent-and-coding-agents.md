@@ -67,6 +67,11 @@ See story [S9](#s9). In short: use them heavily, and run them like a team: an or
 - Merging agent output without reading it.
 - Claiming work you can't explain line by line.
 
+## Interview follow-ups
+
+- **"Have you seen multi-agent systems fail?"** Typical failures: agents duplicating work, contradicting each other, losing context in handoffs, costs multiplying. Clear ownership, contracts and a final verifier address them.
+- **"How do you keep quality high with coding agents?"** Precise specs, small diffs, mandatory CI gates (lint, types, tests, mutation), human review of every change, and a record of what wasn't verified.
+
 ## Check yourself
 
 <details markdown="1"><summary>When is a multi-agent design justified?</summary>

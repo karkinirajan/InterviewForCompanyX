@@ -80,6 +80,12 @@ Prompt injection, sensitive data in prompts and logs, model output rendered as H
 - Error pages that print stack traces or environment variables.
 - Allowing any URL in "fetch this page for me" features.
 
+## Interview follow-ups
+
+- **"How do you prevent SQL injection with an ORM?"** The ORM parameterises queries, but watch raw SQL, string-built `ORDER BY` or column names (allow-list them), and query-builder escape hatches.
+- **"What's CSRF and is it still a risk?"** A site tricks a logged-in browser into sending a request. `SameSite` cookies largely mitigate it; use CSRF tokens for cookie-authenticated state changes anyway.
+- **"How do you handle a leaked secret?"** Rotate immediately, revoke the old one, check logs for misuse, remove it from history, add secret scanning to CI.
+
 ## Check yourself
 
 <details markdown="1"><summary>An "import from URL" feature fetches whatever URL a user pastes. What's the risk and the fix?</summary>

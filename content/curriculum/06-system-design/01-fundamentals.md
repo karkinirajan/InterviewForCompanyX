@@ -69,6 +69,12 @@ The last line is the AI twist: model latency and rate limits, not your servers, 
 - Ignoring the data model; most scaling problems are data problems.
 - Forgetting failure: what happens when the cache, the queue or the provider is down?
 
+## Interview follow-ups
+
+- **"How would you scale this 10×?"** Find the binding constraint first (DB writes, model rate limits, a hot table), then the cheapest fix: caching, read replicas, async processing, partitioning by tenant, provider quota increases.
+- **"Monolith or microservices?"** Start with a modular monolith; split a service out when it needs independent scaling, deployment or ownership, and pay the network and consistency costs knowingly.
+- **"How do you keep a search index in sync with the DB?"** Change data capture or an outbox → queue → indexer, idempotent upserts, periodic reconciliation.
+
 ## Check yourself
 
 <details markdown="1"><summary>A user updates their profile and immediately sees the old version. Why, and what do you do?</summary>

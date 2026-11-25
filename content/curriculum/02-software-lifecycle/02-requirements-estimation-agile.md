@@ -79,6 +79,11 @@ Thin vertical slices surface integration problems early and give stakeholders so
 - No anti-goals, so the AI feature does something nobody wanted (sends emails, changes records).
 - Estimating only coding time and forgetting review, testing, deployment and the inevitable rework.
 
+## Interview follow-ups
+
+- **"The deadline is fixed and the scope doesn't fit."** Cut scope, not quality gates: agree on the smallest valuable slice, defer the rest explicitly, and make the trade-off visible to stakeholders.
+- **"Your estimate was badly wrong. What happened?"** Explain the unknown that drove it, when you noticed, how you communicated early, and how you now estimate (spikes, ranges, slicing).
+
 ## Check yourself
 
 <details markdown="1"><summary>A client says "add AI to our support system". What do you ask first?</summary>

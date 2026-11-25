@@ -79,6 +79,12 @@ Fast tests run on every change, so they catch bugs while the change is fresh. Mu
 - Sleeping in tests (`sleep(2)`) instead of waiting for a condition, which makes them flaky.
 - Live LLM calls in unit tests: slow, costly and non-deterministic.
 
+## Interview follow-ups
+
+- **"What's your approach to flaky tests?"** Quarantine immediately (don't normalise re-runs), reproduce with a loop, fix the root cause (timing, shared state, order), add a test for it.
+- **"Unit or integration for a repository layer?"** Integration against a real database in a container. Mocking the ORM tests nothing useful.
+- **"How do you test something that calls a paid LLM?"** Fakes for logic, recorded fixtures for contract shapes, evals for quality, a small scheduled live suite.
+
 ## Check yourself
 
 <details markdown="1"><summary>You have 95% coverage. Are your tests good?</summary>

@@ -77,6 +77,11 @@ From the casebook ([S2](#s2)): an AI compliance app requested a model name that 
 - Postmortems with action items like "be more careful".
 - Alerts nobody acts on, which teach the team to ignore alerts.
 
+## Interview follow-ups
+
+- **"What makes a good alert?"** Actionable, tied to user impact, low false-positive rate, with a runbook link and an owner.
+- **"Tell me about an incident you handled."** Impact, detection, mitigation first, root cause, and the permanent changes (tests, alerts, process). Own your part honestly.
+
 ## Check yourself
 
 <details markdown="1"><summary>An error-rate alert fires 10 minutes after a deploy. First move?</summary>

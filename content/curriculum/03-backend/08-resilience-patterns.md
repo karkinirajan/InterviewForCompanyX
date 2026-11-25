@@ -84,6 +84,13 @@ Retrying permanent errors only repeats the failure (and on paid APIs, the bill).
 - Retrying non-idempotent writes without an idempotency key.
 - A fallback that has never been tested, so it fails when needed.
 
+## Interview follow-ups
+
+- **"What's a retry storm and how do you prevent it?"** Many clients retrying in sync keep a recovering service overloaded. Prevent with jitter, capped backoff, retry budgets (e.g. retries ≤ 10% of requests), breakers and retrying in one layer only.
+- **"How do you set a timeout value?"** From the dependency's measured p99 plus headroom, bounded by your own SLO and the caller's remaining deadline (propagate deadlines downstream).
+- **"Retrying a payment call that timed out?"** Only with an idempotency key the provider honours; otherwise query status first, because the charge may have succeeded.
+- **"When does the breaker close again?"** After a cool-down, a half-open state lets a few trial requests through; success closes it, failure reopens it.
+
 ## Check yourself
 
 <details markdown="1"><summary>Which failures do you retry, and how?</summary>

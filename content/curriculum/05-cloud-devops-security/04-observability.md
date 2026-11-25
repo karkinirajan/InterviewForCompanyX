@@ -78,6 +78,12 @@ Add per-call fields: model and version, prompt version, tokens in/out, cache hit
 - Alert fatigue from noisy, non-actionable alerts.
 - Only averages on dashboards.
 
+## Interview follow-ups
+
+- **"Logs, metrics or traces: which first?"** Metrics to know something's wrong, traces to find where, logs to see exactly what happened. Start with RED metrics and request IDs in logs.
+- **"What's an SLO and an error budget?"** A target (99.5% under 2 s over 30 days); the budget is the allowed failure (0.5%). Burning it fast pauses risky releases.
+- **"High-cardinality labels?"** Don't put user IDs or request IDs in metric labels (it explodes storage); put them in logs and traces.
+
 ## Check yourself
 
 <details markdown="1"><summary>What are RED metrics?</summary>

@@ -94,6 +94,13 @@ Pick by the product, not fashion: an AI gateway or a streaming chat service suit
 - Business logic inside route functions, untestable without HTTP.
 - Blocking calls inside `async def` routes.
 
+## Interview follow-ups
+
+- **"When would you *not* use FastAPI?"** When the product needs Django's admin, auth, ORM migrations and ecosystem on day one, or the team is Django-fluent; framework familiarity beats small technical gains.
+- **"`async def` or `def` for a FastAPI route?"** `async def` only if everything awaited inside is async; otherwise use `def`, which FastAPI runs in a thread pool, so a blocking library doesn't freeze the event loop.
+- **"How do you test a route that calls an external API?"** Override the dependency that provides the client with a fake (or use `respx`), assert on behaviour and error mapping, and keep a separate, small live suite.
+- **"How do you add a long LLM call to a Django view?"** Don't hold a sync worker for 30 seconds: enqueue to Celery and poll or push the result, or use an async view with streaming under ASGI.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why create the HTTP client in lifespan instead of per request?</summary>

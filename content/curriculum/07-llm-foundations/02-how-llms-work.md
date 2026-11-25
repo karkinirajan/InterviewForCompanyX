@@ -63,6 +63,12 @@ You don't need to train a transformer to integrate one, but you need a correct m
 - Dumping entire documents into the context "because it fits".
 - Counting characters instead of tokens for limits.
 
+## Interview follow-ups
+
+- **"Why do models hallucinate?"** They generate plausible continuations, not verified facts; missing or ambiguous context makes plausible-but-wrong likely. Contain it with grounding, constrained outputs and verification ([Q10](#q10)).
+- **"How would you handle a document longer than the context window?"** Retrieve the relevant parts (RAG), summarise hierarchically (map-reduce), or process in chunks with a final merge step.
+- **"What do reasoning models change in your design?"** More latency and tokens, so use them for hard tasks only, cap the thinking budget, size output limits with headroom and stream status ([Q19](#q19)).
+
 ## Check yourself
 
 <details markdown="1"><summary>Why does a long answer take much longer than a long question?</summary>

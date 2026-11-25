@@ -92,6 +92,13 @@ Constraints catch bugs from every code path, including scripts and future servic
 - Read-then-write logic in application code without a transaction or lock.
 - Running migrations that rewrite large tables during peak traffic ([2.5](/02-software-lifecycle/05-ci-cd-and-releases)).
 
+## Interview follow-ups
+
+- **"Your index isn't being used. Why?"** Possible causes: a function on the column (`lower(email)` needs an expression index), a type mismatch, low selectivity (the planner prefers a scan), stale statistics (`ANALYZE`), or a column order that doesn't match the filter.
+- **"Explain isolation levels briefly."** Read committed (Postgres default) sees committed data per statement; repeatable read sees one snapshot per transaction; serializable makes concurrent transactions behave as if run one by one, at the cost of retries on conflicts.
+- **"How do you add a NOT NULL column to a 100M-row table?"** Add it nullable (or with a constant default, which is cheap in modern Postgres), backfill in batches, add a `CHECK … NOT VALID` then `VALIDATE`, then set NOT NULL, avoiding a long lock.
+- **"SQL or NoSQL?"** Default to Postgres for relational data and transactions; choose a document or key-value store for a specific access pattern or scale need, not by fashion.
+
 ## Check yourself
 
 <details markdown="1"><summary>An endpoint filters by `tenant_id` and sorts by `created_at`. Which index?</summary>

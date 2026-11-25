@@ -82,6 +82,13 @@ Every failure the client might handle differently gets its own status and code. 
 - Breaking changes without a version bump (renaming a field, changing a type).
 - Unbounded list endpoints with no pagination.
 
+## Interview follow-ups
+
+- **"How would you version this API without breaking mobile clients?"** Additive changes only within a version (new optional fields, new endpoints); breaking changes go to `/v2` with both versions served during a deprecation window, usage measured per version, and a `Sunset` header plus client notices before removal.
+- **"PUT or PATCH?"** PUT replaces the whole resource and is idempotent; PATCH sends a partial change. Use PATCH for forms that edit a few fields, and define how `null` differs from "absent".
+- **"Two requests with the same idempotency key arrive at once."** The first inserts the key row (unique constraint) and processes; the second hits the constraint and waits for or returns the stored result, or `409` while in progress. Never process both.
+- **"How do you design errors for an AI endpoint?"** Distinct codes for invalid input (422), too large (413), rate limited (429 + `Retry-After`), provider unavailable or quota (503), model failed or refused (502), each mapped to a specific UI message ([P2](#p2)).
+
 ## Check yourself
 
 <details markdown="1"><summary>How does an idempotency key work on the server?</summary>

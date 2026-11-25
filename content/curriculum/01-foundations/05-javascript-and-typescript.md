@@ -87,6 +87,12 @@ Turn on `"strict": true` in `tsconfig.json` and keep it on.
 - Mutating React state directly instead of creating new objects.
 - Floating promises with no error handling (unhandled rejections).
 
+## Interview follow-ups
+
+- **"`interface` or `type`?"** Both describe shapes; interfaces can be extended and merged, types can express unions and mapped types. Pick one convention and stay consistent.
+- **"What does `unknown` give you over `any`?"** `unknown` forces you to narrow (or validate) before use; `any` turns checking off.
+- **"Microtasks vs macrotasks?"** Promise callbacks (microtasks) run before the next timer or I/O callback (macrotasks), which explains surprising ordering in async code.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why does a long `for` loop freeze a web page?</summary>

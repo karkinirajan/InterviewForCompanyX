@@ -77,6 +77,12 @@ Both searches apply the **same mandatory tenant and permission filters** ([Q8](#
 - Re-ranking 500 candidates on every query (slow and costly); 20–50 is typical.
 - Expecting the re-ranker to fix poor recall.
 
+## Interview follow-ups
+
+- **"What's k in RRF and does it matter much?"** A smoothing constant (≈60) that limits how much top ranks dominate. Results are fairly robust to it; tune only with evals.
+- **"How many candidates should you re-rank?"** Enough to contain the right answer (check recall@N first), typically 20–50; more costs latency without much gain.
+- **"Can an LLM be the re-ranker?"** Yes, for small candidate sets or hard cases, but it's slower and costlier; a cross-encoder is usually the better default.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why fuse by rank instead of by score?</summary>

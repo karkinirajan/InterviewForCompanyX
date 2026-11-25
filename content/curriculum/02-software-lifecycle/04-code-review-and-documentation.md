@@ -81,6 +81,11 @@ That's a real decision from a casebook project ([P1](#p1), [S4](#s4)).
 - READMEs that describe the plan, not the current reality.
 - Decisions living only in chat threads that disappear.
 
+## Interview follow-ups
+
+- **"You disagree with a reviewer's comment."** Discuss the trade-off with evidence (benchmarks, docs, precedent in the codebase); if it's a preference, defer to the codebase convention; escalate only for real risk.
+- **"What do you look for first when reviewing AI-generated code?"** Correctness on edge cases, invented APIs or packages, missing error handling, security (injection, secrets), and whether tests actually assert behaviour.
+
 ## Check yourself
 
 <details markdown="1"><summary>What should a reviewer look at before style?</summary>

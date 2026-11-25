@@ -72,6 +72,12 @@ An HNSW search finds the nearest N vectors, then the `WHERE tenant_id = …` fil
 - The application role owning the table, which bypasses RLS unless `FORCE ROW LEVEL SECURITY` is set.
 - Forgetting the lexical index, then blaming embeddings for missed codes.
 
+## Interview follow-ups
+
+- **"When would you move off pgvector?"** When vector volume or QPS outgrows what your Postgres can serve with acceptable recall and latency, or you need features like heavy filtered ANN or quantization at scale, proven by benchmarks on your data.
+- **"How do you re-embed 50M vectors without downtime?"** Build a new index or column in the background, dual-write new documents, evaluate both, switch reads atomically, then drop the old one.
+- **"HNSW parameters?"** `m` (graph connectivity) and `ef_construction` trade build time and memory for recall; `ef_search` trades query latency for recall at query time.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why might a filtered HNSW query return only 3 rows when you asked for 50?</summary>

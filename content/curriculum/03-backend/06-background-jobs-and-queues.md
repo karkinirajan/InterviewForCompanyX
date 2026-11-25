@@ -76,6 +76,13 @@ The request/response cycle is for things that finish in a second or two. Queues 
 - Job state only in memory or in threads inside the web process, lost on restart (a classic MVP shortcut, see [D4](#d4)).
 - Passing whole objects into the queue instead of IDs, then processing stale data.
 
+## Interview follow-ups
+
+- **"Exactly-once delivery?"** Practically impossible across systems; get exactly-once *effects* with at-least-once delivery plus idempotent processing (dedupe keys, unique constraints, upserts) and the outbox pattern for publishing.
+- **"What's the outbox pattern?"** Write the business change and an "event to publish" row in the same transaction; a relay publishes outbox rows to the queue and marks them sent, so you never publish without committing or commit without publishing.
+- **"Celery or SQS or Kafka?"** Celery for Python task queues with a broker you run; SQS for managed, durable queues on AWS; Kafka for high-volume ordered event streams with replay and many consumers.
+- **"How do you prioritise urgent jobs?"** Separate queues per priority with dedicated workers, so a backlog of batch jobs can't starve interactive ones.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why must queue workers be idempotent?</summary>

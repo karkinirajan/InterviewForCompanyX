@@ -88,6 +88,12 @@ A prompt or model change is a behaviour change with no compiler to catch mistake
 - Migrations that lock large tables during business hours.
 - Shipping a new prompt straight to 100% of traffic.
 
+## Interview follow-ups
+
+- **"CI takes 40 minutes. How do you speed it up?"** Parallelise jobs, cache dependencies, run only affected tests on PRs (full suite on main), split slow E2E suites, fix the slowest tests first.
+- **"How do you roll back a bad migration?"** Avoid needing to: use expand/contract so the old code still works; roll back the code, not the schema; write forward fixes for data.
+- **"How do you release a new model safely?"** Evals in CI, shadow traffic, canary by percentage with quality and cost dashboards, instant rollback by config.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between a canary and a feature flag?</summary>

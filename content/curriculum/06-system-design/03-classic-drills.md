@@ -67,6 +67,12 @@ These problems recur in interviews because each isolates one hard idea. Knowing 
 
 Every drill uses the same handful of blocks from [6.1](/06-system-design/01-fundamentals): cache, queue, idempotency, object storage, rate limiting. AI drills add a model, retrieval and evaluation to the same blocks.
 
+## Interview follow-ups
+
+- **"URL shortener: how do you avoid ID collisions across servers?"** Pre-allocated ID ranges per server, a central sequence, or random IDs with a uniqueness check on insert.
+- **"Rate limiter: sliding window or token bucket?"** Token bucket allows controlled bursts and is cheap; sliding windows are more precise at boundaries. For LLM APIs, token buckets on both requests and tokens.
+- **"Notification spam: how do you protect users?"** Per-user rate limits, digesting (batch into one message), quiet hours and preference checks before send.
+
 ## Check yourself
 
 <details markdown="1"><summary>Fail-open or fail-closed when the rate limiter's store is unavailable?</summary>

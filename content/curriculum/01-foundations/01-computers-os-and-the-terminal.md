@@ -77,6 +77,12 @@ Learn to combine them: `grep ERROR app.log | tail -n 20`, `ps aux | sort -k4 -nr
 - `kill -9` first. It skips cleanup; try a normal `kill` and wait.
 - Printing secrets while debugging (`echo $API_KEY`) into a terminal that's being shared or logged.
 
+## Interview follow-ups
+
+- **"A container keeps getting killed with exit code 137."** That's SIGKILL, usually the OOM killer. Check memory limits and usage, look for leaks or unbounded caches, and raise the limit only after understanding the growth.
+- **"How do you find what's slowing a server?"** `top`/`htop` for CPU and memory, `iostat` for disk, `ss`/`lsof` for connections, application logs and traces for request-level detail.
+- **"Difference between SIGTERM and SIGKILL?"** SIGTERM asks the process to shut down cleanly (it can finish requests); SIGKILL stops it immediately with no cleanup. Orchestrators send TERM, wait, then KILL.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between a process and a thread?</summary>

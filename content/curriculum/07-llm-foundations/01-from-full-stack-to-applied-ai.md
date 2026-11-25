@@ -75,6 +75,11 @@ Most applied AI engineers are full-stack or backend engineers who added a new sk
 - Starting with an agent framework before understanding the API underneath.
 - No evaluation, so "it seems better" decides everything.
 
+## Interview follow-ups
+
+- **"You've mostly done web development. Why should we trust you with AI?"** Because the job is integration: I already run APIs, queues, auth, observability and deploys in production. Here's the AI feature I built on top of that, with its eval set, fallbacks and cost numbers.
+- **"What's the hardest part of production AI?"** Knowing whether it's working. Quality fails silently, so evaluation and monitoring are the core work, not the model call.
+
 ## Check yourself
 
 <details markdown="1"><summary>Name four things that are genuinely new when your dependency is an LLM.</summary>

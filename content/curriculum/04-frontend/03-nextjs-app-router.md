@@ -74,6 +74,13 @@ Server components cut JavaScript shipped to the browser and keep data access clo
 - Reading `process.env.SECRET` in a client component (it's either undefined or, if prefixed `NEXT_PUBLIC_`, published to everyone).
 - Trusting server-action input because "only our form calls it".
 
+## Interview follow-ups
+
+- **"How do you stream an LLM response in Next.js?"** A route handler returning a `ReadableStream` (or the AI SDK's stream helpers) on the Node runtime, consumed by a client component; cancellation via `AbortController` and `request.signal`.
+- **"Server action or route handler?"** Server actions for form mutations from your own UI; route handlers for public or third-party APIs, webhooks and streaming endpoints. Both need validation and auth.
+- **"How does caching work in the App Router?"** It differs by Next.js version. Read the version-matched docs in `node_modules/next/dist/docs/`; be explicit about static vs dynamic rendering and revalidation rather than relying on defaults.
+- **"How do you keep the frontend from touching the database?"** Data access lives in server-only modules or a separate backend API; client components receive only the data they render.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between a server and a client component?</summary>

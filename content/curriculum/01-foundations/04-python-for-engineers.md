@@ -97,6 +97,12 @@ The same pattern validates LLM output later in the guide ([C1](#c1)): never trus
 - Calling a synchronous SDK inside an `async def` route.
 - `pip install` into the system interpreter, breaking OS tools.
 
+## Interview follow-ups
+
+- **"How is a dict implemented, and what's its complexity?"** A hash table: average O(1) get/set, O(n) worst case; keys must be hashable; insertion order preserved since 3.7.
+- **"Generators vs lists?"** Generators produce items lazily (constant memory, single pass), which is ideal for streaming and large files; lists hold everything in memory and allow random access.
+- **"How do you structure a Python service?"** `src/` package, settings via Pydantic, layers (api, services, repositories), typed, tested, packaged with uv, one entry point.
+
 ## Check yourself
 
 <details markdown="1"><summary>When should you use Pydantic instead of a dataclass?</summary>

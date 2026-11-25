@@ -55,6 +55,13 @@ projects:
 
 **What to learn from it:** a simple retrieve-then-re-rank design with clean failure semantics is often all a product needs.
 
+## How to talk about these in an interview
+
+- **Lead with the problem shape**, not the tools: "temporal, multi-hop questions" (P3) or "symptom text to a short, ranked candidate list" (P4).
+- **Name the decision**: graph for relationships over time; re-ranking from 30 to 5 for precision.
+- **Name how quality was checked**: regression suites (RAGAS, DeepEval) for P3; tests and fixed failure semantics for P4.
+- **Scope your role** on subcontract work, and never name the end client.
+
 ## Check yourself
 
 <details markdown="1"><summary>How do you present subcontract work honestly?</summary>

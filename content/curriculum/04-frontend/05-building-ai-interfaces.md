@@ -92,6 +92,12 @@ Agree early on: the API contract, the streaming event types, loading / error / e
 - Rendering model output as raw HTML (an injection risk). Render Markdown safely and sanitise ([Q27](#q27)).
 - Auto-executing actions the model suggests.
 
+## Interview follow-ups
+
+- **"The answer takes 15 seconds. How do you keep users?"** Stream tokens; show status steps ("Searching 3 documents…"); show partial results like sources early; allow Stop; and work on TTFT (smaller model, cached prefixes, parallel retrieval).
+- **"How do you show uncertainty without scaring users?"** Show sources and evidence, use a designed "I couldn't find this" state, and flag low-confidence fields for review; avoid raw probability numbers.
+- **"How do you collect feedback that's actually useful?"** Thumbs with an optional reason, plus implicit signals (edits, copy, regenerate, abandonment), logged with the prompt version and trace ID so it can become eval data.
+
 ## Check yourself
 
 <details markdown="1"><summary>What must happen when a user clicks Stop on a streaming answer?</summary>

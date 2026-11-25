@@ -66,6 +66,21 @@ Storage choices matter for sensitive drafts: `sessionStorage` disappears when th
 - Global stores holding server data that silently goes stale.
 - Persisting sensitive data in `localStorage`.
 
+## Worked example: the four states
+
+```text
+loading → skeleton rows that match the final layout (no layout shift)
+error   → "Couldn't load evaluations. [Retry]" plus a request ID for support
+empty   → "No evaluations yet. [Run your first evaluation]" (a call to action)
+success → the table, with pagination and a refresh indicator for background refetches
+```
+
+## Interview follow-ups
+
+- **"How do you keep a list fresh after a mutation?"** Invalidate the affected query keys after success (or update the cache directly), and use optimistic updates only where rollback is harmless.
+- **"How do you avoid waterfalls?"** Fetch in parallel, move data fetching up to server components or route loaders, and prefetch on hover for likely navigation.
+- **"Where do you validate a form?"** Client for instant feedback, server for truth, with one shared schema (zod) so the rules can't drift.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between server state and client state?</summary>

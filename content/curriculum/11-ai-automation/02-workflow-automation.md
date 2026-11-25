@@ -75,6 +75,11 @@ Hybrid is common: a no-code tool for triggers and connectors calling your own AP
 - AI output written straight into a CRM without validation.
 - Automations failing silently for weeks; every flow needs failure alerts.
 
+## Interview follow-ups
+
+- **"The CRM rate-limits your sync. What do you do?"** Queue writes, respect `Retry-After`, batch where the API allows, and spread work over time with a token bucket per integration.
+- **"How do you test an automation that touches five SaaS tools?"** Sandbox accounts, recorded fixtures for each API, contract tests on the payloads you depend on, and an end-to-end smoke run on a schedule.
+
 ## Check yourself
 
 <details markdown="1"><summary>How do you make a webhook consumer reliable?</summary>

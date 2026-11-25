@@ -75,6 +75,24 @@ Version documents and chunks; idempotent ingestion keyed by source ID + checksum
 - Deleting the document row but not its vectors and cached answers.
 - Choosing chunk size by intuition rather than measurement.
 
+## Worked example: one policy document
+
+```text
+source: handbook.pdf (v7, sha256 3f1…, tenant t_42, acl: [staff])
+parse  → 42 pages, 3 tables kept intact, headings detected
+chunks → 118 structure-aware chunks; 12 parent sections
+         each prefixed: "Handbook › Leave › Parental leave (v7) — …"
+embed  → 118 vectors, embed_model = "embed-v3"
+index  → vectors + tsvector + metadata in one transaction
+update → v8 arrives: new checksum → new version written, v7 chunks marked superseded
+delete → vectors, lexical rows, caches removed; retrieval test confirms nothing returns
+```
+
+## Interview follow-ups
+
+- **"How do you handle tables in PDFs?"** Layout-aware parsing that keeps tables whole; store them as Markdown or row-wise text with headers repeated, plus a summary chunk.
+- **"How do you index scanned documents?"** OCR with confidence scores; low-confidence pages flagged; keep page images for review.
+
 ## Check yourself
 
 <details markdown="1"><summary>How do you make ingestion idempotent?</summary>

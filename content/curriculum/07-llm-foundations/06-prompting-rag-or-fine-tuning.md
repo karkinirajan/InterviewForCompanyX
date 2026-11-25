@@ -64,6 +64,11 @@ Prompting and RAG change in minutes; fine-tuning takes data collection, training
 - Fine-tuning without a baseline eval to prove improvement.
 - Ignoring the maintenance cost of re-training when the base model is retired.
 
+## Interview follow-ups
+
+- **"The client insists on fine-tuning. What do you say?"** Ask what problem it solves; show a prompt + RAG baseline on their eval set; propose fine-tuning only for a measured gap, with the data and evaluation plan that would prove it.
+- **"What's LoRA?"** A parameter-efficient fine-tuning method that trains small adapter matrices instead of all weights: cheaper to train and store, easy to swap per task.
+
 ## Check yourself
 
 <details markdown="1"><summary>A client wants the model to "know" their 2,000-page policy manual that changes monthly. Which technique?</summary>

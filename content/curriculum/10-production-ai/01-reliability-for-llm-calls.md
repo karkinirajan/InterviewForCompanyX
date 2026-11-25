@@ -74,6 +74,11 @@ When no validated model is available: queue the request and tell the user when t
 - Retries stacked at the SDK, service and gateway levels.
 - A single generic error for every failure, which hides outages ([S2](#s2)).
 
+## Interview follow-ups
+
+- **"The provider is degraded but not down: slow, occasional errors."** Latency-based breakers (trip on p95 over a threshold), hedged requests for idempotent reads, or route a share of traffic to the fallback, all watched on the dashboard.
+- **"How do you test the fallback path?"** Unit tests with fake failing providers, plus a scheduled game day that forces fallback in staging and checks eval quality on the fallback model.
+
 ## Check yourself
 
 <details markdown="1"><summary>A reply fails schema validation. Retry?</summary>

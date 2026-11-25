@@ -84,6 +84,13 @@ Pure rendering + immutable updates make components predictable and fast to diff.
 - Index keys in lists that reorder, mixing up item state.
 - Fetching in effects without handling races (the slower old request overwriting the newer one). Use a data library or abort controllers ([4.4](/04-frontend/04-data-fetching-state-forms)).
 
+## Interview follow-ups
+
+- **"Why does my component render twice in development?"** React Strict Mode intentionally double-invokes renders and effects to expose impure code; production renders once.
+- **"When do you reach for `useMemo` / `useCallback`?"** When profiling shows an expensive computation or a memoised child re-rendering needlessly; not by default (React's compiler increasingly handles this).
+- **"Context or a state library?"** Context for low-frequency global values (theme, user); a store or a server-state library for frequently changing or server data, to avoid re-rendering the whole tree.
+- **"How do you test components?"** Testing Library from the user's perspective (roles, text, events), mocking the network (MSW), not implementation details.
+
 ## Check yourself
 
 <details markdown="1"><summary>When should you use `useEffect`?</summary>

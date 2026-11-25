@@ -55,6 +55,21 @@ Senior is a set of behaviours you can show before the title:
 - Re-run your own evals when a new model arrives instead of trusting launch claims.
 - Update this guide: when something changes, edit the lesson. Teaching it is how you keep it.
 
+## A worked first proposal (day 60–90)
+
+```text
+Problem:  [X]% of support-assistant answers are edited heavily (edit distance > 50%);
+          sampled reviews show most cite outdated policy versions.
+Data:     a sample of answers over 4 weeks, with each heavy edit labelled by cause
+Proposal: version-aware ingestion (supersede old chunks) + an eval set of 50 policy questions
+          gated in CI.
+Cost:     ~1 week; no model change.
+Success:  heavy-edit rate halved in 4 weeks; no regression on the eval set.
+Rollback: feature flag on the new retrieval filter.
+```
+
+(The numbers are placeholders: fill them from your team's data.) Small, measured, reversible and tied to a user-visible outcome: that's what earns trust in a new team.
+
 ## Check yourself
 
 <details markdown="1"><summary>What should your first proposal in a new job look like?</summary>

@@ -74,6 +74,12 @@ Every framework compiles to HTML, CSS and JavaScript. When a layout breaks, a bu
 - Removing focus outlines without replacing them.
 - Fixed pixel widths that break on phones.
 
+## Interview follow-ups
+
+- **"How do you make a custom dropdown accessible?"** Prefer native `<select>`; if custom, follow the ARIA combobox/listbox pattern with keyboard support (arrows, Enter, Escape), focus management and announced state, tested with a screen reader.
+- **"What causes layout shift and how do you prevent it?"** Images, ads or fonts loading without reserved space. Set width and height (or aspect-ratio), reserve space for dynamic content, use `font-display` carefully.
+- **"What is the critical rendering path?"** HTML, CSS and synchronous scripts the browser needs before first paint. Keep CSS small, defer non-critical JavaScript, preload key assets.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why use `<button>` instead of a clickable `<div>`?</summary>

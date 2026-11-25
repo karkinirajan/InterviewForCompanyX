@@ -82,6 +82,13 @@ Optimising without measurement usually improves the wrong thing. Percentiles ref
 - Unbounded concurrency (e.g. `gather` over 10,000 calls) that trips rate limits; use a semaphore.
 - Claiming "I made it 72% faster" without a baseline, a measurement method and the mechanism. Every performance number on a CV needs all three ([S6](#s6)).
 
+## Interview follow-ups
+
+- **"The endpoint got slower after you added async. Why?"** A blocking call in the event loop (sync SDK, CPU work, `time.sleep`), or unbounded concurrency saturating a pool; profile with py-spy or loop-lag metrics.
+- **"How many workers should a FastAPI service run?"** Roughly one process per CPU core for CPU-bound parts, with async handling concurrency within each; then size by load test, watching p95 and DB connection limits.
+- **"Your DB has 100 connections and you have 20 pods."** Use a pooler (PgBouncer), small per-pod pools, and keep transactions short; count total connections across replicas.
+- **"How do you prove a performance improvement?"** Same workload, same environment, before and after, percentiles (not averages), enough samples, and the mechanism that explains the gain.
+
 ## Check yourself
 
 <details markdown="1"><summary>When do threads, processes and async each fit?</summary>

@@ -82,6 +82,11 @@ Classify tools by risk: **read** (run freely), **write reversible** (log, maybe 
 - Approval screens that show a summary instead of the exact action.
 - No audit trail of who approved what.
 
+## Interview follow-ups
+
+- **"How do you detect an agent loop?"** Repeated identical tool calls or arguments, no new information across N steps, or oscillating states; stop with a clear status and keep the trace.
+- **"Who approves, and how do you avoid approval fatigue?"** Approve only irreversible or external actions, batch similar approvals, show diffs and evidence, and measure approval rates to tighten automation where it's consistently right.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why enforce budgets in the orchestrator rather than the prompt?</summary>

@@ -101,6 +101,12 @@ Small, non-root images reduce attack surface and pull time. Multi-stage builds k
 - Baking secrets into images; inject them at runtime.
 - Default proxy timeouts (often 60 s) cutting off long model responses.
 
+## Interview follow-ups
+
+- **"Why is my Docker image 2 GB?"** Build tools and caches in the final image, a fat base image, copying the whole repo. Fix with multi-stage builds, slim bases, `.dockerignore` and cleaning package caches in the same layer.
+- **"How do containers differ from VMs?"** Containers share the host kernel with isolated processes, filesystems and networks (fast, light); VMs virtualise hardware with their own kernel (stronger isolation, heavier).
+- **"How do you do zero-downtime deploys on one VM?"** Two app instances behind Nginx, start the new one, health-check it, switch the upstream, drain the old one.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why copy the lockfile and install dependencies before copying source code?</summary>

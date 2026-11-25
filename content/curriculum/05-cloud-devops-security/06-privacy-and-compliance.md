@@ -73,6 +73,11 @@ HIPAA is the US law for health information. It's the example most health-tech an
 
 A self-audit of a healthcare AI app found its public FAQ claimed "HIPAA compliant" while the code supported no such claim ([S2](#s2)). The claims were removed. Never let marketing copy claim a compliance status the system and organisation haven't earned.
 
+## Interview follow-ups
+
+- **"A user asks to delete their data. What does that touch?"** Primary DB, backups (via retention), search and vector indexes, caches, logs, analytics, and third-party processors, with deletion verified and logged.
+- **"Can we send customer data to an LLM API?"** Depends on the data class, the contract (DPA/BAA), the provider's storage and training terms, region, and consent. Minimise or de-identify by default.
+
 ## Check yourself
 
 <details markdown="1"><summary>What is a BAA and when is it needed?</summary>

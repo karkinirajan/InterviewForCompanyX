@@ -63,6 +63,11 @@ One interface across vendors is valuable (one command, consistent errors, consen
 - Sending user audio before checking vendor data terms.
 - Voice agents with no barge-in (user can't interrupt) and long silent pauses.
 
+## Interview follow-ups
+
+- **"Where does latency go in a voice agent?"** STT endpointing (deciding the user stopped), LLM time to first token, TTS time to first audio, network hops. Stream every stage and overlap them.
+- **"How do you evaluate a voice agent?"** Task success on scripted calls, per-turn latency percentiles, interruption handling, STT error rate on your users' accents and languages, and escalation rate.
+
 ## Check yourself
 
 <details markdown="1"><summary>Why count WER over grapheme clusters for Devanagari?</summary>

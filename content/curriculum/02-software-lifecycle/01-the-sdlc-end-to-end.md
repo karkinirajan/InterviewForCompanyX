@@ -64,6 +64,11 @@ Say what you did at each stage, not just the code:
 - No plan for operations: who gets paged, which dashboard shows it's broken.
 - Treating AI features as done once the demo works. Without evals and monitoring, quality silently drifts.
 
+## Interview follow-ups
+
+- **"Walk me through how you delivered a feature."** Use the stages: what you clarified, the design and its trade-off, how you tested and released it (flags, canary), what you monitored, and what you learned.
+- **"How is the SDLC different for an AI feature?"** Quality bars and eval sets in requirements, prompt/schema design, evals as release gates, shadow or canary rollouts, and drift monitoring in operations.
+
 ## Check yourself
 
 <details markdown="1"><summary>Which SDLC stages does an AI feature add work to, and what work?</summary>

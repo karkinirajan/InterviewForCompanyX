@@ -82,6 +82,12 @@ Attach policies to **roles** that services assume (an EC2 instance role, an ECS 
 - Long-lived access keys on laptops and in CI instead of roles and short-lived credentials (OIDC from CI).
 - Forgotten resources running for months.
 
+## Interview follow-ups
+
+- **"ECS, EKS or Lambda?"** Lambda for event-driven, short tasks; ECS/Fargate for containers without managing servers; EKS when you need Kubernetes' ecosystem and have a platform team.
+- **"How do you give CI deploy access without long-lived keys?"** OIDC federation from the CI provider to an IAM role with a trust policy scoped to the repository and branch.
+- **"How would you cut a cloud bill?"** Measure by tag first; rightsize instances, schedule non-prod off-hours, use savings plans for steady load, lifecycle policies on storage, remove idle resources. State savings with a baseline.
+
 ## Check yourself
 
 <details markdown="1"><summary>How should an EC2 or ECS service get permission to read from S3?</summary>

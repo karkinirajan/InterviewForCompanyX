@@ -82,6 +82,12 @@ Some responses arrive in pieces: file downloads, **Server-Sent Events (SSE)** fo
 - Caching personalised responses at a CDN.
 - Retrying 4xx errors. They'll fail the same way, and on paid APIs you pay again.
 
+## Interview follow-ups
+
+- **"What happens when you type a URL and press enter?"** Walk the layers: DNS, TCP/QUIC, TLS, HTTP request, CDN/proxy, app, response, parsing, subresource requests, render. Depth on one layer impresses more than breadth on all.
+- **"HTTP/1.1 vs HTTP/2 vs HTTP/3?"** /2 multiplexes many requests over one connection with header compression; /3 runs over QUIC (UDP), avoiding head-of-line blocking at the transport layer.
+- **"Why does my API work in curl but fail in the browser?"** Usually CORS (preflight failing or missing headers) or cookies (SameSite, Secure, domain).
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between 401 and 403?</summary>

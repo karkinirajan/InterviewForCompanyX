@@ -74,6 +74,11 @@ Per call: request ID, tenant, feature, model and version, prompt version and fin
 - Cost dashboards by provider bill, monthly, too late to act.
 - Tracing that stores full prompts with personal data.
 
+## Interview follow-ups
+
+- **"Cost doubled overnight with flat traffic. Where do you look?"** Tokens per request (prompt growth, bigger retrieved context), retries and fallbacks, agent steps per task, cache hit rate, a model or route change, one tenant's usage.
+- **"What's the most important AI metric?"** Cost per successful task, alongside a quality measure, because it combines spend, reliability and usefulness.
+
 ## Check yourself
 
 <details markdown="1"><summary>Name the seven layers of an AI dashboard.</summary>

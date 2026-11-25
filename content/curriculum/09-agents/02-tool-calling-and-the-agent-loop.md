@@ -88,6 +88,12 @@ The model can be confused or manipulated; the tool can't. A casebook simulation 
 - Trusting tool arguments because "the model generated them".
 - Returning whole database records into the context.
 
+## Interview follow-ups
+
+- **"The model calls a tool with invalid arguments. What happens?"** Schema validation rejects them; return a structured error as the tool result so the model can correct itself, count it against the step budget, and stop after repeated failures.
+- **"Parallel tool calls?"** Run independent read-only calls concurrently with timeouts; serialise writes; return results in a stable order.
+- **"How much data should a tool return?"** The minimum the model needs, trimmed and structured, because results cost tokens and are an injection channel.
+
 ## Check yourself
 
 <details markdown="1"><summary>Where does authorization for a tool call happen?</summary>

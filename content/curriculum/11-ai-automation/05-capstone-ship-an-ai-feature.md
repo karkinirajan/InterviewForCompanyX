@@ -76,6 +76,11 @@ Build a **document question-answering and extraction service** for a domain you 
 
 Use the casebook format from [13.1](/13-casebook/01-presenting-projects): one line, why it matters, how it's built, decisions worth quoting, numbers, honest status, pitch, follow-ups.
 
+## Interview follow-ups
+
+- **"Walk me through your capstone."** Use the casebook format: one line, the architecture, two decisions with reasons, the eval numbers with baselines, honest gaps, and what you'd do next.
+- **"What would break first at 100× users?"** Name it from your own measurements: provider rate limits, ingestion throughput, DB connections or cost. Then give the fix.
+
 ## Check yourself
 
 <details markdown="1"><summary>What makes a project write-up credible to an interviewer?</summary>

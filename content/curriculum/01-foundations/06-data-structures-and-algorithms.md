@@ -84,6 +84,12 @@ Interviewers grade communication and process as much as the final code. A clear 
 - Forgetting edge cases (empty list, a single element).
 - Using `list.pop(0)` (O(n)) as a queue in Python; use `deque.popleft()`.
 
+## Interview follow-ups
+
+- **"Can you do better than O(n log n)?"** Ask whether the input has structure: bounded values (counting sort), only top-k needed (heap, O(n log k)), or already sorted (two pointers).
+- **"What if the data doesn't fit in memory?"** Stream it, use external sorting or chunked processing, or approximate structures (count-min sketch, HyperLogLog).
+- **"How would you test your solution?"** Example cases, edge cases (empty, one, duplicates, negatives, very large), and a brute-force reference for randomised comparison.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the time complexity of checking `x in my_list` versus `x in my_set` in Python?</summary>

@@ -56,6 +56,12 @@ Think aloud; state assumptions; start simple, then add reliability, cost and sec
 - Add new questions to your bank; fix weak answers; update this guide if a lesson was missing something.
 - Send a short thank-you if it's customary where you are.
 
+## If things go wrong on the day
+
+- **Connection drops:** rejoin immediately, switch to the hotspot, and say where you were: "I was explaining the retry policy; I'll pick up from the breaker."
+- **You blank on a question:** say so, restate the question, start from the principle and reason forward out loud.
+- **You realise an earlier answer was wrong:** correct it yourself: "I want to correct something I said about isolation levels…" It reads as integrity, not weakness.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the single most valuable thing to do after any interview?</summary>

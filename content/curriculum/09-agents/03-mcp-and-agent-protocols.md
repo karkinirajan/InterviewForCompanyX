@@ -80,6 +80,11 @@ async def get_order_status(order_id: int) -> str:
 - Least privilege: separate read-only and write tools; approval for side effects.
 - Log every call (who, which tool, arguments without secrets, outcome).
 
+## Interview follow-ups
+
+- **"MCP vs plain function calling?"** Function calling is how a model asks for a tool within one app; MCP is how tools are packaged and discovered across apps and clients. MCP servers still surface as function calls to the model.
+- **"How do you authenticate a remote MCP server per user?"** OAuth for the client connection, the user's identity propagated to every tool call, and per-tool authorisation server-side.
+
 ## Check yourself
 
 <details markdown="1"><summary>What problem does MCP solve?</summary>

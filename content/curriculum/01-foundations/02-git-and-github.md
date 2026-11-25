@@ -83,6 +83,12 @@ Good commit messages say **why**, in the imperative: "Retry provider calls only 
 - Force-pushing to `main`. Protect the branch in GitHub settings.
 - Not pulling before starting work, then fighting conflicts later.
 
+## Interview follow-ups
+
+- **"Merge or rebase for feature branches?"** Rebase your own unpublished branch onto main for a clean history; merge (or squash-merge) into main via PR; never rebase shared branches.
+- **"How do you find which commit introduced a bug?"** `git bisect` with a test script (`git bisect run`), which works best with small, building commits.
+- **"What's in a good PR?"** One purpose, a small diff, a description of why and how it was tested, and passing CI.
+
 ## Check yourself
 
 <details markdown="1"><summary>What's the difference between `git fetch` and `git pull`?</summary>

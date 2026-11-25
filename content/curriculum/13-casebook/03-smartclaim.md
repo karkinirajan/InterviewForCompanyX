@@ -33,7 +33,7 @@ projects:
 
 ## P2 · SmartClaim AI (healthcare)
 
-**One line:** wound-care providers fill a 46-question checklist; a model judges each answer against CMS Medicare **LCD L35041** and reports pass or fail with a reason, before the claim is billed. Next.js 16, React 19, Auth.js, Neon Postgres, OpenAI.
+**One line:** wound-care providers fill a 46-question checklist in a **six-step wizard** (per-step validation, help tooltips, printable report); a model judges each answer against CMS Medicare **LCD L35041** and reports pass or fail with a reason, before the claim is billed. Next.js 16, React 19, Auth.js, Neon Postgres, OpenAI.
 
 | Decision | Detail |
 |---|---|

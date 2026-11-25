@@ -37,7 +37,7 @@ projects:
 ## P6 · Pilot: AI ops console (frontend contractor)
 
 - **Role:** frontend contractor. Built the **Next.js operator console**: live feed, trace drawer, Claude chat, for an assistant that triages email, Slack and calendar events as ALERT, DRAFT or NOTHING.
-- **The product:** an AI field-service copilot pulling in Gmail, Slack, call transcripts, QuickBooks and Acuity bookings into customer/job entity resolution.
+- **The product:** an AI field-service copilot pulling in Gmail, Slack, call transcripts, QuickBooks and Acuity bookings into customer/job entity resolution, with **Zep** as its memory layer. Console stack: Next.js 16, TypeScript, PostgreSQL, Claude.
 - **Two findings:** the entity resolver didn't fall back to the linked email when a name match failed, with client money involved (flagged as critical); **prompt injection embedded in Slack tool results**, flagged repeatedly.
 - **Scope rule:** claim the console and the findings only, not backend ownership or the fixes. → [S3](#s3)
 
@@ -45,7 +45,8 @@ projects:
 
 ## P7 · RevOps lead scoring platform
 
-- **What:** scores B2B leads from usage and engagement signals into HOT, WARM, COOL, COLD. A transparent formula is always live; an **XGBoost model scores in shadow** and is promoted only when its accuracy is trusted.
+- **What:** scores B2B leads from usage and engagement signals into HOT, WARM, COOL, COLD. A transparent formula is always live; an **XGBoost model scores in shadow** and is promoted only when its accuracy is trusted. A **score simulator** shows how a lead's score would change as signals change.
+- **Stack:** Python, FastAPI, Celery workers, PostgreSQL, Redis, SQLAlchemy + Alembic, Typer CLI, Next.js 16 frontend.
 - **Integrations:** HubSpot (batch sync out, signed deal-won webhook in), Salesforce (OAuth), outbound webhooks with signatures and retries, S3-compatible raw imports, per-lead AI report.
 - **Production hygiene:** refuses to start with placeholder secrets; encrypts stored CRM tokens; keeps tokens out of the browser; **checks every URL it calls on a user's behalf**.
 - **Numbers (repository):** 810 API tests, 528 of 528 mutants caught. Docker Compose: Postgres, Redis, API, worker, scheduler, web.
@@ -59,7 +60,7 @@ projects:
 |---|---|---|
 | **transcribeXplatform** | Transcription with speaker identification and AI summaries across **AssemblyAI, Deepgram Nova-3, OpenAI and local Whisper**; every input normalized to 16 kHz mono WAV with ffmpeg; CLI, web app and an Electron desktop app with bundled installers | Multi-provider audio adapters |
 | **ttstt** (VoiceTech radar) | Comparison platform for TTS and STT providers: leaderboard, recommendation wizard, TCO calculator; 215 Vitest tests, 108 mutation checks | Vendor selection on evidence |
-| **CBT recovery coach** | FastAPI + Next.js; SQLAlchemy 2 async; Argon2id; rotating refresh JWT cookies; **Gemini + ElevenLabs voice**; 210 API tests | Sensitive-domain voice AI with real auth |
+| **CBT recovery coach** (therapist.kneeraazon.com) | FastAPI + Next.js; SQLAlchemy 2 async + Alembic; Argon2id; rotating refresh JWT cookies; **Gemini + ElevenLabs voice** over a **FastAPI WebSocket** authenticated by short-lived, single-use tickets (Next.js route handlers can't hold the socket, so it runs on the API); 210 API tests | Sensitive-domain voice AI with real auth; WebSockets done safely |
 
 → [Q39](#q39), [S10](#s10)
 
@@ -84,7 +85,7 @@ Next.js 16, TypeScript, RSS, **Groq API**, Supabase. Ingests public RSS from Nep
 
 ## P13 · Nestpane (Chrome Web Store)
 
-Local-first new-tab workspace, published on the Chrome Web Store, GPL-3.0. Notes, tasks, focus, habits, journal; command palette with optional AI answers; Drive backup with optional passphrase encryption (AES-GCM); 158 tests, zero runtime npm dependencies. Use when asked about shipping a product to real users.
+Local-first new-tab workspace (Manifest V3), published on the Chrome Web Store, GPL-3.0. The browser's real bookmarks, Markdown notes, tasks, focus timer, habits, journal; command palette with optional AI answers; Google Drive backup with optional passphrase encryption (AES-GCM via the **Web Crypto API**); 158 tests, zero runtime npm dependencies. Use when asked about shipping a product to real users.
 
 <a id="p0"></a>
 
@@ -101,4 +102,4 @@ Shadow models before promotion; sanitise output; audit without values; confirm e
 
 ## What comes next
 
-Part 14: [Reference](/14-reference).
+[13.7 Web platforms and finance tools](/13-casebook/07-web-platforms-and-finance-tools).

@@ -1,6 +1,6 @@
 ---
 title: The casebook
-kicker: Real projects as case studies · P0–P13
+kicker: Real projects as case studies · P0–P19 · CV claims defended
 summary: 'The author''s own projects written up as case studies: how each is built, the decisions worth copying, the honest status, and how to present it.'
 ---
 

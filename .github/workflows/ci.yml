@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  content:
+    name: Content compiler (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.13", "3.15"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Lint (ruff)
+        run: uv run --locked ruff check scripts tests
+      - name: Tests (includes the full curriculum compile and link check)
+        run: uv run --locked pytest -q
+      - name: Mutation checks (each deliberate bug must make a test fail)
+        if: matrix.python == '3.15'
+        run: python3 tests/mutation/mutate.py tests/mutation/mutants_compiler.py -- uv run --locked pytest -x -q
+
+  site:
+    name: Site (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [24, 26]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - name: Compile content (fails on broken links, missing key points or projects)
+        run: npm run content
+      - name: Lint (warnings fail the build)
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+      - name: Tests
+        run: npm test
+      - name: Mutation checks
+        if: matrix.node == 26
+        run: python3 tests/mutation/mutate.py tests/mutation/mutants_web.py -- npx vitest run --bail 1
+      - name: Build (static export)
+        run: npm run build
+      - name: Share image and icons are in the export
+        run: test -s out/brand/og.png && test -s out/favicon.ico && test -s out/site.webmanifest
+      - name: Dependency audit (high and critical fail the build)
+        if: matrix.node == 26
+        run: npm audit --audit-level=high

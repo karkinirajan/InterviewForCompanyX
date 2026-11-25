@@ -45,7 +45,13 @@ export function AppShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setPop(null); setNavOpen(false); }, [pathname]);
+  // Close the preview and the mobile nav on navigation (adjusting state during render, not in an effect).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setPop(null);
+    setNavOpen(false);
+  }
 
   // Internal links inside rendered Markdown are plain <a>: route them client-side.
   useEffect(() => {

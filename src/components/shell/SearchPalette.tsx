@@ -1,37 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ROUTE_SLUG, SEARCH, TECH_MAP_SLUG, type SearchEntry } from "@/lib/content";
+import { ROUTE_SLUG, SEARCH, TECH_MAP_SLUG } from "@/lib/content";
+import { buildIndex, search, type IndexedEntry } from "@/lib/search";
 
-type Entry = SearchEntry & { hay: string };
+type Entry = IndexedEntry;
 
-const INDEX: Entry[] = [
+const INDEX = buildIndex([
   ...SEARCH,
-  { label: "Map", title: "Tech flow map", href: `/${TECH_MAP_SLUG}`, context: "Tools", kind: "track" as const, text: "libraries frameworks diagram" },
-  { label: "Route", title: "Interview route", href: `/${ROUTE_SLUG}`, context: "Follow-through", kind: "track" as const, text: "interview prep order plan follow through" },
-].map((e) => ({ ...e, hay: `${e.label} ${e.title} ${e.context} ${e.text}`.toLowerCase() }));
-
-const KIND_BONUS: Record<SearchEntry["kind"], number> = { lesson: 8, track: 6, item: 4, heading: 0 };
-
-function search(raw: string): Entry[] {
-  const q = raw.trim().toLowerCase();
-  if (!q) return INDEX.filter((x) => x.kind === "track");
-  const terms = q.split(/\s+/);
-  return INDEX.map((x) => {
-    const label = x.label.toLowerCase();
-    const title = x.title.toLowerCase();
-    let score = 0;
-    if (label === q) score += 100;
-    else if (label.startsWith(q) && x.kind !== "heading") score += 40;
-    if (title.includes(q)) score += 30;
-    if (terms.every((t) => x.hay.includes(t))) score += 10;
-    else if (score === 0) return null;
-    return { x, score: score + KIND_BONUS[x.kind] };
-  })
-    .filter((r): r is { x: Entry; score: number } => r !== null)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 50)
-    .map((r) => r.x);
-}
+  { label: "Map", title: "Tech flow map", href: `/${TECH_MAP_SLUG}`, context: "Tools", kind: "track", text: "libraries frameworks diagram" },
+  { label: "Route", title: "Interview route", href: `/${ROUTE_SLUG}`, context: "Follow-through", kind: "track", text: "interview prep order plan follow through" },
+]);
 
 export function SearchPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
@@ -39,10 +17,17 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   const [sel, setSel] = useState(0);
   const input = useRef<HTMLInputElement>(null);
   const list = useRef<HTMLUListElement>(null);
-  const results = useMemo(() => search(q), [q]);
+  const results = useMemo(() => search(INDEX, q), [q]);
+
+  // Reset the query each time the palette opens (adjusting state during render, not in an effect).
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) { setQ(""); setSel(0); }
+  }
 
   useEffect(() => {
-    if (open) { setQ(""); setSel(0); window.setTimeout(() => input.current?.focus(), 0); }
+    if (open) window.setTimeout(() => input.current?.focus(), 0);
   }, [open]);
 
   useEffect(() => {

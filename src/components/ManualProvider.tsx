@@ -39,6 +39,7 @@ export function ManualProvider({ children }: { children: ReactNode }) {
 
   // Load persisted state after mount (keeps server HTML and first client render identical).
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from localStorage, an external store
     setDone(new Set(store.get<string[]>("lessons-done", [])));
     setTimer(store.get<TimerState | null>("timer", null));
     setNow(Date.now());
@@ -61,6 +62,7 @@ export function ManualProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (timer && timerLeft !== null && timerLeft <= 0 && !timer.warned) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reacting to the wall clock, an external system
       saveTimer({ ...timer, warned: true });
       toast("Time's up: answer the check-yourself questions before moving on.", 5000);
     }

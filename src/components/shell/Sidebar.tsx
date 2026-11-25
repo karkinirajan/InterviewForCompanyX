@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ALL_LESSONS, ROUTE_SLUG, TECH_MAP_SLUG, TRACKS } from "@/lib/content";
 import { useManual } from "@/components/ManualProvider";
 
@@ -9,7 +9,12 @@ export function Sidebar({ onNavigate }: { onNavigate: () => void }) {
   const currentTrack = path.split("/")[1] ?? "";
   const { done } = useManual();
   const [open, setOpen] = useState<string>(currentTrack);
-  useEffect(() => setOpen(currentTrack), [currentTrack]);
+  // Expand the current part when the route changes (adjusting state during render, not in an effect).
+  const [lastTrack, setLastTrack] = useState(currentTrack);
+  if (currentTrack !== lastTrack) {
+    setLastTrack(currentTrack);
+    setOpen(currentTrack);
+  }
 
   const complete = ALL_LESSONS.filter((l) => done.has(l.slug)).length;
   const pct = Math.round((complete / Math.max(1, ALL_LESSONS.length)) * 100);

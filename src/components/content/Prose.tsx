@@ -24,7 +24,7 @@ export function flashHash(): void {
   el.scrollIntoView({ block: "start" });
 }
 
-function enhance(root: HTMLElement, page: string): void {
+function enhance(root: HTMLElement): void {
   // Copy buttons on code blocks.
   root.querySelectorAll("pre").forEach((pre) => {
     if (pre.querySelector(".copy-btn")) return;
@@ -80,7 +80,7 @@ export const Prose = memo(function Prose({ html, page, before, after }: { html: 
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
-    enhance(root, page);
+    enhance(root);
     const hs: HTMLElement[] = Array.from(root.querySelectorAll<HTMLHeadingElement>("h2[id], h3[id]"));
     // Lesson chrome outside the article: the key points box and the projects section.
     const top = document.getElementById("key-points");

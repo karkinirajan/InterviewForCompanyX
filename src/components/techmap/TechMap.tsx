@@ -70,7 +70,9 @@ export function TechMap() {
     return () => ro.disconnect();
   }, [draw]);
 
+  // Read saved progress and the #hash after mount, so the static HTML and the first client render match.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating from localStorage, an external store
     setVisited(new Set(store.get<number[]>("tech-visited", [])));
     const hash = window.location.hash.slice(1);
     const i = chain.findIndex((n) => n.id === hash);
@@ -117,7 +119,8 @@ export function TechMap() {
   const node = current >= 0 ? chain[current] : null;
   const nextNode = node ? chain[node.index + 1] : undefined;
 
-  let cursor = 0;
+  // Start index of each phase in the numbered chain, computed up front (no mutation during render).
+  const phaseStarts = TECH_PHASES.reduce<number[]>((acc, ph, i) => [...acc, i === 0 ? 0 : acc[i - 1] + TECH_PHASES[i - 1].nodes.length], []);
   return (
     <>
       <header className="stage-hero map-hero">
@@ -154,13 +157,14 @@ export function TechMap() {
         </svg>
 
         {TECH_PHASES.map((ph, pi) => {
-          const first = cursor + 1;
-          const nodes = chain.slice(cursor, cursor + ph.nodes.length);
-          cursor += ph.nodes.length;
+          const start = phaseStarts[pi];
+          const first = start + 1;
+          const last = start + ph.nodes.length;
+          const nodes = chain.slice(start, last);
           return (
             <section className="phase" key={ph.title}>
               <div className="phase-head">
-                <div className="phase-num">Phase {String(pi + 1).padStart(2, "0")} · {first}–{cursor}</div>
+                <div className="phase-num">Phase {String(pi + 1).padStart(2, "0")} · {first}–{last}</div>
                 <h3>{ph.title}</h3>
                 <p>{ph.blurb}</p>
               </div>

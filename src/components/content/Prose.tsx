@@ -5,7 +5,7 @@ import { store } from "@/lib/storage";
 
 interface Heading { id: string; text: string; level: number }
 
-const FILL_RE = /(\[(?:fill each|fill|decide|confirm)\])/;
+const FILL_RE = /(\[(?:fill each|fill|confirm)\])/;
 
 /** Highlight the element a #hash points at (the row for table anchors, the next block for bare anchors). */
 export function flashHash(): void {
@@ -39,15 +39,7 @@ function enhance(root: HTMLElement, page: string): void {
     pre.appendChild(b);
   });
 
-  // Severity colouring for red-flag rows.
-  root.querySelectorAll("tbody tr").forEach((tr) => {
-    const t = tr.textContent ?? "";
-    if (t.includes("🔴")) tr.classList.add("sev-red");
-    else if (t.includes("🟠")) tr.classList.add("sev-orange");
-    else if (t.includes("🟡")) tr.classList.add("sev-yellow");
-  });
-
-  // Highlight [fill] / [decide] / [confirm] markers.
+  // Highlight [fill] / [confirm] markers (facts only you can supply).
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const hits: Text[] = [];
   while (walker.nextNode()) {
@@ -66,18 +58,6 @@ function enhance(root: HTMLElement, page: string): void {
     n.parentNode?.replaceChild(frag, n);
   });
 
-  // Empty cells in the decide / metric tables become saved notes.
-  root.querySelectorAll("table").forEach((table, ti) => {
-    if (table.closest("#x1") || table.querySelector("th:nth-child(9)")) return; // evidence matrix blanks are meaningful
-    table.querySelectorAll<HTMLTableCellElement>("tbody td").forEach((td, ci) => {
-      if (td.isContentEditable || td.textContent?.trim() || td.children.length) return;
-      const key = `cell:${page}:${ti}:${ci}`;
-      td.contentEditable = "true";
-      td.textContent = store.get(key, "");
-      td.addEventListener("input", () => store.set(key, td.textContent ?? ""));
-    });
-  });
-
   // Persistent checklists.
   root.querySelectorAll<HTMLInputElement>(".task-box").forEach((box) => {
     const key = `task:${box.dataset.key}`;
@@ -91,7 +71,7 @@ function enhance(root: HTMLElement, page: string): void {
   });
 }
 
-/** Rendered Markdown for one page. HTML comes from our own build step (content/manual.md). */
+/** Rendered Markdown for one page. HTML comes from our own build step (content/curriculum/). */
 export const Prose = memo(function Prose({ html, page, before, after }: { html: string; page: string; before?: ReactNode; after?: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const [heads, setHeads] = useState<Heading[]>([]);

@@ -1,5 +1,5 @@
 /* =========================================================
-   Leapfrog interview field manual — design system
+   Engineering field guide — design system
    1. Tokens   2. Base   3. Shell   4. Prose   5. Stage UI
    6. Index    7. Popovers & palette   8. Tech map   9. Responsive
    ========================================================= */
@@ -442,3 +442,80 @@ li.task.checked { color: var(--muted); text-decoration: line-through; text-decor
 .tm-nav .btn { font-family: var(--sans); }
 .tm-nav .btn:disabled { opacity: .4; cursor: default; transform: none; }
 .rail:empty { display: none; }
+
+/* 10. Curriculum: levels, lessons, sidebar tree, Q&A ------- */
+.level-badge {
+  display: inline-flex; align-items: center; font: 600 11.5px var(--sans); letter-spacing: .02em; white-space: nowrap;
+  padding: 3px 9px; border-radius: 99px; border: 1px solid transparent;
+}
+.level-badge.lv-0 { background: color-mix(in srgb, var(--muted) 14%, transparent); color: var(--ink-2); }
+.level-badge.lv-1 { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
+.level-badge.lv-2 { background: var(--warm-soft); color: var(--warm); }
+.level-badge.lv-3 { background: color-mix(in srgb, var(--red) 12%, transparent); color: var(--red); }
+.level-badge.lv-4 { background: var(--accent-soft); color: var(--accent); }
+.lesson-summary { font: 19px/1.55 var(--serif); color: var(--ink-2); margin: 0 0 16px; max-width: 760px; }
+.lesson-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+.meta-chip { font: 600 12px var(--mono); padding: 3px 9px; border-radius: 99px; background: var(--surface-2); color: var(--muted); }
+.stage-kicker a { color: inherit; }
+.outcomes { border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(135deg, var(--accent-soft), var(--surface) 70%); padding: 14px 18px; }
+.outcomes ul { margin: 8px 0 0; padding-left: 20px; }
+.outcomes li { margin: 3px 0; font-size: 14.5px; }
+.track-progress { max-width: 420px; }
+.section-title { font: 600 26px var(--serif); margin: 48px 0 14px; }
+
+.lesson-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.lesson-list a {
+  display: grid; grid-template-columns: 54px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .2s, transform .2s var(--ease);
+}
+.lesson-list a:hover { border-color: var(--accent); transform: translateX(3px); text-decoration: none; }
+.lesson-list li.is-done a { background: linear-gradient(90deg, var(--accent-soft), var(--surface) 50%); }
+.ll-num { font: 600 20px var(--serif); color: var(--muted); }
+.lesson-list li.is-done .ll-num { color: var(--accent); }
+.ll-body { display: flex; flex-direction: column; gap: 3px; }
+.ll-body small { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.ll-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; color: var(--muted); font-size: 12px; }
+
+.nav-track-row { display: flex; align-items: center; }
+.nav-track-row > a { flex: 1; min-width: 0; }
+.nav-toggle { border: 0; background: none; color: var(--muted); width: 26px; height: 26px; border-radius: 6px; cursor: pointer; transition: transform .2s; flex: none; }
+.nav-toggle:hover { background: var(--surface-2); color: var(--ink); }
+.nav-track.open .nav-toggle { transform: rotate(90deg); }
+.nav-lessons { display: flex; flex-direction: column; margin: 2px 0 8px 22px; padding-left: 8px; border-left: 1px solid var(--line); }
+.nav .nav-lessons a { padding: 5px 8px; font-size: 13px; gap: 8px; }
+.nav-lnum { font: 500 11px var(--mono); color: var(--muted); min-width: 30px; }
+.nav .nav-lessons a.is-done .nav-lnum { color: var(--accent); }
+.nav .nav-lessons a.is-done .nav-lnum::after { content: " ✓"; }
+.nav-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.sidebar { overflow-y: auto; }
+
+.level-ladder { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.level-ladder li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow); }
+.level-ladder li.lv-4 { border-color: var(--accent); }
+.level-ladder p { margin: 0; font-size: 14px; line-height: 1.5; flex: 1; }
+.level-ladder small { font-size: 12.5px; }
+.rc-levels { display: flex; flex-wrap: wrap; gap: 4px; }
+.rc-levels .level-badge { font-size: 10.5px; padding: 2px 6px; }
+.continue-link { display: flex; flex-direction: column; color: var(--ink); }
+.continue-link:hover { text-decoration: none; }
+.continue-link:hover .continue-title { color: var(--accent); }
+.continue-title { font: 600 20px/1.3 var(--serif); margin-bottom: 8px; }
+.study-steps { padding-left: 20px; line-height: 1.6; }
+.study-steps li { margin: 6px 0; }
+
+.prose details.qa { border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); margin: 10px 0; box-shadow: var(--shadow); }
+.prose details.qa > summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none; display: flex; gap: 10px; }
+.prose details.qa > summary::-webkit-details-marker { display: none; }
+.prose details.qa > summary::before { content: "?"; flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 12px var(--mono); background: var(--warm-soft); color: var(--warm); }
+.prose details.qa[open] > summary::before { content: "✓"; background: var(--accent-soft); color: var(--accent); }
+.prose details.qa[open] > summary { border-bottom: 1px solid var(--line); }
+.prose details.qa > :not(summary) { margin-left: 16px; margin-right: 16px; }
+.prose details.qa > :not(summary):first-of-type { margin-top: 12px; }
+.prose details.qa > :last-child { margin-bottom: 14px; }
+
+@media (max-width: 1240px) { .level-ladder { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 960px) {
+  .level-ladder { grid-template-columns: 1fr; }
+  .lesson-list a { grid-template-columns: 44px 1fr; }
+  .ll-meta { grid-column: 2; flex-direction: row; align-items: center; }
+}

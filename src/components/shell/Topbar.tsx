@@ -22,7 +22,7 @@ export function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () 
     <header className="topbar">
       <button className="icon-btn menu-btn" onClick={onMenu} aria-label="Open navigation">☰</button>
       <button className="search-trigger" onClick={onSearch}>
-        <span>⌕</span><span className="st-text">Search IDs, questions, stories…</span><kbd>/</kbd>
+        <span>⌕</span><span className="st-text">Search lessons, questions, terms…</span><kbd>/</kbd>
       </button>
       {timer && timerLeft !== null && (
         <div className={`timer${timer.paused ? " paused" : ""}${timerLeft < 0 ? " overtime" : ""}`} role="timer">

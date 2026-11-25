@@ -1,39 +1,34 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { REFS, STAGES, TECH_MAP_SLUG } from "@/lib/content";
+import { SEARCH, TECH_MAP_SLUG, type SearchEntry } from "@/lib/content";
 
-interface Entry { id: string; label: string; title: string; page: string; pageTitle: string; kind: string; hay: string }
+type Entry = SearchEntry & { hay: string };
 
 const INDEX: Entry[] = [
-  ...Object.entries(REFS).map(([id, r]) => ({
-    id, label: r.label, title: r.title, page: r.page, pageTitle: r.pageTitle, kind: r.kind,
-    hay: `${r.label} ${r.title} ${r.snippet.replace(/<[^>]+>/g, " ")}`.toLowerCase(),
-  })),
-  ...STAGES.map((s) => ({
-    id: "", label: `Stage ${s.num}`, title: s.title, page: s.slug, pageTitle: `${s.minutes} min`, kind: "stage",
-    hay: `stage ${s.num} ${s.title} ${s.kicker}`.toLowerCase(),
-  })),
-  { id: "", label: "Map", title: "Tech flow map", page: TECH_MAP_SLUG, pageTitle: "Reference", kind: "stage", hay: "tech flow map libraries frameworks diagram" },
-];
+  ...SEARCH,
+  { label: "Map", title: "Tech flow map", href: `/${TECH_MAP_SLUG}`, context: "Tools", kind: "track" as const, text: "libraries frameworks diagram" },
+].map((e) => ({ ...e, hay: `${e.label} ${e.title} ${e.context} ${e.text}`.toLowerCase() }));
+
+const KIND_BONUS: Record<SearchEntry["kind"], number> = { lesson: 8, track: 6, item: 4, heading: 0 };
 
 function search(raw: string): Entry[] {
   const q = raw.trim().toLowerCase();
-  if (!q) return INDEX.filter((x) => x.kind === "stage");
+  if (!q) return INDEX.filter((x) => x.kind === "track");
   const terms = q.split(/\s+/);
   return INDEX.map((x) => {
     const label = x.label.toLowerCase();
+    const title = x.title.toLowerCase();
     let score = 0;
     if (label === q) score += 100;
-    else if (label.startsWith(q)) score += 50;
-    if (x.title.toLowerCase().includes(q)) score += 25;
+    else if (label.startsWith(q) && x.kind !== "heading") score += 40;
+    if (title.includes(q)) score += 30;
     if (terms.every((t) => x.hay.includes(t))) score += 10;
     else if (score === 0) return null;
-    if (x.kind === "item") score += 3;
-    return { x, score };
+    return { x, score: score + KIND_BONUS[x.kind] };
   })
     .filter((r): r is { x: Entry; score: number } => r !== null)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 40)
+    .slice(0, 50)
     .map((r) => r.x);
 }
 
@@ -58,7 +53,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   const go = (r?: Entry) => {
     if (!r) return;
     onClose();
-    router.push(`/${r.page === "index" ? "" : r.page}${r.id ? `#${r.id}` : ""}`);
+    router.push(r.href);
   };
 
   return (
@@ -70,7 +65,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
           type="search"
           value={q}
           autoComplete="off"
-          placeholder="Type an ID (Q20, R1, P1) or a word (injection, pgvector)…"
+          placeholder="Search lessons, questions (Q12), drills (D1), terms (pgvector, retry)…"
           onChange={(e) => { setQ(e.target.value); setSel(0); }}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") { setSel((s) => Math.min(s + 1, results.length - 1)); e.preventDefault(); }
@@ -84,10 +79,10 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
             <li><span /><span className="pr-title muted">No match. Try an ID like Q12 or a word like “retry”.</span></li>
           )}
           {results.map((r, i) => (
-            <li key={`${r.page}-${r.id}-${r.label}`} className={i === sel ? "sel" : ""} onMouseEnter={() => setSel(i)} onClick={() => go(r)}>
+            <li key={`${r.href}-${r.label}`} className={i === sel ? "sel" : ""} onMouseEnter={() => setSel(i)} onClick={() => go(r)}>
               <span className="pr-label">{r.label}</span>
               <span className="pr-title">{r.title}</span>
-              <span className="pr-page">{r.pageTitle}</span>
+              <span className="pr-page">{r.context}</span>
             </li>
           ))}
         </ul>

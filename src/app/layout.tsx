@@ -5,11 +5,11 @@ import { AppShell } from "@/components/shell/AppShell";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Interview field manual · Leapfrog", template: "%s · Leapfrog interview manual" },
-  description: "Two-hour, eight-stage interview preparation manual for the AI Integration Engineer role.",
+  title: { default: "Engineering field guide · intern to applied AI engineer", template: "%s · Engineering field guide" },
+  description: "A structured curriculum from software engineering foundations to applied AI: LLM integration, RAG, agents, automation and interviews.",
   robots: { index: false, follow: false },
   icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23185c4f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Georgia'>L</text></svg>",
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23185c4f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Georgia'>A</text></svg>",
   },
 };
 

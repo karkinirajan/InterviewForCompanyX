@@ -1,6 +1,6 @@
 {
-  "name": "leapfrog-interview-manual",
-  "version": "2.0.0",
+  "name": "engineering-field-guide",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {

@@ -7,7 +7,7 @@ import { TECH_PHASES, type TechKind, type TechNode } from "@/data/tech-data";
 
 const KIND_LABEL: Record<TechKind, string> = {
   used: "You've shipped with it",
-  know: "Know it for the interview",
+  know: "Know it (not shipped yet)",
   concept: "Concept / pattern",
 };
 
@@ -121,19 +121,19 @@ export function TechMap() {
   return (
     <>
       <header className="stage-hero map-hero">
-        <div className="stage-kicker">Reference · Every library, framework and service in the manual</div>
+        <div className="stage-kicker">Reference · Every library, framework and service in the guide</div>
         <h1>Tech flow map</h1>
         <p className="hero-lede">
           Read it top to bottom: it follows the order you would build an AI product in, from language and framework to data,
           models, the RAG chain, agents, evaluation, cloud and shipping. Every arrow points to the next item in line. Click any
-          node for its definition, how you used it, and why it matters for this role.
+          node for its definition, where it shows up, and why it matters.
         </p>
         <div className="map-tools">
           <input type="search" id="map-filter" value={filter} onChange={(e) => setFilter(e.target.value)}
             placeholder="Filter: e.g. rerank, AWS, speech…" autoComplete="off" />
           <div className="map-legend">
             <span><i className="lg lg-used" />You&apos;ve shipped with it</span>
-            <span><i className="lg lg-know" />Know it for the interview</span>
+            <span><i className="lg lg-know" />Know it (not shipped yet)</span>
             <span><i className="lg lg-concept" />Concept / pattern</span>
           </div>
           <button className="btn btn-primary" onClick={() => open(0)}>▶ Walk the chain from 1</button>
@@ -194,14 +194,14 @@ export function TechMap() {
               {[
                 ["What it is", node.def],
                 [node.kind === "used" ? "How you've used it" : "Where it shows up", node.use],
-                ["Why it matters for this role", node.why],
+                ["Why it matters", node.why],
                 ["Next in line", nextNode ? `${nextNode.name} (${nextNode.phase})` : "End of the chain. Back to the cheat sheet."],
               ].map(([k, v]) => (
                 <li key={k}><div><b>{k}</b><span>{v}</span></div></li>
               ))}
             </ol>
             <div className="tm-links">
-              {node.refs.some((id) => REFS[id]) && <span className="muted">In the manual:</span>}
+              {node.refs.some((id) => REFS[id]) && <span className="muted">In the guide:</span>}
               {node.refs.filter((id) => REFS[id]).map((id) => (
                 <a key={id} className="xref" data-ref={id} href={refHref(id, TECH_MAP_SLUG)}>{REFS[id].label}</a>
               ))}

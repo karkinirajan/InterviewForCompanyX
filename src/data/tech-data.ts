@@ -4,7 +4,7 @@ export interface TechPhase { title: string; blurb: string; nodes: TechNode[] }
 
 /* Tech flow map data.
    Order = the order you'd build an AI product in; every node points to the next.
-   kind: "used" = you shipped with it · "know" = know it for the interview · "concept" = pattern.
+   kind: "used" = you shipped with it · "know" = know it, not yet shipped · "concept" = pattern.
    refs: manual IDs (resolved to links via window.REFS). Only claims that appear in the manual. */
 export const TECH_PHASES: TechPhase[] = [
   {
@@ -14,11 +14,11 @@ export const TECH_PHASES: TechPhase[] = [
       { name: "Python", kind: "used", url: "https://www.python.org/",
         def: "General-purpose language and the default for AI and backend work.",
         use: "Your primary language: reelslicer, FastKwan, RevOps, recruit-cli, the Django platforms.",
-        why: "The JD asks for Python and/or TypeScript; \"Python is home\" opens your intro.", refs: ["intro", "p1", "p4"] },
+        why: "Applied AI job descriptions ask for Python and/or TypeScript; Python is the default for AI SDKs and backends.", refs: ["intro", "p1", "p4"] },
       { name: "TypeScript", kind: "used", url: "https://www.typescriptlang.org/",
         def: "Typed superset of JavaScript.",
         use: "Next.js 16 apps in reelslicer, SmartClaim, EkJhalak and ttstt.",
-        why: "The second language the JD names, and the language of the UIs that surface AI (J7).", refs: ["p1", "p2", "p11"] },
+        why: "The language of the UIs that surface AI, and increasingly of backends too.", refs: ["p1", "p2", "p11"] },
       { name: "Pydantic", kind: "used", url: "https://docs.pydantic.dev/",
         def: "Data validation from Python type hints; parses and rejects model output against a schema.",
         use: "C1's ReferralExtraction; six entity types in the financial RAG, cross-checked against the graph.",
@@ -114,7 +114,7 @@ export const TECH_PHASES: TechPhase[] = [
       { name: "Anthropic Claude", kind: "used", url: "https://docs.anthropic.com/",
         def: "Anthropic's model family (Messages API, tool use).",
         use: "Claude chat in the Pilot operator console; one of the trading-arena models.",
-        why: "The JD names Claude first; Bedrock serves Claude inside the customer's AWS boundary (D1).", refs: ["p6", "q11", "d1"] },
+        why: "A leading model family for integration work; also available inside a customer's AWS boundary via Bedrock (D1).", refs: ["p6", "q11", "d1"] },
       { name: "Google Gemini", kind: "used", url: "https://ai.google.dev/",
         def: "Google's multimodal model family.",
         use: "reelslicer clip finding (answers with segment numbers only), recruit-cli CV screening, CBT coach.",
@@ -134,7 +134,7 @@ export const TECH_PHASES: TechPhase[] = [
       { name: "Amazon Bedrock", kind: "know", url: "https://aws.amazon.com/bedrock/",
         def: "AWS's managed access to foundation models; the Converse API gives one message format across them.",
         use: "Not shipped yet (named in your weakness). Centre of the D1 and D2 designs.",
-        why: "Leapfrog's Addy, Referral & MedRec and DocWeaver run on it; inference stays inside the customer's AWS boundary.", refs: ["part8", "d1", "d2", "weakness"] },
+        why: "Common in AWS-native and regulated AI products: inference stays inside the customer's AWS boundary.", refs: ["part8", "d1", "d2", "weakness"] },
       { name: "Bedrock Guardrails", kind: "know", url: "https://aws.amazon.com/bedrock/guardrails/",
         def: "Managed filters: content, denied topics, PII redaction, contextual grounding, Automated Reasoning checks.",
         use: "The guardrail step in D1's extraction worker.",
@@ -145,7 +145,7 @@ export const TECH_PHASES: TechPhase[] = [
         why: "Know when managed fits and when you need custom hybrid search or a graph.", refs: ["q1"] },
       { name: "Amazon Nova Sonic", kind: "know", url: "https://aws.amazon.com/ai/generative-ai/nova/",
         def: "Amazon's speech-to-speech model for voice agents.",
-        use: "Used with Amazon Connect in Leapfrog's Healthcare AI Accelerator IVR.",
+        use: "Used with Amazon Connect for voice agents and IVR on AWS.",
         why: "Your audio work is the bridge into their voice offering.", refs: ["lf-products", "p10", "q39"] },
     ],
   },
@@ -191,7 +191,7 @@ export const TECH_PHASES: TechPhase[] = [
         why: "Engine choice per language comes from measured WER/CER, not reputation.", refs: ["p1", "d4"] },
       { name: "Amazon Connect", kind: "know", url: "https://aws.amazon.com/connect/",
         def: "AWS cloud contact centre.",
-        use: "Paired with Nova Sonic in Leapfrog's IVR accelerator.",
+        use: "Paired with speech models such as Nova Sonic to build IVR voice agents.",
         why: "Context for any voice-agent question.", refs: ["lf-products"] },
     ],
   },
@@ -300,7 +300,7 @@ export const TECH_PHASES: TechPhase[] = [
       { name: "Strands Agents", kind: "know", url: "https://strandsagents.com/",
         def: "AWS's open-source agent SDK.",
         use: "Pairs with AgentCore.",
-        why: "Likely in Leapfrog's AWS-native agent work.", refs: ["q32", "part8"] },
+        why: "Common in AWS-native agent work, paired with AgentCore.", refs: ["q32", "part8"] },
       { name: "Model Context Protocol", kind: "used", url: "https://modelcontextprotocol.io/",
         def: "Open protocol exposing tools, resources and prompts to any compatible client: M×N integrations become M+N.",
         use: "Trading-arena tool servers.",
@@ -401,7 +401,7 @@ export const TECH_PHASES: TechPhase[] = [
   },
   {
     title: "AWS cloud",
-    blurb: "Where Leapfrog's healthcare workloads run.",
+    blurb: "Where many regulated and healthcare AI workloads run.",
     nodes: [
       { name: "Amazon S3", kind: "used", url: "https://aws.amazon.com/s3/",
         def: "Object storage.",

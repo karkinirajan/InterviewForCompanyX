@@ -1,46 +1,66 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { REFERENCE_PAGES, STAGES } from "@/lib/content";
+import { useEffect, useState } from "react";
+import { ALL_LESSONS, TECH_MAP_SLUG, TRACKS } from "@/lib/content";
 import { useManual } from "@/components/ManualProvider";
 
 export function Sidebar({ onNavigate }: { onNavigate: () => void }) {
   const path = usePathname().replace(/\/$/, "") || "/";
+  const currentTrack = path.split("/")[1] ?? "";
   const { done } = useManual();
-  const complete = STAGES.filter((s) => done.has(s.slug)).length;
-  const pct = Math.round((complete / STAGES.length) * 100);
+  const [open, setOpen] = useState<string>(currentTrack);
+  useEffect(() => setOpen(currentTrack), [currentTrack]);
+
+  const complete = ALL_LESSONS.filter((l) => done.has(l.slug)).length;
+  const pct = Math.round((complete / Math.max(1, ALL_LESSONS.length)) * 100);
 
   return (
     <aside className="sidebar" id="sidebar">
       <Link className="brand" href="/" onClick={onNavigate}>
-        <span className="brand-mark">L</span>
-        <span className="brand-text"><strong>Field manual</strong><small>AI Integration Engineer · v2</small></span>
+        <span className="brand-mark">A</span>
+        <span className="brand-text"><strong>Field guide</strong><small>Intern → applied AI engineer</small></span>
       </Link>
       <nav className="nav">
         <Link className={path === "/" ? "active" : ""} href="/" onClick={onNavigate}>
           <span className="nav-num">◆</span><span>Start here</span>
         </Link>
-        <div className="nav-label">The 2-hour route</div>
-        {STAGES.map((s) => {
-          const cls = [path === `/${s.slug}` ? "active" : "", done.has(s.slug) ? "is-done" : ""].join(" ").trim();
+        <div className="nav-label">The book</div>
+        {TRACKS.map((t) => {
+          const isOpen = open === t.slug;
+          const n = t.lessons.filter((l) => done.has(l.slug)).length;
+          const allDone = n === t.lessons.length && n > 0;
           return (
-            <Link key={s.slug} className={cls} href={`/${s.slug}`} onClick={onNavigate}>
-              <span className="nav-num">{s.num}</span>
-              <span className="nav-title">{s.title}</span>
-              <span className="nav-min">{s.minutes}′</span>
-            </Link>
+            <div key={t.slug} className={`nav-track${isOpen ? " open" : ""}`}>
+              <div className="nav-track-row">
+                <Link className={`${path === `/${t.slug}` ? "active" : ""}${allDone ? " is-done" : ""}`} href={`/${t.slug}`} onClick={onNavigate}>
+                  <span className="nav-num">{t.num}</span>
+                  <span className="nav-title">{t.title}</span>
+                  <span className="nav-min">{n}/{t.lessons.length}</span>
+                </Link>
+                <button className="nav-toggle" aria-expanded={isOpen} aria-label={`Show lessons in ${t.title}`}
+                  onClick={() => setOpen(isOpen ? "" : t.slug)}>▸</button>
+              </div>
+              {isOpen && (
+                <div className="nav-lessons">
+                  {t.lessons.map((l) => (
+                    <Link key={l.slug} href={`/${l.slug}`} onClick={onNavigate}
+                      className={`${path === `/${l.slug}` ? "active" : ""}${done.has(l.slug) ? " is-done" : ""}`}>
+                      <span className="nav-lnum">{l.num}</span><span className="nav-title">{l.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           );
         })}
-        <div className="nav-label">Reference</div>
-        {REFERENCE_PAGES.map((r) => (
-          <Link key={r.slug} className={path === `/${r.slug}` ? "active" : ""} href={`/${r.slug}`} onClick={onNavigate}>
-            <span className="nav-num">{r.slug.includes("map") ? "⟶" : "§"}</span>
-            <span className="nav-title">{r.title}</span>
-          </Link>
-        ))}
+        <div className="nav-label">Tools</div>
+        <Link className={path === `/${TECH_MAP_SLUG}` ? "active" : ""} href={`/${TECH_MAP_SLUG}`} onClick={onNavigate}>
+          <span className="nav-num">⟶</span><span className="nav-title">Tech flow map</span>
+        </Link>
       </nav>
       <div className="sidebar-foot">
         <div className="mini-progress"><span style={{ width: `${pct}%` }} /></div>
-        <small>{complete} of {STAGES.length} stages complete</small>
+        <small>{complete} of {ALL_LESSONS.length} lessons complete</small>
       </div>
     </aside>
   );

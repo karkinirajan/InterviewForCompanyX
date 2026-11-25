@@ -26,6 +26,16 @@ Done on 2026-11-25 on the local branch `chore/modernize`. Nothing has been pushe
 | Content compiler | Problems from a previous `main()` call carried into the next | Reset at the start of each run |
 | React | Seven lint errors: state copied into effects (route resets, palette reset, sidebar expansion) and a variable mutated during render in the tech map | Rewritten as state adjusted during render and precomputed phase offsets. The two localStorage hydration loads and the timer's clock reaction keep their effects, with a one-line reason on each disable |
 
+## After the first push
+
+The first push failed every check. Both causes were mistakes in this pass, now fixed:
+
+| Failure | Cause | Fix |
+| --- | --- | --- |
+| All four CI jobs, at "Set up job" | `astral-sh/setup-uv@v10` doesn't exist: that action publishes full version tags only. The release was looked up, the tag was not | Pinned to the v10.4.0 commit SHA; every action tag now checked with `gh api …/git/ref/tags/<tag>` |
+| Vercel build, at `npm run content` | `No interpreter found for Python 3.15`: Vercel's uv predates 3.15 | `.python-version` 3.14; CI tests 3.13, 3.14 and 3.15 |
+| (warning, same build) | ESLint 10 conflicts with eslint-plugin-react's peer range | ESLint 9.39.5; `npm ci` now installs with no peer warnings |
+
 ## How it was checked
 
 | Check | Result |
@@ -47,7 +57,7 @@ Done on 2026-11-25 on the local branch `chore/modernize`. Nothing has been pushe
 - The Vercel deploy with the new headers. On first deploy, open the site and check the browser console for CSP violations.
 - The actionlint Docker image: Docker could not mount overlay storage on this machine (kernel/driver issue). The PyPI build of the same tool was used instead.
 - Safari and Firefox.
-- The Vercel build now runs the compiler through `uv run --locked`, which downloads Python 3.15 if the build image lacks it. uv worked on Vercel before (the earlier build log shows it), but the 3.15 download was not seen there. If the build fails at `npm run content`, set the env var `UV_PYTHON=3.13` (the supported floor) in the Vercel project.
+- The Vercel build with the 3.14 pin hasn't run yet (it runs on the next push). If it still can't find an interpreter, set `UV_PYTHON=3.13` in the Vercel project.
 - On Vercel preview deployments the CSP blocks the Vercel toolbar's injected script (production is unaffected).
 
 ## Decisions for you

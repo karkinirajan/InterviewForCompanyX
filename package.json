@@ -4,13 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "content": "uv run --with markdown --with beautifulsoup4 --with pyyaml scripts/compile_content.py",
+    "content": "uv run --locked --no-dev scripts/compile_content.py",
     "predev": "npm run content",
     "dev": "next dev",
     "prebuild": "npm run content",
     "build": "next build",
     "start": "node scripts/serve.mjs",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint . --max-warnings 0",
+    "lint:py": "uv run --locked ruff check scripts tests",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:py": "uv run --locked pytest -q",
+    "mutation": "python3 tests/mutation/mutate.py tests/mutation/mutants_compiler.py -- uv run --locked pytest -x -q && python3 tests/mutation/mutate.py tests/mutation/mutants_web.py -- npx vitest run --bail 1",
+    "brand": "bash scripts/brand-assets.sh",
+    "check": "npm run content && npm run lint && npm run lint:py && npm run typecheck && npm test && npm run test:py && npm run build"
   },
   "dependencies": {
     "@fontsource-variable/literata": "^5.3.0",
@@ -21,9 +28,16 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@types/node": "^24.19.2",
-    "@types/react": "^19.3.1",
+    "@types/node": "^26.6.10",
+    "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
-    "typescript": "^5.9.3"
+    "@vitest/coverage-v8": "^5.1.2",
+    "eslint": "^10.15.0",
+    "eslint-config-next": "^16.4.6",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.2"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

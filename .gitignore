@@ -5,3 +5,8 @@ next-env.d.ts
 *.tsbuildinfo
 src/content/generated/
 .playwright-mcp/
+coverage/
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/

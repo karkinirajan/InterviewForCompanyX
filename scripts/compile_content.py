@@ -138,7 +138,7 @@ def build_ref(el: Tag, page: str, page_title: str) -> dict[str, str]:
         texts = [clean_text(c) for c in cells]
         entry["title"] = next((t for t in texts[1:] if len(t) > 3), texts[0])[:140]
         rows = [f"<dt>{html.escape(h or '·')}</dt><dd>{strip_ids(c.decode_contents())}</dd>"
-                for h, c in zip(headers, cells) if clean_text(c)]
+                for h, c in zip(headers, cells, strict=False) if clean_text(c)]
         entry["snippet"] = "<dl class='ref-dl'>" + "".join(rows) + "</dl>"
         return entry
 
@@ -218,6 +218,7 @@ def post_process(soup: BeautifulSoup, page: str) -> None:
 
 
 def main() -> None:
+    PROBLEMS.clear()
     tracks = load()
     pages: dict[str, dict] = {}
     for t in tracks:
@@ -323,7 +324,8 @@ def main() -> None:
     (OUT / "search.json").write_text(json.dumps(search, ensure_ascii=False), encoding="utf-8")
     n_lessons = sum(len(t["lessons"]) for t in tracks)
     words = sum(les["words"] for t in tracks for les in t["lessons"])
-    print(f"Compiled {len(tracks)} tracks, {n_lessons} lessons, {words:,} words, {len(refs)} anchors -> {OUT.relative_to(ROOT)}")
+    where = OUT.relative_to(ROOT) if OUT.is_relative_to(ROOT) else OUT
+    print(f"Compiled {len(tracks)} tracks, {n_lessons} lessons, {words:,} words, {len(refs)} anchors -> {where}")
 
 
 if __name__ == "__main__":

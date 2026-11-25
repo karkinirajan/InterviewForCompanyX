@@ -54,6 +54,33 @@ Design interviews are judged on how you think, communicate and prioritise. A cle
 
 Practise the frame on [D3](#d3) with a 45-minute timer, drawing on paper and speaking out loud. Record and review where you lost time.
 
+## A worked opening (first five minutes)
+
+> **Interviewer:** "Design a system that summarises customer support calls."
+>
+> **You:** "Before drawing: who reads the summaries, agents or managers? How many calls a day and how long? Do summaries need to be ready seconds after the call, or is an hour fine? Are recordings personal data under any regulation? Is a wrong summary just annoying, or does it drive actions like refunds? And is this one company or multi-tenant?"
+
+Each answer changes the design: real-time vs batch decides streaming STT vs a queue; regulation decides vendors and redaction; "drives actions" adds human review and evidence links.
+
+## Time plan for 45 minutes
+
+| Minutes | Activity |
+|---|---|
+| 0–5 | Clarify, write requirements and numbers on the board |
+| 5–15 | Main path, simplest working version |
+| 15–25 | Data model, authorization, the one hard part |
+| 25–32 | Three failure modes with detection and mitigation |
+| 32–38 | Evals, observability, cost |
+| 38–45 | Scale-up changes, trade-offs, questions |
+
+## More check-yourself
+
+<details markdown="1"><summary>The interviewer interrupts to go deep on one component. What do you do?</summary>
+
+Follow them: they're telling you what they want to assess. Note on the board what you haven't covered yet and return to it if time allows.
+
+</details>
+
 ## What comes next
 
 [6.3 Classic drills](/06-system-design/03-classic-drills).

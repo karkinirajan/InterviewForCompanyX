@@ -53,6 +53,31 @@ Suggested reply drafts that agents edit and send: clear value (handle time), low
 
 Pick a product you know; score three candidate AI features on the four axes and write a one-page plan for the winner, including the baseline metric.
 
+## Worked example: a rollout plan
+
+**Feature:** AI-drafted replies in an existing support desk.
+
+1. **Week 0:** baseline: median handle time, CSAT, reopen rate for the target queue.
+2. **Week 1:** adapter + prompt + 50-ticket eval set; drafts behind a flag, internal team only.
+3. **Week 2:** 10% of agents; log draft acceptance, edit distance, handle time; daily review of bad drafts.
+4. **Week 3:** fix the top failure categories; re-run evals; expand to 50%.
+5. **Week 4:** compare flag-on vs flag-off agents on handle time and quality; decide on full rollout.
+
+Kill switch at every stage: the flag turns drafts off without a deploy.
+
+## Interview follow-ups
+
+- **"The client wants it in two weeks."** Ship the smallest slice that keeps guardrails: drafts only, human sends, one queue, flag-gated, with logging. Say what's deferred (automation, more queues) and why.
+- **"How do you avoid breaking the existing product?"** Separate service or module behind an interface, async calls with timeouts, the old workflow as fallback, and no schema changes that old code can't handle.
+
+## More check-yourself
+
+<details markdown="1"><summary>Why compare flag-on and flag-off users instead of before and after?</summary>
+
+Before/after comparisons mix in seasonality, staffing and other changes. Running both groups at the same time isolates the feature's effect.
+
+</details>
+
 ## What comes next
 
 [11.2 Workflow automation](/11-ai-automation/02-workflow-automation).

@@ -49,6 +49,32 @@ For questions about relationships and their changes over time, multi-hop reasoni
 
 Find three failing questions in your RAG eval set, classify each failure, apply the matching technique, and measure whether it fixed them without breaking others.
 
+## Worked example: query rewriting in a conversation
+
+```text
+Turn 1  user: "What's our parental leave policy?"
+Turn 2  user: "And for contractors?"
+```
+
+Searching for "And for contractors?" retrieves nothing useful. A rewriting step (a small, cheap model call with the conversation) produces the standalone query *"parental leave policy for contractors"*. Keep the user's constraints (dates, names, negations) intact, log the rewritten query next to the original, and evaluate rewriting separately: retrieval recall with and without it on multi-turn test cases.
+
+## Contextual chunk headers
+
+Before embedding, prepend a short generated or structural header to each chunk: *"Employee handbook › Leave › Parental leave (2026 revision): …"*. Chunks then carry their context, which noticeably helps retrieval for passages that say "this policy" or "the above" without naming the subject.
+
+## Interview follow-ups
+
+- **"GraphRAG or vector RAG?"** Start with hybrid vector + lexical; add a graph when evals show multi-hop or temporal questions failing and the domain has clear entities and relationships worth maintaining.
+- **"What does agentic RAG cost you?"** More calls and latency, less predictable behaviour, harder evaluation; mitigate with step budgets and by keeping single-shot retrieval as the default path.
+
+## More check-yourself
+
+<details markdown="1"><summary>Why must query rewriting be evaluated separately?</summary>
+
+It can silently drop or change constraints, hurting retrieval for some queries while helping others. Measuring recall with and without it on multi-turn cases shows whether it helps overall and where it breaks.
+
+</details>
+
 ## What comes next
 
 Part 9: [Agents](/09-agents).

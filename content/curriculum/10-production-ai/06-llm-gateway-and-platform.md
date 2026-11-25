@@ -61,6 +61,43 @@ Retries at several layers multiply attempts (3 × 3 × 3 = 27), amplify outages 
 
 Turn your adapter from 7.3 into a small gateway service with per-tenant token buckets, a cache, telemetry and a validated fallback, following [D2](#d2).
 
+## Worked example: a request through the gateway
+
+```text
+POST /v1/complete  {task: "ticket_summary", tenant: t_42, input: "..."}
+ 1. authenticate service token → tenant t_42, team "support"
+ 2. policy: ticket_summary may use tiers [small, medium]; PII → redact (endpoint not covered)
+ 3. budget: t_42 has $38.10 of $50 left today → ok; TPM bucket 12k/60k → ok
+ 4. cache: key = sha256(model|prompt_v|params|tenant|redacted_input) → miss
+ 5. route: small model; breaker closed
+ 6. call with connect 3 s / first-token 8 s / total 30 s
+ 7. validate against ticket_summary schema → ok
+ 8. store cache entry (TTL 1 h); emit telemetry {tokens, cost, latency, prompt_v, outcome}
+ 9. respond 200 with usage headers
+```
+
+Failure branches: step 3 fails → 429 with `Retry-After`; step 6 times out twice → breaker trips → validated fallback model; step 7 fails → one repair for this low-risk task, else 502 with a stable error code.
+
+## Interview follow-ups
+
+- **"Isn't the gateway a single point of failure?"** It's stateless, so run several replicas behind a load balancer; Redis (limits, cache) degrades gracefully (fail open on cache, choose fail-open or fail-closed per budget); clients have short timeouts.
+- **"How do teams change prompts without redeploying the gateway?"** Prompts and routes live in a registry with versions; the gateway reads the active label; changes go through eval gates.
+- **"How do you charge teams back?"** Per-call cost tagged by tenant/team/feature, aggregated daily; budgets enforced at the gateway.
+
+## More check-yourself
+
+<details markdown="1"><summary>Which three timeouts should a streaming gateway enforce, and why separate them?</summary>
+
+Connect, time-to-first-token and total. A single total timeout can't distinguish a stuck generation (no first token after many seconds) from a long, healthy stream; separate limits fail fast on the first and allow the second.
+
+</details>
+
+<details markdown="1"><summary>What must be in the gateway's cache key?</summary>
+
+Model and version, prompt version, all output-affecting parameters, the normalised (and redacted) input, and the tenant or authorization scope.
+
+</details>
+
 ## What comes next
 
 Part 11: [AI automation and integration](/11-ai-automation).

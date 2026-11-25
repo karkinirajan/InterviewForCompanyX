@@ -65,6 +65,40 @@ They let code verify that values appear in the document (catching fabrication), 
 
 Extract three fields from 20 sample invoices (public datasets exist), validate deterministically, route failures to a simple review page, and measure field accuracy.
 
+## Confidence routing in practice
+
+Model "confidence" numbers are poorly calibrated on their own. Combine signals into a routing decision you can measure:
+
+| Signal | Example rule |
+|---|---|
+| Deterministic validation | Any failure → review |
+| Evidence check | Value not found verbatim (or normalised) in the OCR text → review |
+| Field criticality | Patient/payee/amount fields always need valid evidence |
+| Model confidence | Below a threshold calibrated on labelled data → review |
+| Document quality | OCR confidence low, pages missing → review |
+
+Calibrate thresholds on a labelled set so that straight-through documents meet the accuracy target (for example 99% field accuracy), then watch the reviewer correction rate per field in production.
+
+## Interview follow-ups
+
+- **"How do you handle duplicates?"** Hash the normalised content plus key fields (sender, subject, date); idempotency keys on downstream writes; show possible duplicates to reviewers rather than silently dropping.
+- **"Multi-page documents?"** Classify and split first (one fax can contain several documents); extract per logical document; keep page references in evidence.
+- **"How do corrections improve the system?"** Each correction is stored with the original extraction, prompt version and model; periodic review turns them into eval cases; prompt or model changes must improve those cases without regressing others.
+
+## More check-yourself
+
+<details markdown="1"><summary>Why compute totals and check digits in code rather than asking the model?</summary>
+
+Arithmetic and checksums are deterministic; code is exact and auditable, while models can produce plausible but wrong numbers. Use the model to read values, code to verify them.
+
+</details>
+
+<details markdown="1"><summary>What's the straight-through rate and why track it with accuracy?</summary>
+
+The share of documents processed without human review. It measures automation value; tracking it alongside straight-through accuracy prevents "improving" automation by sending wrong results through.
+
+</details>
+
 ## What comes next
 
 [11.4 Voice and multimodal](/11-ai-automation/04-voice-and-multimodal).

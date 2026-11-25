@@ -1,0 +1,14 @@
+{
+  "name": "Engineering field guide",
+  "short_name": "Field guide",
+  "description": "A reference handbook and interview route for full-stack engineers moving into applied AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef0ea",
+  "theme_color": "#17604f",
+  "icons": [
+    { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/brand/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/brand/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

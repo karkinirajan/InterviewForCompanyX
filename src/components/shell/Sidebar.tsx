@@ -17,7 +17,8 @@ export function Sidebar({ onNavigate }: { onNavigate: () => void }) {
   return (
     <aside className="sidebar" id="sidebar">
       <Link className="brand" href="/" onClick={onNavigate}>
-        <span className="brand-mark">A</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="brand-mark" src="/brand/mark.svg" alt="" width={40} height={40} />
         <span className="brand-text"><strong>Field guide</strong><small>Full-stack → applied AI</small></span>
       </Link>
       <nav className="nav">

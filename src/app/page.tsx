@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeroCards, LevelLadder, TrackGrid } from "@/components/home/HomeWidgets";
+import { StrataHero } from "@/components/home/StrataHero";
 
 const ID_LEGEND = [
   { prefix: "Q", means: "Interview questions with model answers", href: "/14-reference/01-question-bank" },
@@ -15,14 +16,19 @@ export default function HomePage() {
     <div className="layout page-index">
       <main className="main" id="main">
         <section className="hero">
-          <div className="hero-kicker">A reference handbook · full-stack → applied AI</div>
-          <h1>The engineering <em>field guide</em></h1>
+          <div className="hero-top">
+          <div className="hero-copy">
+          <div className="hero-kicker">A reference handbook for full-stack engineers moving into applied AI</div>
+          <h1>The engineering field guide</h1>
           <p className="hero-lede">
             Everything a full-stack engineer needs to build, ship and talk about AI products: backend, frontend, cloud and
             security, then LLMs, RAG, agents, production AI and automation. Every lesson opens with its <strong>key points</strong>,
             explains <strong>how</strong> and <strong>why this way</strong>, ends with <strong>questions to answer out loud</strong>,
             and gives <strong>two projects to build</strong> so it sticks.
           </p>
+          </div>
+          <StrataHero />
+          </div>
           <HeroCards />
         </section>
 

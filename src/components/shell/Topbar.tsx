@@ -35,7 +35,10 @@ export function Topbar({ onMenu, onSearch }: { onMenu: () => void; onSearch: () 
         </div>
       )}
       <button className="icon-btn theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
-        <span className="theme-icon">◐</span>
+        <svg className="theme-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor" />
+        </svg>
       </button>
     </header>
   );

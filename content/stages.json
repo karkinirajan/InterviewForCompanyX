@@ -1,0 +1,124 @@
+{
+  "stages": [
+    {
+      "slug": "01-fix-and-decide",
+      "num": 1,
+      "minutes": 10,
+      "parts": [
+        1
+      ],
+      "title": "Fix & decide",
+      "kicker": "Red flags R1–R14",
+      "goal": "Settle every inconsistency between your own documents before anyone else finds it.",
+      "gate": "You can say your career timeline and your education in one breath, you have chosen option A, B or C, and the R3/R13 decisions are made."
+    },
+    {
+      "slug": "02-role-and-company",
+      "num": 2,
+      "minutes": 10,
+      "parts": [
+        2,
+        3
+      ],
+      "title": "The role & Leapfrog",
+      "kicker": "JD map · screening · company facts",
+      "goal": "Know exactly what the role asks for, where your proof lives, and what Leapfrog ships.",
+      "gate": "Name Leapfrog's four offerings with your parallel for each, and say the one-sentence reliability line from memory."
+    },
+    {
+      "slug": "03-narrative-and-stories",
+      "num": 3,
+      "minutes": 20,
+      "parts": [
+        5,
+        6
+      ],
+      "title": "Your narrative & stories",
+      "kicker": "Intro · why Leapfrog · S1–S11",
+      "goal": "Rehearse the spoken parts aloud: intro, motivation, weakness, and the story bank.",
+      "gate": "Intro under 90 seconds without notes; S1–S5 told in STAR shape; [fill] items either filled or dropped."
+    },
+    {
+      "slug": "04-project-dossiers",
+      "num": 4,
+      "minutes": 20,
+      "parts": [
+        4
+      ],
+      "title": "Project dossiers",
+      "kicker": "P0–P13 · evidence matrix X1",
+      "goal": "Own every project you might be asked about, including its honest status.",
+      "gate": "60-second pitch for P1, P2, P3 and P6 with no notes, and every number defensible."
+    },
+    {
+      "slug": "05-technical-qa",
+      "num": 5,
+      "minutes": 25,
+      "parts": [
+        7
+      ],
+      "title": "Technical Q&A",
+      "kicker": "Q1–Q44",
+      "goal": "Answer in the shape: principle → implementation → trade-off → your proof.",
+      "gate": "Pick any five questions at random and answer each in 60–120 seconds with a project reference."
+    },
+    {
+      "slug": "06-aws-and-system-design",
+      "num": 6,
+      "minutes": 15,
+      "parts": [
+        8,
+        9
+      ],
+      "title": "AgentCore, Bedrock & design",
+      "kicker": "Part 8 · D1–D4",
+      "goal": "Speak AgentCore fluently and draw the referral-intake design on paper.",
+      "gate": "D1 drawn in 5 minutes with three failure modes named before anyone asks."
+    },
+    {
+      "slug": "07-code-culture-questions",
+      "num": 7,
+      "minutes": 10,
+      "parts": [
+        10,
+        11,
+        12
+      ],
+      "title": "Code, culture & your questions",
+      "kicker": "C1–C5 · values · questions to ask",
+      "goal": "Have the coding protocol, C1 and the culture angles ready; choose what you will ask them.",
+      "gate": "Narrate C1 from memory and pick two or three questions from Part 12."
+    },
+    {
+      "slug": "08-final-run",
+      "num": 8,
+      "minutes": 10,
+      "parts": [
+        13,
+        14,
+        15
+      ],
+      "title": "Final run",
+      "kicker": "Mock drill · checklist · cheat sheet",
+      "goal": "One last rehearsal, logistics, and the one-page sheet.",
+      "gate": "Five mock questions aloud, every checklist item ticked, logged in by 12:50."
+    }
+  ],
+  "reference": [
+    {
+      "slug": "09-tech-flow-map",
+      "title": "Tech flow map",
+      "kicker": "Every library and framework, in build order"
+    },
+    {
+      "slug": "10-appendix",
+      "title": "Appendix",
+      "kicker": "Glossary · sources · original countdown",
+      "parts": [
+        17,
+        16,
+        0
+      ]
+    }
+  ]
+}

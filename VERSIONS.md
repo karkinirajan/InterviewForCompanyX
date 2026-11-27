@@ -7,9 +7,9 @@ What this project runs on, where each version was checked, and what was left alo
 | Component | Version | Pinned in | Why this one |
 | --- | --- | --- | --- |
 | Node.js | 26 (floor 24) | `.nvmrc`, `package.json` `engines` | 26 is the Active LTS line and Vercel's default; 24 is the other maintained LTS line, kept in the CI matrix |
-| Python (content compiler) | 3.15 (floor 3.13) | `.python-version`, `pyproject.toml` `requires-python` | Newest line in bugfix support; PyYAML 6.0.4 ships cp315 wheels (checked on PyPI) |
+| Python (content compiler) | 3.14 (floor 3.13; 3.15 also tested) | `.python-version`, `pyproject.toml` `requires-python` | Newest line the Vercel build image can install: its uv had no 3.15 download, so a 3.15 pin failed the deploy. PyYAML 6.0.4 ships cp313–cp315 wheels |
 | uv | 0.13.10 (local) | — | Runs the compiler from `uv.lock` |
-| GitHub Actions | checkout v7, setup-node v7, setup-uv v10 | `.github/workflows/ci.yml` | Latest release tags, looked up with `gh api repos/<action>/releases/latest` |
+| GitHub Actions | checkout v7, setup-node v7, setup-uv v10.4.0 (pinned by commit SHA) | `.github/workflows/ci.yml` | Latest releases. setup-uv publishes no moving `v10` tag, so it is pinned to the v10.4.0 commit; the tag refs were checked with `gh api repos/<action>/git/ref/tags/<tag>` |
 
 ## Where it was actually run
 
@@ -17,7 +17,7 @@ What this project runs on, where each version was checked, and what was left alo
 | --- | --- |
 | Vitest + `next build` on Node 26.13.1 | 15 tests pass; 108 static pages |
 | Vitest + `next build` on Node 24.22.3 | 15 tests pass; 108 static pages |
-| pytest on Python 3.15.2 | 32 pass |
+| pytest on Python 3.14.10 and 3.15.2 | 32 pass |
 | pytest on Python 3.13.18 | 32 pass |
 | actionlint 1.7.12 on `.github/workflows/ci.yml` | clean |
 
@@ -31,7 +31,7 @@ What this project runs on, where each version was checked, and what was left alo
 | react, react-dom | 19.3.1 | ^19.3.1 |
 | @fontsource-variable/literata, @fontsource/ibm-plex-sans, @fontsource/ibm-plex-mono | 5.3.0 | ^5.3.0 |
 | typescript | 6.0.3 | ^6.0.3 |
-| eslint / eslint-config-next | 10.15.0 / 16.4.6 | ^10.15.0 / ^16.4.6 |
+| eslint / eslint-config-next | 9.39.5 / 16.4.6 | ^9.39.5 / ^16.4.6 |
 | vitest, @vitest/coverage-v8 | 5.1.2 | ^5.1.2 |
 | @types/node | 26.6.10 | ^26.6.10 |
 | markdown | 3.11.4 | >=3.11.4 |
@@ -46,3 +46,4 @@ The declared floors equal the tested versions, so an upgrade cannot resolve to s
 | Package | Latest seen | Why not |
 | --- | --- | --- |
 | typescript | 7.0.2 | Next 16.4 supports TS 7 through the `tsc` CLI, but typescript-eslint 8.74 (used by eslint-config-next) supports TypeScript `>=4.8.4 <6.1.0`. Upgrading would break the lint gate. Revisit when typescript-eslint supports 7 |
+| eslint | 10.15.0 | eslint-plugin-react 7.37.5 (required by eslint-config-next 16.4.6) declares `eslint ^3 \|\| … \|\| ^9.7`; ESLint 10 installed only with an overridden peer conflict. Revisit when eslint-config-next's plugins support 10 |
